@@ -11628,6 +11628,7 @@ GameObject:
   - component: {fileID: 1402661198}
   - component: {fileID: 1402661191}
   - component: {fileID: 1402661192}
+  - component: {fileID: 1402661193}
   m_Layer: 0
   m_Name: 'Player '
   m_TagString: Player
@@ -11754,6 +11755,33 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   playerState: 0
+--- !u!114 &1402661193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1402661190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b69e911434918874482305c6ae0163a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerDoors:
+    serializedVersion: 2
+    m_Bits: 2048
+  layerKeys:
+    serializedVersion: 2
+    m_Bits: 4096
+  weapon: {fileID: 1631931125210413638}
+  actualHealth: 100
+  maxHealth: 100
+  healthPerSecond: 10
+  timeToStarHealing: 3
+  healState: 0
+  playerState: 0
+  playerMovement: {fileID: 1402661192}
+  playerCameraMovement: {fileID: 1984846067}
 --- !u!4 &1402661197
 Transform:
   m_ObjectHideFlags: 0
@@ -14400,6 +14428,7 @@ GameObject:
   - component: {fileID: 1631931125210413637}
   - component: {fileID: 9132767096596491225}
   - component: {fileID: 2454728998124452634}
+  - component: {fileID: 1631931125210413638}
   m_Layer: 0
   m_Name: Carabine
   m_TagString: Untagged
@@ -14424,6 +14453,18 @@ Transform:
   m_Father: {fileID: 1984846069}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1631931125210413638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1631931125210413636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ad71ec19bc855143b92a7b276787e2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1665610686251527926
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
     [SerializeField] CharacterController characterController;
-    [SerializeField] float speed;
+    [SerializeField] float speedWalking;
+    [SerializeField] float speedRunning;
 
     [SerializeField] float gravity = -9.81f;
 
@@ -19,8 +20,11 @@ public class PlayerMovement : MonoBehaviour {
     Vector3 velocity;
     Vector3 movement;
 
-    enum PlayerState { InGround, InAir }
+    public enum PlayerState { InGround, InAir }
     [SerializeField] PlayerState playerState;
+
+    public enum PlayerMovementState { Walking, Running}
+    [SerializeField] PlayerMovementState playerMovementState;
 
     void Start() {
         playerState = PlayerState.InGround;
@@ -29,8 +33,21 @@ public class PlayerMovement : MonoBehaviour {
         // if (GameStateManager.instance.GetState() == GameStateManager.GameState.Paused)
         //     return;
 
+        Inputs();
+        Movement();
+    }
 
+    void Inputs() {
+        if (playerState == PlayerState.InAir)
+            return;
 
+        if (Input.GetKey(KeyCode.LeftShift))
+            playerMovementState = PlayerMovementState.Running;
+        else
+            playerMovementState = PlayerMovementState.Walking;
+    }
+
+    void Movement() {
         if (Physics.CheckSphere(groundCheck.position, groundDistance, groundMask))
             playerState = PlayerState.InGround;
         else
@@ -54,24 +71,28 @@ public class PlayerMovement : MonoBehaviour {
                 break;
         }
 
-        characterController.Move(movement * speed * Time.deltaTime);
+        if (playerMovementState == PlayerMovementState.Walking)
+            characterController.Move(movement * speedWalking * Time.deltaTime);
+        else if (playerMovementState == PlayerMovementState.Running)
+            characterController.Move(movement * speedRunning * Time.deltaTime);
+
         velocity.y += gravity * Time.deltaTime;
         characterController.Move(velocity * Time.deltaTime);
     }
 
-    public void SlowPlayer() {
-        StartCoroutine(Slow(50, 1));
-    }
+   // public void SlowPlayer() {
+   //     StartCoroutine(Slow(50, 1));
+   // }
 
-    public IEnumerator Slow(float percent, float time) {
-        float aux = speed;
-
-        speed -= (speed / 100f) * percent;
-        yield return new WaitForSeconds(time);
-
-        while (playerState == PlayerState.InAir)
-            yield return null;
-
-        speed = aux;
-    }
+    //public IEnumerator Slow(float percent, float time) {
+    //    float aux = speed;
+    //
+    //    speed -= (speed / 100f) * percent;
+    //    yield return new WaitForSeconds(time);
+    //
+    //    while (playerState == PlayerState.InAir)
+    //        yield return null;
+    //
+    //    speed = aux;
+    //}
 }

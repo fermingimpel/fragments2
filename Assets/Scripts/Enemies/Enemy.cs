@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour {
 
     [SerializeField] ParticleSystem hitParticles;
 
-    [SerializeField]  NavMeshAgent pathfinding;
+    [SerializeField] NavMeshAgent pathfinding;
 
     [SerializeField] PlayerController player;
 
@@ -41,8 +41,10 @@ public class Enemy : MonoBehaviour {
         if (Vector3.Distance(player.transform.position, transform.position) <= distanceToAttack)
             Attack();
 
-        if (enemyState == EnemyState.Alive)
+        if (enemyState == EnemyState.Alive) {
             pathfinding.destination = player.transform.position;
+            transform.LookAt(new Vector3(pathfinding.destination.x, transform.position.y, pathfinding.destination.z));
+        }
     }
 
     public void Hit(float damage, Vector3 hitPos, Vector3 attackerPos) {

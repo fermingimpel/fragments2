@@ -93,4 +93,21 @@ public class Weapon : MonoBehaviour {
         weaponState = WeaponState.Reloading;
         timerReloading = 0f;
     }
+
+    public void AddAmmo(int value) {
+        totalAmmo += value;
+        if (totalAmmo >= maxAmmo)
+            totalAmmo = maxAmmo;
+        //source.PlayOneShot(ammoRefilledSound);
+    }
+
+    public int GetMaxAmmo() {
+        return maxAmmo;
+    }
+
+    public int GetTotalAmmo() {
+        return totalAmmo;
+    }
+
+
 }

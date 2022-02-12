@@ -79,4 +79,8 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    public Weapon GetActualWeapon() {
+        return weapon;
+    }
+
 }

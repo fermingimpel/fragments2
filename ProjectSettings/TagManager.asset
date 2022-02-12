@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Map
+  - Fire
+  - Puzzle
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -13,18 +17,18 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Ground
+  - Player
+  - Post-Processing
+  - Door
+  - Key
+  - Enemy
+  - Wall
+  - Weapon
+  - Stair
+  - InvisibleFloor
+  - Puzzle
+  - FireLayer
   - 
   - 
   - 

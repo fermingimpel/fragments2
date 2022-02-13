@@ -22,6 +22,12 @@ public class Weapon : MonoBehaviour {
     int actualAmmo;
     int maxAmmo;
 
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] List<AudioClip> shootSounds;
+    [SerializeField] AudioClip noAmmoSound;
+    [SerializeField] AudioClip reloadingSound;
+    [SerializeField] AudioClip ammoRefilledSound;
+
     public enum WeaponState {
         Ready, Preparing, Reloading, NoAmmo
     }
@@ -63,8 +69,15 @@ public class Weapon : MonoBehaviour {
     }
 
     public void Shoot() {
-        if (weaponState != WeaponState.Ready)
+        if (weaponState != WeaponState.Ready) {
+            if(weaponState == WeaponState.NoAmmo)
+                audioSource.PlayOneShot(noAmmoSound);
+
             return;
+        }
+
+        audioSource.PlayOneShot(shootSounds[Random.Range(0, shootSounds.Count)]);
+
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if(Physics.Raycast(ray, out hit, range)) {
@@ -90,6 +103,7 @@ public class Weapon : MonoBehaviour {
         if (weaponState == WeaponState.Reloading || totalAmmo <= 0 || actualAmmo == ammoPerMagazine)
             return;
 
+        audioSource.PlayOneShot(reloadingSound);
         weaponState = WeaponState.Reloading;
         timerReloading = 0f;
     }
@@ -98,7 +112,7 @@ public class Weapon : MonoBehaviour {
         totalAmmo += value;
         if (totalAmmo >= maxAmmo)
             totalAmmo = maxAmmo;
-        //source.PlayOneShot(ammoRefilledSound);
+        audioSource.PlayOneShot(ammoRefilledSound);
     }
 
     public int GetMaxAmmo() {

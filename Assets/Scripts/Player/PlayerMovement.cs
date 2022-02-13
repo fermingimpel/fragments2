@@ -93,6 +93,8 @@ public class PlayerMovement : MonoBehaviour {
                 break;
         }
 
+
+
         if (playerMovementState == PlayerMovementState.Walking)
             characterController.Move(movement * speedWalking * Time.deltaTime);
         else if (playerMovementState == PlayerMovementState.Running)

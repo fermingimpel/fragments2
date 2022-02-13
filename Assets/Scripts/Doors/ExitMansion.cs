@@ -16,10 +16,8 @@ public class ExitMansion : MonoBehaviour {
     }
 
     void OnTriggerEnter(Collider other) {
-        if (other.CompareTag("Player")) {
-            Cursor.lockState = CursorLockMode.None;
+        if (other.CompareTag("Player")) 
             SceneController.instance.LoadScene("End");
-        }
     }
 
 }

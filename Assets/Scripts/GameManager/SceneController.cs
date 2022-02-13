@@ -18,6 +18,14 @@ public class SceneController : MonoBehaviour {
     }
 
     public void LoadScene(string sceneName) {
+        if (sceneName == "MainGame") {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
         SceneManager.LoadScene(sceneName);
     }
 

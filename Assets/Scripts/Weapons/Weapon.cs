@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+
 
 public class Weapon : MonoBehaviour {
 
@@ -33,9 +35,12 @@ public class Weapon : MonoBehaviour {
     }
     [SerializeField] WeaponState weaponState;
 
+    public static Action AmmoChanged;
+
     void Start() {
         actualAmmo = ammoPerMagazine;
         maxAmmo = totalAmmo;
+        AmmoChanged?.Invoke();
     }
 
     void Update() {
@@ -56,6 +61,7 @@ public class Weapon : MonoBehaviour {
 
                     timerReloading = 0f;
                     weaponState = WeaponState.Ready;
+                    AmmoChanged?.Invoke();
                 }
                 break;
             case WeaponState.Preparing:
@@ -76,7 +82,7 @@ public class Weapon : MonoBehaviour {
             return;
         }
 
-        audioSource.PlayOneShot(shootSounds[Random.Range(0, shootSounds.Count)]);
+        audioSource.PlayOneShot(shootSounds[UnityEngine.Random.Range(0, shootSounds.Count)]);
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
@@ -95,8 +101,12 @@ public class Weapon : MonoBehaviour {
         weaponState = WeaponState.Preparing;
 
         actualAmmo--;
-        if (actualAmmo <= 0)
+        if (actualAmmo <= 0) {
+            actualAmmo = 0;
             weaponState = WeaponState.NoAmmo;
+        }
+
+        AmmoChanged?.Invoke();
     }
 
     public void Reload() {
@@ -113,15 +123,23 @@ public class Weapon : MonoBehaviour {
         if (totalAmmo >= maxAmmo)
             totalAmmo = maxAmmo;
         audioSource.PlayOneShot(ammoRefilledSound);
+        AmmoChanged?.Invoke();
     }
 
-    public int GetMaxAmmo() {
-        return maxAmmo;
+    public int GetActualAmmo() {
+        return actualAmmo;
     }
-
     public int GetTotalAmmo() {
         return totalAmmo;
     }
+    public int GetMaxAmmo() {
+        return maxAmmo;
+    }
+    public int GetAmmoPerMagazine() {
+        return ammoPerMagazine;
+    }
+
+
 
 
 }

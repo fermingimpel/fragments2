@@ -26,11 +26,20 @@ public class PlayerController : MonoBehaviour {
     
     [SerializeField] PlayerMovement playerMovement;
     [SerializeField] PlayerCameraMovement playerCameraMovement;
-
+    [SerializeField] PlayerHUD playerHUD;
 
     void Start() {
         actualHealth = maxHealth;
         timerHeal = 0f;
+        Weapon.AmmoChanged += UpdateAmmoHUD;
+    }
+
+    void OnDestroy() {
+        Weapon.AmmoChanged -= UpdateAmmoHUD;
+    }
+
+    void OnDisable() {
+        Weapon.AmmoChanged -= UpdateAmmoHUD;
     }
 
     void Update() {
@@ -77,10 +86,15 @@ public class PlayerController : MonoBehaviour {
             playerState = PlayerState.Dead;
             weapon.gameObject.SetActive(false);
         }
+
+        playerHUD.UpdateHealthRedScreen(actualHealth, maxHealth);
     }
 
     public Weapon GetActualWeapon() {
         return weapon;
     }
 
+    void UpdateAmmoHUD() {
+        playerHUD.ChangeAmmoText(weapon.GetActualAmmo(), weapon.GetAmmoPerMagazine(), weapon.GetTotalAmmo());
+    }
 }

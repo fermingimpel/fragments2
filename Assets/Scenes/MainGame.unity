@@ -589,7 +589,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 797, y: -489.73795}
+  m_AnchoredPosition: {x: 860, y: -489.73795}
   m_SizeDelta: {x: 618.0033, y: 230.09943}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &120599982
@@ -858,6 +858,7 @@ MonoBehaviour:
   ammoTotalText: {fileID: 1815723513}
   reload: {fileID: 43313925}
   crosshair: {fileID: 232789962}
+  gameplayHUD: {fileID: 956420436}
   healthPanel: {fileID: 10125823}
   healthPanelColor: {r: 0.7529412, g: 0.15294118, b: 0.15294118, a: 1}
 --- !u!114 &147948420
@@ -12801,7 +12802,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 874.5, y: -489.7379}
+  m_AnchoredPosition: {x: 937, y: -489.7379}
   m_SizeDelta: {x: 618.0033, y: 230.09943}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1815723513

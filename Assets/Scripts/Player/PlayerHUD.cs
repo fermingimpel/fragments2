@@ -8,10 +8,9 @@ public class PlayerHUD : MonoBehaviour {
 
     [SerializeField] TextMeshProUGUI ammoText;
     [SerializeField] TextMeshProUGUI ammoTotalText;
-
     [SerializeField] GameObject reload;
-    
     [SerializeField] GameObject crosshair;
+    [SerializeField] GameObject gameplayHUD;
 
     [SerializeField] Image healthPanel;
     [SerializeField] Color healthPanelColor;
@@ -44,4 +43,7 @@ public class PlayerHUD : MonoBehaviour {
         healthPanel.color = new Color(healthPanelColor.r, healthPanelColor.g, healthPanelColor.b, alpha);
     }
 
+    public void SetGameplayHUD(bool value) {
+        gameplayHUD.SetActive(value);
+    }
 }

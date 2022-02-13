@@ -13669,8 +13669,8 @@ MonoBehaviour:
   shootImpactHole: {fileID: 3701030072362383426, guid: 0e69b8908f0f3d74fbbc8d803c9e9a85,
     type: 3}
   timeToShoot: 0.2
-  horizontalRecoil: 1
-  verticalRecoil: 1
+  horizontalRecoil: 2
+  verticalRecoil: 2
   timeToReload: 1.5
   totalAmmo: 60
   ammoPerMagazine: 12

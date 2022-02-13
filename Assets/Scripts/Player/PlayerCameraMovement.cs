@@ -10,6 +10,9 @@ public class PlayerCameraMovement : MonoBehaviour {
 
     float xRotation = 0;
 
+    float horizontalRecoil = 0;
+    float verticalRecoil = 0;
+
     bool canMove = true;
 
     void Start() {
@@ -26,6 +29,13 @@ public class PlayerCameraMovement : MonoBehaviour {
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
+
+        mouseX += horizontalRecoil;
+        mouseY += verticalRecoil;
+
+        horizontalRecoil = 0;
+        verticalRecoil = 0;
+
         xRotation -= mouseY;
 
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
@@ -36,5 +46,10 @@ public class PlayerCameraMovement : MonoBehaviour {
 
     public void SetCanMove(bool value) {
         canMove = value;
+    }
+
+    public void AddRecoil(float vertical, float horizontal) {
+        verticalRecoil += vertical;
+        horizontalRecoil += horizontal;
     }
 }

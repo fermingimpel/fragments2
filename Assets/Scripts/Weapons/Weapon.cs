@@ -30,6 +30,8 @@ public class Weapon : MonoBehaviour {
     [SerializeField] AudioClip reloadingSound;
     [SerializeField] AudioClip ammoRefilledSound;
 
+    PlayerCameraMovement recoil;
+
     public enum WeaponState {
         Ready, Preparing, Reloading, NoAmmo
     }
@@ -41,6 +43,7 @@ public class Weapon : MonoBehaviour {
         actualAmmo = ammoPerMagazine;
         maxAmmo = totalAmmo;
         AmmoChanged?.Invoke();
+        recoil = GetComponentInParent<PlayerCameraMovement>();
     }
 
     void Update() {
@@ -97,6 +100,9 @@ public class Weapon : MonoBehaviour {
                 Destroy(hole, 5f);
             }    
         }
+
+        if(recoil)
+            recoil.AddRecoil(verticalRecoil, UnityEngine.Random.Range(-horizontalRecoil, horizontalRecoil));
 
         weaponState = WeaponState.Preparing;
 

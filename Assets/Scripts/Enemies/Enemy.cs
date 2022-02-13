@@ -19,6 +19,10 @@ public class Enemy : MonoBehaviour {
 
     [SerializeField] AmmoBox ammoBox;
 
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip deathSound;
+    [SerializeField] AudioClip attackSound;
+
     public enum EnemyState {
         Alive, Dead
     }
@@ -61,28 +65,29 @@ public class Enemy : MonoBehaviour {
     }
 
     void Attack() {
-        StopMovement();
-
         player.Hit(damage);
-        
-        enemyState = EnemyState.Dead;
-        Destroy(this.gameObject);
-
+        DestroyEnemy(attackSound);
     }
 
     void Die() {
-        StopMovement();
-
-        enemyState = EnemyState.Dead;
-        Destroy(this.gameObject);
-        
         if(Random.Range(0,2) != 0)
             Instantiate(ammoBox, transform.position + Vector3.down, Quaternion.identity);
+        DestroyEnemy(deathSound);
     }
 
     void StopMovement() {
         canInteract = false;
         pathfinding.isStopped = true;
+    }
+
+    void DestroyEnemy(AudioClip audio) {
+        StopMovement();
+
+        GetComponent<BoxCollider>().enabled = false;
+        transform.localScale = Vector3.zero;
+        enemyState = EnemyState.Dead;
+        audioSource.PlayOneShot(audio);
+        Destroy(this.gameObject, audio.length);
     }
 
 }

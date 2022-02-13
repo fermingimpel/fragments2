@@ -5090,6 +5090,9 @@ MonoBehaviour:
   pathfinding: {fileID: 2002602992}
   player: {fileID: 0}
   ammoBox: {fileID: 6297262969052468424, guid: 0bd73f593d7795a4cbe4af2a765ec2ed, type: 3}
+  audioSource: {fileID: 836364460}
+  deathSound: {fileID: 8300000, guid: 5e96cad3a2d670a4089cfd0e2ed8c405, type: 3}
+  attackSound: {fileID: 8300000, guid: 2d5c728a90e9e4846ba7f6526c5c590c, type: 3}
   enemyState: 0
 --- !u!195 &2002602992
 NavMeshAgent:

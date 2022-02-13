@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class QuestManager : MonoBehaviour
 {
@@ -8,7 +10,9 @@ public class QuestManager : MonoBehaviour
     [CustomUtils.ReadOnly, SerializeField] private List<Quest> ActiveQuests = new List<Quest>();
     [SerializeField] private int MaxActiveQuest;
 
-    void Start()
+    public static UnityAction<bool> ReceiveData;
+    
+    private void Start()
     {
         for (int i = 0; i < Quests.Count; i++)
         {
@@ -19,30 +23,50 @@ public class QuestManager : MonoBehaviour
         }
     }
 
+    public void UpdateQuests(QuestCheckList checkList)
+    {
+        for(int i = 0; i < ActiveQuests.Count; i++)
+        {
+            if (!ActiveQuests[i]) return;
+            
+            ActiveQuests[i].UpdateQuest(checkList);
+            
+            if (ActiveQuests[i].GetQuestState() == QuestState.Completed)
+            {
+                ActiveQuests.RemoveAt(i);
+                i--;
+            }
+        }
+
+        if (ActiveQuests.Count <= 0)
+        {
+            ReceiveData?.Invoke(false);
+        }
+    }
+
     public Quest GetQuestById(string id)
     {
-        foreach (Quest quest in Quests)
+        foreach (Quest quest in Quests.Where(quest => quest))
         {
-            if (quest && quest.GetId() == id)
-            {
+            if (quest.GetId() == id)
                 return quest;
-            }
+            
         }
 
         Debug.LogError("Couldn't find quest");
         return null;
     }
 
-    void ActivateQuest(Quest quest)
+    public void ActivateQuest(Quest quest)
     {
-        if (quest && quest.GetQuestState() == QuestState.Inactive && ActiveQuests.Count <= MaxActiveQuest)
-        {
-            quest.SetQuestState(QuestState.Active);
-            ActiveQuests.Add(quest);
-        }
+        if (!quest || quest.GetQuestState() != QuestState.Inactive || ActiveQuests.Count > MaxActiveQuest) return;
+        
+        quest.SetQuestState(QuestState.Active);
+        ActiveQuests.Add(quest);
+        ReceiveData?.Invoke(true);
     }
 
-    void AddQuest(Quest quest)
+    public void AddQuest(Quest quest)
     {
         if (quest)
         {

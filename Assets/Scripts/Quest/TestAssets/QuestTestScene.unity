@@ -318,7 +318,7 @@ GameObject:
   - component: {fileID: 1202833099}
   - component: {fileID: 1202833098}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: CollidedObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -365,6 +365,9 @@ GameObject:
   - component: {fileID: 1677312046}
   - component: {fileID: 1677312041}
   - component: {fileID: 1677312045}
+  - component: {fileID: 1677312048}
+  - component: {fileID: 1677312047}
+  - component: {fileID: 1677312049}
   m_Layer: 0
   m_Name: TestPlayer
   m_TagString: Untagged
@@ -474,10 +477,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f7cc9ce119c0354fa58d4979e0ed692, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 2055230921}
+  playerCamera: {fileID: 2055230921}
   offset: {x: 0, y: -5, z: 5}
   followSpeed: 5
   speed: 5
+--- !u!114 &1677312047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1677312040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 256566fb1f834f25a69cbb6ab529d6df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1677312048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1677312040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88e9482077894bcda44eedc34824fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questManager: {fileID: 1933516739}
+--- !u!114 &1677312049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1677312040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f9291b2b81499c4cbe59f8882518a32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1933516738
 GameObject:
   m_ObjectHideFlags: 0
@@ -541,6 +581,25 @@ MonoBehaviour:
   questName: 1
   id: 2v56n
   state: 0
+  objectives:
+  - description: Find Trigger
+    stepsToComplete: 1
+    isCompleted: 0
+    List:
+      KillCount: 0
+      DistanceTraveled: 0
+      ObjectToCompare: {fileID: 0}
+      ObjectCreated: {fileID: 0}
+      CollidedObject: {fileID: 1202833097}
+  - description: Kill enemies
+    stepsToComplete: 1
+    isCompleted: 0
+    List:
+      KillCount: 10
+      DistanceTraveled: 0
+      ObjectToCompare: {fileID: 0}
+      ObjectCreated: {fileID: 0}
+      CollidedObject: {fileID: 0}
 --- !u!1 &2055230921
 GameObject:
   m_ObjectHideFlags: 0

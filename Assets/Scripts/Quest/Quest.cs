@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public enum QuestState
@@ -8,13 +9,25 @@ public enum QuestState
 }
 
 [Serializable]
-struct Objective
+class Objective
 { 
     public string description;
     private int currentStep;
     public int stepsToComplete;
     public bool isCompleted;
-    
+
+    public QuestCheckList List;
+
+    public void CheckObjectiveCompletion(QuestCheckList listToCompare)
+    {
+        if (listToCompare.KillCount>=List.KillCount && listToCompare.DistanceTraveled >= List.DistanceTraveled &&
+            listToCompare.InteractedObject == List.InteractedObject && listToCompare.CollidedObject == List.CollidedObject &&
+            listToCompare.ObjectCreated == List.ObjectCreated)
+        {
+            isCompleted = true;
+        }
+    }
+
 }
 [Serializable]
 public class Quest : MonoBehaviour
@@ -27,7 +40,24 @@ public class Quest : MonoBehaviour
 
     private string createdId = "";
 
-    public void CompleteQuest()
+
+    public void UpdateQuest(QuestCheckList checkList)
+    {
+        foreach (var objetive in objectives)
+        {
+            objetive.CheckObjectiveCompletion(checkList);
+        }
+
+        CheckQuestCompletion();
+    }
+    protected void CheckQuestCompletion()
+    {
+        if (objectives.Any(objective => !objective.isCompleted))
+            return;
+
+        CompleteQuest();
+    }
+    protected void CompleteQuest()
     {
         state = QuestState.Completed;
     }

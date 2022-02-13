@@ -20,11 +20,18 @@ public class PlayerMovement : MonoBehaviour {
     Vector3 velocity;
     Vector3 movement;
 
-    public enum PlayerState { InGround, InAir }
+    public enum PlayerState { InGround, InAir, InStairs }
     [SerializeField] PlayerState playerState;
 
-    public enum PlayerMovementState { Walking, Running}
+    public enum PlayerMovementState { Walking, Running }
     [SerializeField] PlayerMovementState playerMovementState;
+
+    [SerializeField] AudioClip walkingSound;
+    [SerializeField] AudioClip runningSound;
+    [SerializeField] AudioClip jumpingSound;
+    [SerializeField] AudioClip landingSound;
+    [SerializeField] AudioSource sfxAudioSource;
+    [SerializeField] AudioSource loopedSoundsAudioSource;
 
     void Start() {
         playerState = PlayerState.InGround;
@@ -32,6 +39,7 @@ public class PlayerMovement : MonoBehaviour {
     void Update() {
         // if (GameStateManager.instance.GetState() == GameStateManager.GameState.Paused)
         //     return;
+
 
         Inputs();
         Movement();
@@ -41,10 +49,14 @@ public class PlayerMovement : MonoBehaviour {
         if (playerState == PlayerState.InAir)
             return;
 
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift)) {
+            loopedSoundsAudioSource.clip = runningSound;
             playerMovementState = PlayerMovementState.Running;
-        else
+        }
+        else {
+            loopedSoundsAudioSource.clip = walkingSound;
             playerMovementState = PlayerMovementState.Walking;
+        }
     }
 
     void Movement() {
@@ -57,14 +69,20 @@ public class PlayerMovement : MonoBehaviour {
         float z = Input.GetAxisRaw("Vertical");
         movement = transform.right * x + transform.forward * z;
 
+        if (!loopedSoundsAudioSource.isPlaying && (Mathf.Abs(movement.x) > 0.5f || Mathf.Abs(movement.z) > 0.5f) && playerState != PlayerState.InAir)
+            loopedSoundsAudioSource.Play();
+        else if (((Mathf.Abs(movement.x) < 0.5f && Mathf.Abs(movement.z) < 0.5f) && loopedSoundsAudioSource.isPlaying) || playerState == PlayerState.InAir)
+            loopedSoundsAudioSource.Stop();
+
         switch (playerState) {
             case PlayerState.InGround:
                 if (velocity.y < 0)
                     velocity.y = -2f;
 
-                if (Input.GetButtonDown("Jump"))
+                if (Input.GetButtonDown("Jump")) {
+                    sfxAudioSource.Play();
                     velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-
+                }
                 break;
             case PlayerState.InAir:
                 //
@@ -80,9 +98,9 @@ public class PlayerMovement : MonoBehaviour {
         characterController.Move(velocity * Time.deltaTime);
     }
 
-   // public void SlowPlayer() {
-   //     StartCoroutine(Slow(50, 1));
-   // }
+    // public void SlowPlayer() {
+    //     StartCoroutine(Slow(50, 1));
+    // }
 
     //public IEnumerator Slow(float percent, float time) {
     //    float aux = speed;

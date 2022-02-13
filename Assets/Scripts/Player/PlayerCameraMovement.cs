@@ -9,13 +9,19 @@ public class PlayerCameraMovement : MonoBehaviour {
     [SerializeField] Transform playerBody;
 
     float xRotation = 0;
+
+    bool canMove = true;
+
     void Start() {
         Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update() {
-       // if (GameStateManager.instance.GetState() == GameStateManager.GameState.Paused)
-       //     return;
+        // if (GameStateManager.instance.GetState() == GameStateManager.GameState.Paused)
+        //     return;
+
+        if (!canMove)
+            return;
 
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
@@ -26,5 +32,9 @@ public class PlayerCameraMovement : MonoBehaviour {
 
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         playerBody.Rotate(Vector3.up * mouseX);
+    }
+
+    public void SetCanMove(bool value) {
+        canMove = value;
     }
 }

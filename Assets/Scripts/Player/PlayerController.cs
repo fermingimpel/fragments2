@@ -85,6 +85,8 @@ public class PlayerController : MonoBehaviour {
             actualHealth = 0f;
             playerState = PlayerState.Dead;
             weapon.gameObject.SetActive(false);
+            playerMovement.SetCanMove(false);
+            playerCameraMovement.SetCanMove(false);
         }
 
         playerHUD.UpdateHealthRedScreen(actualHealth, maxHealth);

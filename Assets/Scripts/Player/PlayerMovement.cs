@@ -33,6 +33,8 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField] AudioSource sfxAudioSource;
     [SerializeField] AudioSource loopedSoundsAudioSource;
 
+    bool canMove = true;
+
     void Start() {
         playerState = PlayerState.InGround;
     }
@@ -40,6 +42,8 @@ public class PlayerMovement : MonoBehaviour {
         // if (GameStateManager.instance.GetState() == GameStateManager.GameState.Paused)
         //     return;
 
+        if (!canMove)
+            return;
 
         Inputs();
         Movement();
@@ -113,4 +117,8 @@ public class PlayerMovement : MonoBehaviour {
     //
     //    speed = aux;
     //}
+
+    public void SetCanMove(bool value) {
+        canMove = value;
+    }
 }

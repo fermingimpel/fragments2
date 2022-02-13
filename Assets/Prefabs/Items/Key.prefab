@@ -417,3 +417,9 @@ MonoBehaviour:
   audioSource: {fileID: 6460123889334860388}
   textPickUpPivot: {fileID: 2407215137043049191}
   player: {fileID: 0}
+  keySpawnPositions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

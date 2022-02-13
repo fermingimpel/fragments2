@@ -30,6 +30,8 @@ public class Weapon : MonoBehaviour {
     [SerializeField] AudioClip reloadingSound;
     [SerializeField] AudioClip ammoRefilledSound;
 
+    [SerializeField] Animator animator;
+
     PlayerCameraMovement recoil;
 
     public enum WeaponState {
@@ -85,6 +87,8 @@ public class Weapon : MonoBehaviour {
             return;
         }
 
+        animator.SetTrigger("Shoot");
+
         audioSource.PlayOneShot(shootSounds[UnityEngine.Random.Range(0, shootSounds.Count)]);
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -118,6 +122,8 @@ public class Weapon : MonoBehaviour {
     public void Reload() {
         if (weaponState == WeaponState.Reloading || totalAmmo <= 0 || actualAmmo == ammoPerMagazine)
             return;
+
+        animator.SetTrigger("Reload");
 
         audioSource.PlayOneShot(reloadingSound);
         weaponState = WeaponState.Reloading;

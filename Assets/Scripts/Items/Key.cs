@@ -10,6 +10,8 @@ public class Key : MonoBehaviour {
     [SerializeField] GameObject textPickUpPivot;
     [SerializeField] Transform player;
 
+    [SerializeField] List<Transform> keySpawnPositions;
+
     void Start() {
         player = FindObjectOfType<PlayerController>().transform;
     }
@@ -40,6 +42,10 @@ public class Key : MonoBehaviour {
         canUseKey = true;
         audioSource.Play();
         transform.position = new Vector3(0, -999, 0);
+    }
+
+    public void SpawnKey() {
+        transform.position = keySpawnPositions[Random.Range(0, keySpawnPositions.Count)].position;
     }
 
     public void UseKey() {

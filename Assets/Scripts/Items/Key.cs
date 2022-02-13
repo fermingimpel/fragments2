@@ -47,4 +47,8 @@ public class Key : MonoBehaviour {
         Destroy(this.gameObject, 0.1f);
     }
 
+    public bool GetCanUseKey() {
+        return canUseKey;
+    }
+
 }

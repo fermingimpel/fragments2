@@ -413,7 +413,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canUseKey: 0
-  canPickUp: 1
+  canPickUp: 0
   audioSource: {fileID: 6460123889334860388}
   textPickUpPivot: {fileID: 2407215137043049191}
   player: {fileID: 0}

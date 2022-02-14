@@ -17,6 +17,9 @@ public class Key : MonoBehaviour {
     }
 
     void Update() {
+        if (PauseController.instance.IsPaused)
+            return;
+
         if (canPickUp) {
             textPickUpPivot.transform.LookAt(player.position);
             if(Input.GetKeyDown(KeyCode.E))

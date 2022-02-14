@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System;
 
 public class Enemy : MonoBehaviour {
 
@@ -30,12 +31,23 @@ public class Enemy : MonoBehaviour {
 
     bool canInteract = true;
 
-    private void Start() {
+    public static Action<Enemy> EnemyDead;
+
+    void Start() {
         player = FindObjectOfType<PlayerController>();
         pathfinding.speed = speed;
+
+        PauseController.Pause += Pause;
+    }
+
+    void OnDestroy() {
+        PauseController.Pause -= Pause;
     }
 
     void Update() {
+        if (PauseController.instance.IsPaused)
+            return;
+
         if (enemyState == EnemyState.Dead)
             return;
 
@@ -70,7 +82,7 @@ public class Enemy : MonoBehaviour {
     }
 
     void Die() {
-        if(Random.Range(0,2) != 0)
+        if(UnityEngine.Random.Range(0,2) != 0)
             Instantiate(ammoBox, transform.position + Vector3.down, Quaternion.identity);
         DestroyEnemy(deathSound);
     }
@@ -87,7 +99,19 @@ public class Enemy : MonoBehaviour {
         transform.localScale = Vector3.zero;
         enemyState = EnemyState.Dead;
         audioSource.PlayOneShot(audio);
+        EnemyDead?.Invoke(this);
         Destroy(this.gameObject, audio.length);
+    }
+
+    void Pause() {
+        if (PauseController.instance.IsPaused) {
+            pathfinding.isStopped = true;
+            canInteract = false;
+            return;
+        }
+
+        canInteract = true;
+        pathfinding.isStopped = false;
     }
 
 }

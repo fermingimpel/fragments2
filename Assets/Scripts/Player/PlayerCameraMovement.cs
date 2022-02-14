@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerCameraMovement : MonoBehaviour {
  
-    [SerializeField] float mouseSensitivity;
-
+    [SerializeField] float horizontalSensitivity;
+    [SerializeField] float verticalSensitivity;
     [SerializeField] Transform playerBody;
 
     float xRotation = 0;
@@ -17,17 +17,18 @@ public class PlayerCameraMovement : MonoBehaviour {
 
     void Start() {
         Cursor.lockState = CursorLockMode.Locked;
+        UpdateSensitivity();
     }
 
     void Update() {
-        // if (GameStateManager.instance.GetState() == GameStateManager.GameState.Paused)
-        //     return;
+        if (PauseController.instance.IsPaused)
+            return;
 
         if (!canMove)
             return;
 
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+        float mouseX = Input.GetAxis("Mouse X") * horizontalSensitivity * Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * verticalSensitivity * Time.deltaTime;
 
 
         mouseX += horizontalRecoil;
@@ -51,5 +52,10 @@ public class PlayerCameraMovement : MonoBehaviour {
     public void AddRecoil(float vertical, float horizontal) {
         verticalRecoil += vertical;
         horizontalRecoil += horizontal;
+    }
+
+    public void UpdateSensitivity() {
+        horizontalSensitivity = GameInstance.instance.HorizontalSensitivity;
+        verticalSensitivity = GameInstance.instance.VerticalSensitivity;
     }
 }

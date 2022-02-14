@@ -37,10 +37,20 @@ public class PlayerMovement : MonoBehaviour {
 
     void Start() {
         playerState = PlayerState.InGround;
+        PauseController.Pause += Pause;
     }
+
+    void OnDestroy() {
+        PauseController.Pause -= Pause;
+    }
+
+    void OnDisable() {
+        PauseController.Pause -= Pause;
+    }
+
     void Update() {
-        // if (GameStateManager.instance.GetState() == GameStateManager.GameState.Paused)
-        //     return;
+        if (PauseController.instance.IsPaused)
+            return;
 
         if (!canMove)
             return;
@@ -122,5 +132,14 @@ public class PlayerMovement : MonoBehaviour {
 
     public void SetCanMove(bool value) {
         canMove = value;
+    }
+
+    public void Pause() {
+        if(PauseController.instance.IsPaused) {
+            loopedSoundsAudioSource.Stop();
+            return;
+        }
+
+        loopedSoundsAudioSource.Play();
     }
 }

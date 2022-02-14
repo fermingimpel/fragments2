@@ -32,17 +32,23 @@ public class PlayerController : MonoBehaviour {
         actualHealth = maxHealth;
         timerHeal = 0f;
         Weapon.AmmoChanged += UpdateAmmoHUD;
+        PauseController.Pause += Pause;
     }
 
     void OnDestroy() {
         Weapon.AmmoChanged -= UpdateAmmoHUD;
+        PauseController.Pause -= Pause;
     }
 
     void OnDisable() {
         Weapon.AmmoChanged -= UpdateAmmoHUD;
+        PauseController.Pause -= Pause;
     }
 
     void Update() {
+        if (PauseController.instance.IsPaused)
+            return;
+
         if (playerState == PlayerState.Dead)
             return;
 
@@ -100,5 +106,14 @@ public class PlayerController : MonoBehaviour {
 
     void UpdateAmmoHUD() {
         playerHUD.ChangeAmmoText(weapon.GetActualAmmo(), weapon.GetAmmoPerMagazine(), weapon.GetTotalAmmo());
+    }
+
+    void Pause() {
+        if (PauseController.instance.IsPaused) {
+            playerHUD.SetGameplayHUD(false);
+            return;
+        }
+
+        playerHUD.SetGameplayHUD(true);
     }
 }

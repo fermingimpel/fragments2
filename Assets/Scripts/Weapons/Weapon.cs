@@ -49,6 +49,9 @@ public class Weapon : MonoBehaviour {
     }
 
     void Update() {
+        if (PauseController.instance.IsPaused)
+            return;
+
         switch (weaponState) {
             case WeaponState.Reloading:
                 timerReloading += Time.deltaTime;

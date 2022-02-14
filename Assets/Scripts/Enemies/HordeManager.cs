@@ -22,9 +22,17 @@ public class HordeManager : MonoBehaviour {
 
     void Start() {
         enemyCount = initialEnemyCount;
+        Enemy.EnemyDead += EnemyDead;
+    }
+
+    void OnDisable() {
+        Enemy.EnemyDead -= EnemyDead;
     }
 
     void Update() {
+        if (PauseController.instance.IsPaused)
+            return;
+
         if (!canSpawnEnemies)
             return;
 

@@ -24,6 +24,9 @@ public class Door : MonoBehaviour {
     }
 
     void Update() {
+        if (PauseController.instance.IsPaused)
+            return;
+
         if (!canOpenDoor)
             return;
 

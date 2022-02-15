@@ -17,6 +17,15 @@ public class SceneController : MonoBehaviour {
     }
 
     public void LoadScene(string sceneName) {
+        StartCoroutine(ChangeScene(sceneName, 0f));
+    }
+
+    public void LoadScene(string sceneName, float delay) {
+        StartCoroutine(ChangeScene(sceneName, delay));
+    }
+
+    IEnumerator ChangeScene(string sceneName, float delay) {
+        yield return new WaitForSeconds(delay);
         if (sceneName == "MainGame") {
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;

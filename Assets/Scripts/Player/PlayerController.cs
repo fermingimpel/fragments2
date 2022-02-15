@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] PlayerMovement playerMovement;
     [SerializeField] PlayerCameraMovement playerCameraMovement;
     [SerializeField] PlayerHUD playerHUD;
+    [SerializeField] Animator animator;
 
     void Start() {
         actualHealth = maxHealth;
@@ -96,6 +97,7 @@ public class PlayerController : MonoBehaviour {
             playerMovement.SetCanMove(false);
             playerCameraMovement.SetCanMove(false);
             playerHUD.SetGameplayHUD(false);
+            animator.SetTrigger("Death");
         }
 
         playerHUD.UpdateHealthRedScreen(actualHealth, maxHealth);

@@ -5403,6 +5403,7 @@ MonoBehaviour:
   playerMovement: {fileID: 1402661192}
   playerCameraMovement: {fileID: 16735247}
   playerHUD: {fileID: 147948419}
+  animator: {fileID: 16735248}
 --- !u!82 &1402661194
 AudioSource:
   m_ObjectHideFlags: 0

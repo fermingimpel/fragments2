@@ -21,6 +21,14 @@ public class PauseController : MonoBehaviour {
         instance = this;
     }
 
+    void Start() {
+        PlayerController.PlayerDead += EndGame;
+    }
+
+    void OnDisable() {
+        PlayerController.PlayerDead -= EndGame;
+    }
+
     void Update() {
         if(Input.GetKeyDown(KeyCode.Escape) && !IsPaused) {
             Time.timeScale = 0.0f;
@@ -40,4 +48,10 @@ public class PauseController : MonoBehaviour {
         pauseMenu.SetActive(false);
         Pause?.Invoke();
     }
+
+    void EndGame() {
+        IsPaused = true;
+        Pause?.Invoke();
+    }
+
 }

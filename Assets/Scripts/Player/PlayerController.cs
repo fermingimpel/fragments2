@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+
 
 public class PlayerController : MonoBehaviour {
     [SerializeField] LayerMask layerDoors;
@@ -28,6 +30,8 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] PlayerCameraMovement playerCameraMovement;
     [SerializeField] PlayerHUD playerHUD;
     [SerializeField] Animator animator;
+
+    public static Action PlayerDead;
 
     void Start() {
         actualHealth = maxHealth;
@@ -98,6 +102,7 @@ public class PlayerController : MonoBehaviour {
             playerCameraMovement.SetCanMove(false);
             playerHUD.SetGameplayHUD(false);
             animator.SetTrigger("Death");
+            PlayerDead?.Invoke();
         }
 
         playerHUD.UpdateHealthRedScreen(actualHealth, maxHealth);

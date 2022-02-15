@@ -32,7 +32,6 @@ public class Door : MonoBehaviour {
 
         if (overDoor) {
             if (Input.GetKeyDown(KeyCode.E)) {
-                Debug.Log("Can use key: " + keyToOpenDoor.GetCanUseKey());
                 if (keyToOpenDoor.GetCanUseKey())
                     OpenDoor();
                 else

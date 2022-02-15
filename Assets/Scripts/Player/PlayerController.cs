@@ -56,10 +56,11 @@ public class PlayerController : MonoBehaviour {
             switch (healState) {
                 case HealState.Healing:
                     actualHealth += healthPerSecond * Time.deltaTime;
-                    if(actualHealth >= maxHealth) {
+                    if (actualHealth >= maxHealth) {
                         actualHealth = maxHealth;
                         healState = HealState.NotHealing;
                     }
+                    playerHUD.UpdateHealthRedScreen(actualHealth, maxHealth);
                     break;
                 case HealState.NotHealing:
                     timerHeal += Time.deltaTime;

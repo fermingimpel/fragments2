@@ -35,9 +35,12 @@ public class PlayerMovement : MonoBehaviour {
 
     bool canMove = true;
 
+    void Awake() {
+        PauseController.Pause += Pause;  
+    }
+
     void Start() {
         playerState = PlayerState.InGround;
-        PauseController.Pause += Pause;
     }
 
     void OnDestroy() {

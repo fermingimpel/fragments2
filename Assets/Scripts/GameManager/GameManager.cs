@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
-    void Start() {
-        PlayerController.PlayerDead += EndGame;
+    private void Awake() {
+        PlayerController.PlayerDead += EndGame; 
     }
 
     void OnDisable() {

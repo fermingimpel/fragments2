@@ -16,8 +16,11 @@ public class ExitMansion : MonoBehaviour {
     }
 
     void OnTriggerEnter(Collider other) {
-        if (other.CompareTag("Player")) 
-            SceneController.instance.LoadScene("End");
+        if (other.CompareTag("Player")) {
+            bc.enabled = false;
+            other.GetComponentInChildren<EscapeCutScene>().enabled = true;
+            other.GetComponentInChildren<EscapeCutScene>().EscapeStartCutScene();
+        }
     }
 
 }

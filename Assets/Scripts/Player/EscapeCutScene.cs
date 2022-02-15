@@ -1,30 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class InitialCutScene : CutScene {
-    protected override void Update() {
+public class EscapeCutScene : CutScene {
+   protected override void Update() {
         if (!runningCutScene)
             return;
-
-        if(blackScreen.color.a > 0) {
-            alpha -= Time.deltaTime * screenFadeSpeed;
+        if(blackScreen.color.a < 1.0f) {
+            alpha += Time.deltaTime * screenFadeSpeed;
             blackScreen.color = new Color(blackScreen.color.r, blackScreen.color.g, blackScreen.color.b, alpha);
         }
     }
 
-    public void StartInitialCutScene() {
+    public void EscapeStartCutScene() {
         CutSceneRunning?.Invoke(true);
-        animator.SetTrigger("PlayInitialCutscene");
-        alpha = blackScreen.color.a;
+        animator.SetTrigger("Escape");
+        alpha = 0;
         runningCutScene = true;
     }
-    public void PlayInitialAudio() {
-        audioSource.PlayOneShot(dialogue);
+
+    public void PlayEscapeAudio() {
+
     }
 
-    public void InitialCutSceneEnded() {
+    public void EscapeCutSceneEnded() {
         CutSceneRunning?.Invoke(false);
+        SceneController.instance.LoadScene("End");
         enabled = false;
     }
 }

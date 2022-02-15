@@ -32,12 +32,16 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] Animator animator;
 
     public static Action PlayerDead;
-
+    void Awake() {
+        Weapon.AmmoChanged += UpdateAmmoHUD;
+        PauseController.Pause += Pause; 
+    }
     void Start() {
         actualHealth = maxHealth;
         timerHeal = 0f;
-        Weapon.AmmoChanged += UpdateAmmoHUD;
-        PauseController.Pause += Pause;
+
+        GetComponentInChildren<InitialCutScene>().enabled = true;
+        GetComponentInChildren<InitialCutScene>().StartInitialCutScene();
     }
 
     void OnDestroy() {

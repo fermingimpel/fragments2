@@ -1538,7 +1538,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 2.1833334
-    functionName: PlayAudio
+    functionName: PlayInitialAudio
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

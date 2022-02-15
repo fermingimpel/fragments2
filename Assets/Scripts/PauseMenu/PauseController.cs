@@ -11,8 +11,10 @@ public class PauseController : MonoBehaviour {
     public bool IsPaused;
 
     public static Action Pause;
-
+    
     void Awake() {
+        CutScene.CutSceneRunning += PauseInteractions;
+        PlayerController.PlayerDead += EndGame;
         if (instance != null) {
             Destroy(this.gameObject);
             return;
@@ -21,11 +23,12 @@ public class PauseController : MonoBehaviour {
         instance = this;
     }
 
-    void Start() {
-        PlayerController.PlayerDead += EndGame;
-    }
-
     void OnDisable() {
+        CutScene.CutSceneRunning -= PauseInteractions;
+        PlayerController.PlayerDead -= EndGame;
+    }
+    void OnDestroy() {
+        CutScene.CutSceneRunning -= PauseInteractions;
         PlayerController.PlayerDead -= EndGame;
     }
 
@@ -51,6 +54,11 @@ public class PauseController : MonoBehaviour {
 
     void EndGame() {
         IsPaused = true;
+        Pause?.Invoke();
+    }
+
+    void PauseInteractions(bool value) {
+        IsPaused = value;
         Pause?.Invoke();
     }
 

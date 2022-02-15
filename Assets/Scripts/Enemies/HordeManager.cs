@@ -20,9 +20,11 @@ public class HordeManager : MonoBehaviour {
     float spawnTimer = 0f;
     int enemyCount = 0;
 
+    void Awake() {
+        Enemy.EnemyDead += EnemyDead;
+    }
     void Start() {
         enemyCount = initialEnemyCount;
-        Enemy.EnemyDead += EnemyDead;
     }
 
     void OnDisable() {

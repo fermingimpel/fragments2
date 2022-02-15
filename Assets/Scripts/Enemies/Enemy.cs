@@ -33,11 +33,12 @@ public class Enemy : MonoBehaviour {
 
     public static Action<Enemy> EnemyDead;
 
+    void Awake() {
+        PauseController.Pause += Pause;
+    }
     void Start() {
         player = FindObjectOfType<PlayerController>();
         pathfinding.speed = speed;
-
-        PauseController.Pause += Pause;
     }
 
     void OnDestroy() {

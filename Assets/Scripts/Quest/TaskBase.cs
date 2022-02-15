@@ -9,7 +9,7 @@ public abstract class TaskBase : MonoBehaviour
 
     protected bool ShouldSendData = false;
 
-    private void Start()
+    protected virtual void Start()
     {
         QuestEvaluator.ShouldSendData += SetShouldSendData;
     }
@@ -21,7 +21,7 @@ public abstract class TaskBase : MonoBehaviour
             CheckList.Reset();
     }
 
-    private void OnDestroy()
+    protected virtual void OnDestroy()
     {
         QuestEvaluator.ShouldSendData -= SetShouldSendData;
     }

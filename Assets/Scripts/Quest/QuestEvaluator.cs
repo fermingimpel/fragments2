@@ -7,7 +7,7 @@ public class QuestEvaluator : MonoBehaviour
 {
     [SerializeField] private QuestManager questManager;
     public static UnityAction<bool> ShouldSendData;
-    
+
     private void Start()
     {
         TaskBase.SendData += SendData;
@@ -18,7 +18,7 @@ public class QuestEvaluator : MonoBehaviour
     {
         ShouldSendData?.Invoke(value);
     }
-    
+
     private void SendData(QuestCheckList checkList)
     {
         questManager.UpdateQuests(checkList);

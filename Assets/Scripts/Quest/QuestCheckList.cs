@@ -20,5 +20,4 @@ public struct QuestCheckList
         ObjectCreated = null;
         CollidedObject = null;
     }
-    
 }

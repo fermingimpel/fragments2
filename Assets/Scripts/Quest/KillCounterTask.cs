@@ -1,22 +1,28 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class KillCounterTask : TaskBase
 {
     private void Update()
     {
         if (!ShouldSendData) return;
-        CollectData();
-    }
-
-    protected override void CollectData()
-    {
         if (Input.GetKeyDown(KeyCode.KeypadEnter))
         {
-            CheckList.KillCount++;
-            SendData(CheckList);
+            CollectData();
         }
+    }
+
+    protected override void Start() 
+    {
+        base.Start();
+    }
+    protected override void CollectData()
+    {
+        CheckList.KillCount++;
+        SendData(CheckList);
+    }
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
     }
 }

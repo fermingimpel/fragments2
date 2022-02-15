@@ -11,18 +11,18 @@ public enum QuestState
 [Serializable]
 class Objective
 { 
-    public string description;
-    private int currentStep;
-    public int stepsToComplete;
-    public bool isCompleted;
+    public string description = "";
+    private int currentStep=0;
+    public int stepsToComplete=1;
+    public bool isCompleted = false;
 
-    public QuestCheckList List;
+    public QuestCheckList list = new QuestCheckList();
 
     public void CheckObjectiveCompletion(QuestCheckList listToCompare)
     {
-        if (listToCompare.KillCount>=List.KillCount && listToCompare.DistanceTraveled >= List.DistanceTraveled &&
-            listToCompare.InteractedObject == List.InteractedObject && listToCompare.CollidedObject == List.CollidedObject &&
-            listToCompare.ObjectCreated == List.ObjectCreated)
+        if (listToCompare.KillCount>=list.KillCount && listToCompare.DistanceTraveled >= list.DistanceTraveled &&
+            listToCompare.InteractedObject == list.InteractedObject && listToCompare.CollidedObject == list.CollidedObject &&
+            listToCompare.ObjectCreated == list.ObjectCreated)
         {
             isCompleted = true;
         }
@@ -36,16 +36,16 @@ public class Quest : MonoBehaviour
     [SerializeField] private string questName = "";
     [CustomUtils.ReadOnly, SerializeField] private string id = "";
     [CustomUtils.ReadOnly, SerializeField] private QuestState state;
-    [SerializeField] private List<Objective> objectives = new List<Objective>();
+    [SerializeField] private List<Objective> objectives;
 
     private string createdId = "";
 
 
     public void UpdateQuest(QuestCheckList checkList)
     {
-        foreach (var objetive in objectives)
+        for(int i = 0;i < objectives.Count; i++)
         {
-            objetive.CheckObjectiveCompletion(checkList);
+            objectives[i].CheckObjectiveCompletion(checkList);
         }
 
         CheckQuestCompletion();

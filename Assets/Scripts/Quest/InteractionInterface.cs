@@ -1,5 +1,4 @@
-﻿
-public interface InteractionInterface
+﻿public interface InteractionInterface
 {
     void HandleInteraction();
 }

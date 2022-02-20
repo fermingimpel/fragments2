@@ -21,7 +21,6 @@ public class QuestUIManager : MonoBehaviour
     private void Start()
     {
         QuestManager.SetQuestUIText += SetQuest;
-        SimplePlayerTest.ShowObjective += HighlightCurrentQuest;
     }
 
     void SetQuest(string questName)
@@ -112,6 +111,5 @@ public class QuestUIManager : MonoBehaviour
     private void OnDestroy()
     {
         QuestManager.SetQuestUIText -= SetQuest;
-        SimplePlayerTest.ShowObjective -= HighlightCurrentQuest;
     }
 }

@@ -329,7 +329,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2149637687933702385}
-  - component: {fileID: 2149637687933702386}
   - component: {fileID: 2149637687933702387}
   - component: {fileID: 2149637687933702384}
   m_Layer: 0
@@ -354,40 +353,6 @@ Transform:
   m_Father: {fileID: 1900437042059313808}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2149637687933702386
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2149637687933702390}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a67911b26ed58349a21c8945e352124, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  keyNecesaryToOpenDoor: {fileID: 0}
-  closedDoor: 1
-  doorRotation: 90
-  openingSpeed: 5
-  openDoor: {fileID: 8300000, guid: 8579a835b3df25f4596e1f5eb3e81ba0, type: 3}
-  lockedDoor: {fileID: 8300000, guid: 26c8bf852a337724d9e57f001f2b85d8, type: 3}
-  source: {fileID: 0}
-  cursedDoor: 0
-  Escape:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: CompleteObjective
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!82 &2149637687933702387
 AudioSource:
   m_ObjectHideFlags: 0
@@ -506,7 +471,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2149637689875927242}
-  - component: {fileID: 2149637689875927239}
   - component: {fileID: 2149637689875927236}
   - component: {fileID: 2149637689875927237}
   m_Layer: 0
@@ -531,40 +495,6 @@ Transform:
   m_Father: {fileID: 1900437042059313808}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2149637689875927239
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2149637689875927243}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a67911b26ed58349a21c8945e352124, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  keyNecesaryToOpenDoor: {fileID: 0}
-  closedDoor: 1
-  doorRotation: 90
-  openingSpeed: 5
-  openDoor: {fileID: 8300000, guid: 8579a835b3df25f4596e1f5eb3e81ba0, type: 3}
-  lockedDoor: {fileID: 8300000, guid: 26c8bf852a337724d9e57f001f2b85d8, type: 3}
-  source: {fileID: 0}
-  cursedDoor: 0
-  Escape:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: CompleteObjective
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!82 &2149637689875927236
 AudioSource:
   m_ObjectHideFlags: 0

@@ -81,15 +81,16 @@ namespace DigitalRuby.PyroParticles
             // constant effect, so set the duration really high and add an infinite looping sound
             LoopingAudioSource = new LoopingAudioSource(this, AudioSource, StartTime, StopTime);
             Duration = 999999999;
+            PauseController.Pause += Pause;
         }
-        void PauseAudio(bool value)
-        {
-            isPaused = value;
-            Pause();
+
+        void OnDisable() {
+            PauseController.Pause -= Pause;
         }
+
         void Pause()
         {
-            if (isPaused)
+            if (PauseController.instance.IsPaused)
                 LoopingAudioSource.AudioSource.Pause();
             else
                 LoopingAudioSource.AudioSource.UnPause();

@@ -63,7 +63,7 @@ public class QuestManager : MonoBehaviour
     {
         if (!quest || quest.GetQuestState() != QuestState.Inactive || ActiveQuests.Count > MaxActiveQuest) return;
         
-        SetQuestUIText?.Invoke(quest.name);
+        SetQuestUIText?.Invoke(quest.GetName());
         quest.SetQuestState(QuestState.Active);
         ActiveQuests.Add(quest);
         ReceiveData?.Invoke(true);

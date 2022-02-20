@@ -13,32 +13,47 @@ public class QuestUIManager : MonoBehaviour
     [SerializeField] private Text questText;
     [SerializeField] private QuestManager questManager;
 
+    private bool isHighlightingQuest = false;
+    
     private void Start()
     {
         QuestManager.SetQuestUIText += SetQuest;
+        SimplePlayerTest.ShowObjective += HighlightCurrentQuest;
     }
 
     void SetQuest(string questName)
     {
         questText.text = questName;
-        StartCoroutine(ChangeQuest());
+        StartCoroutine(HighlightQuest());
     }
 
-    private IEnumerator ChangeQuest()
+    public void HighlightCurrentQuest()
     {
-        questText.color = strongerColor;
-        yield return new WaitForSeconds(1.0f);
-        float timer = 0;
-        while (questText.color != standardColor)
+        StartCoroutine(HighlightQuest());
+    }
+
+    private IEnumerator HighlightQuest()
+    {
+        if (!isHighlightingQuest)
         {
-            questText.color = Color.Lerp(strongerColor, standardColor, timer * 1f);
-            timer += Time.deltaTime;
-            yield return null;
+            isHighlightingQuest = true;
+            questText.color = strongerColor;
+            yield return new WaitForSeconds(1.0f);
+            float timer = 0;
+            while (questText.color != standardColor)
+            {
+                questText.color = Color.Lerp(strongerColor, standardColor, timer * 1f);
+                timer += Time.deltaTime;
+                yield return null;
+            }
+            isHighlightingQuest = false;
         }
     }
 
     private void OnDestroy()
     {
         QuestManager.SetQuestUIText -= SetQuest;
+        SimplePlayerTest.ShowObjective -= HighlightCurrentQuest;
+
     }
 }

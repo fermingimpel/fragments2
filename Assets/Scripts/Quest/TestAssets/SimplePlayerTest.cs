@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Serialization;
 
 
@@ -13,12 +14,18 @@ public class SimplePlayerTest : MonoBehaviour
     [Header("Movement")]
     [SerializeField] float speed = 0;
 
+    public static UnityAction ShowObjective;
+    
     void Update()
     {
         Vector3 position = transform.position;
         Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         position += movement * Time.deltaTime * speed;
         transform.position = position;
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            ShowObjective?.Invoke();
+        }
     }
 
     void LateUpdate()

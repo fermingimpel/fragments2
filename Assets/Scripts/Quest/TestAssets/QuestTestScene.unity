@@ -747,6 +747,7 @@ MonoBehaviour:
   strongerColor: {r: 0.0627451, g: 0.23921569, b: 0.25882354, a: 1}
   questText: {fileID: 1493883204}
   questManager: {fileID: 1933516739}
+  objectiveHud: {fileID: 1674767024}
 --- !u!1 &1674767024
 GameObject:
   m_ObjectHideFlags: 0
@@ -758,6 +759,7 @@ GameObject:
   - component: {fileID: 1674767025}
   - component: {fileID: 1674767027}
   - component: {fileID: 1674767026}
+  - component: {fileID: 1674767028}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
@@ -823,6 +825,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1674767024}
   m_CullTransparentMesh: 0
+--- !u!225 &1674767028
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1674767024}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &1677312040
 GameObject:
   m_ObjectHideFlags: 0
@@ -1002,6 +1016,8 @@ GameObject:
   - component: {fileID: 1933516739}
   - component: {fileID: 1933516742}
   - component: {fileID: 1933516741}
+  - component: {fileID: 1933516743}
+  - component: {fileID: 1933516744}
   m_Layer: 0
   m_Name: QuestManager
   m_TagString: Untagged
@@ -1023,6 +1039,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Quests:
   - {fileID: 1933516741}
+  - {fileID: 1933516743}
   ActiveQuests: []
   MaxActiveQuest: 1
 --- !u!4 &1933516740
@@ -1058,7 +1075,9 @@ MonoBehaviour:
   state: 0
   objectives:
   - {fileID: 1933516742}
-  isRepeatable: 1
+  activateOnStart: 1
+  isRepeatable: 0
+  questToActivate: Nisman x2
 --- !u!114 &1933516742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1073,6 +1092,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   description: Suicide Enemies
   stepsToComplete: 1
+  isCompleted: 0
+--- !u!114 &1933516743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1933516738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a640be2ce1f7b074da39aeb8a96e12b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questName: Nisman x2
+  id: jb4p4
+  state: 0
+  objectives:
+  - {fileID: 1933516744}
+  activateOnStart: 0
+  isRepeatable: 0
+  questToActivate: 
+--- !u!114 &1933516744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1933516738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfa41286354d4fe5b202265a87b7e8ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  description: Kill 2 enemies
+  stepsToComplete: 2
   isCompleted: 0
 --- !u!1 &2055230921
 GameObject:

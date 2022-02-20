@@ -20,7 +20,9 @@ public class Quest : MonoBehaviour
     [CustomUtils.ReadOnly, SerializeField] private string id = "";
     [CustomUtils.ReadOnly, SerializeField] private QuestState state;
     [SerializeField, SerializeReference] private List<ObjectiveBase> objectives = new List<ObjectiveBase>();
+    [SerializeField] private bool activateOnStart = false;
     [SerializeField] private bool isRepeatable = true;
+    [SerializeField] private string questToActivate = "";
 
     private string createdId = "";
 
@@ -82,5 +84,15 @@ public class Quest : MonoBehaviour
             return;
         id = CustomUtils.IdGenerator.GenerateId();
         createdId = id;
+    }
+
+    public string GetQuestToActivateName()
+    {
+        return questToActivate;
+    }
+
+    public bool GetActiveOnStart()
+    {
+        return activateOnStart;
     }
 }

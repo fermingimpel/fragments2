@@ -18,7 +18,7 @@ public class QuestManager : MonoBehaviour
     {
         for (int i = 0; i < Quests.Count; i++)
         {
-            if (ActiveQuests.Count <= MaxActiveQuest)
+            if (ActiveQuests.Count <= MaxActiveQuest && Quests[i].GetActiveOnStart())
             {
                 ActivateQuest(Quests[i]);
             }
@@ -27,18 +27,24 @@ public class QuestManager : MonoBehaviour
 
     public void UpdateQuests(QuestCheckList checkList)
     {
-        for(int i = 0; i < ActiveQuests.Count; i++)
+        string questToActivate = "";
+        for (int i = 0; i < ActiveQuests.Count; i++)
         {
             if (!ActiveQuests[i]) return;
-            
+
             ActiveQuests[i].UpdateQuest(checkList);
-            
+
             if (ActiveQuests[i].GetQuestState() == QuestState.Completed)
             {
+                questToActivate = ActiveQuests[i].GetQuestToActivateName();
                 ActiveQuests.RemoveAt(i);
                 i--;
             }
         }
+        if(GetQuestByName(questToActivate))
+            ActivateQuest(GetQuestByName(questToActivate));
+        else
+            SetQuestUIText?.Invoke("");
 
         if (ActiveQuests.Count <= 0)
         {
@@ -52,21 +58,34 @@ public class QuestManager : MonoBehaviour
         {
             if (quest.GetId() == id)
                 return quest;
-            
         }
 
         Debug.LogError("Couldn't find quest");
         return null;
     }
 
+    public Quest GetQuestByName(string questName)
+    {
+        foreach (Quest quest in Quests.Where(quest => quest))
+        {
+            if (quest.GetName() == questName)
+                return quest;
+        }
+
+        Debug.Log("Couldn't find quest");
+        return null;
+    }
+
     public void ActivateQuest(Quest quest)
     {
         if (!quest || quest.GetQuestState() != QuestState.Inactive || ActiveQuests.Count > MaxActiveQuest) return;
-        
-        SetQuestUIText?.Invoke(quest.GetName());
         quest.SetQuestState(QuestState.Active);
         ActiveQuests.Add(quest);
         ReceiveData?.Invoke(true);
+        if(quest)
+            SetQuestUIText?.Invoke(quest.GetName());
+        else 
+            SetQuestUIText?.Invoke("");
     }
 
     public void AddQuest(Quest quest)
@@ -81,5 +100,9 @@ public class QuestManager : MonoBehaviour
     {
         return ActiveQuests[0];
     }
-     
+
+    public List<Quest> GetActiveQuest()
+    {
+        return ActiveQuests;
+    }
 }

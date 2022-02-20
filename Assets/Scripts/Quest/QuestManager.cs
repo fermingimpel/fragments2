@@ -11,7 +11,9 @@ public class QuestManager : MonoBehaviour
     [SerializeField] private int MaxActiveQuest;
 
     public static UnityAction<bool> ReceiveData;
-    
+    public static UnityAction<string> SetQuestUIText;
+
+
     private void Start()
     {
         for (int i = 0; i < Quests.Count; i++)
@@ -61,6 +63,7 @@ public class QuestManager : MonoBehaviour
     {
         if (!quest || quest.GetQuestState() != QuestState.Inactive || ActiveQuests.Count > MaxActiveQuest) return;
         
+        SetQuestUIText?.Invoke(quest.name);
         quest.SetQuestState(QuestState.Active);
         ActiveQuests.Add(quest);
         ReceiveData?.Invoke(true);
@@ -72,6 +75,11 @@ public class QuestManager : MonoBehaviour
         {
             Quests.Add(quest);
         }
+    }
+
+    public Quest GetFirstActiveQuest()
+    {
+        return ActiveQuests[0];
     }
      
 }

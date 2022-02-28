@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Items
 {
@@ -8,10 +9,10 @@ namespace Items
     {
         public string name;
         [CustomUtils.ReadOnly] public int id;
-        public Sprite inventoryImage;
-        public Sprite description;
+        public Image inventoryImage;
+        public Image description;
 
-        public ItemData(int id, string name, Sprite inventoryImage, Sprite description)
+        public ItemData(int id, string name, Image inventoryImage, Image description)
         {
             this.id = id;
             this.name = name;

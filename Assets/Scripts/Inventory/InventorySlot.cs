@@ -13,7 +13,7 @@ public class InventorySlot : MonoBehaviour, InventoryActions
     private ItemBase itemScript;
     [HideInInspector] public bool isContextualMenuActive = false;
 
-    public static UnityAction<Image> ShowDescription;
+    public static UnityAction<Sprite> ShowDescription;
     public static UnityAction HideDescription;
     public static UnityAction<ItemBase> DropItem;
 
@@ -31,7 +31,7 @@ public class InventorySlot : MonoBehaviour, InventoryActions
         if (item)
             itemScript = item.GetComponent<ItemBase>();
 
-        itemImage = itemScript.itemInfo.item.inventoryImage;
+        itemImage.sprite = itemScript.itemInfo.item.inventoryImage;
         itemImage.color = Color.white;
     }
 
@@ -55,16 +55,19 @@ public class InventorySlot : MonoBehaviour, InventoryActions
     public void Examine()
     {
         ShowDescription?.Invoke(itemScript.itemInfo.item.description);
+        HideContextualMenu();
     }
 
     public void Use()
     {
         itemScript.Use();
         HideDescription?.Invoke();
+        HideContextualMenu();
     }
 
     public void Drop()
     {
+        HideContextualMenu();
         HideDescription?.Invoke();
         DropItem?.Invoke(itemScript);
         item = null;

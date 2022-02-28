@@ -1,18 +1,20 @@
 ﻿using System;
 using Items;
 using UnityEngine;
+using UnityEngine.Events;
 
 [Serializable]
 public class ItemBase : MonoBehaviour, InteractionInterface
 {
     [SerializeField] public ItemInfo itemInfo;
+    public static UnityAction<ItemBase> PickUp;
 
-    public void HandleInteraction()
+    public virtual void HandleInteraction()
     {
-        Debug.Log("HOLA PA");
+        PickUp?.Invoke(this);
     }
 
-    public void Use()
+    public virtual void Use()
     {
         Debug.Log("Used: " + gameObject.name);   
     }

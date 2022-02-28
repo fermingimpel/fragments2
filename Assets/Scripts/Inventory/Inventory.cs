@@ -14,16 +14,19 @@ public class Inventory : MonoBehaviour, IPointerClickHandler
     [SerializeField] private int xSize;
     [SerializeField] private int ySize;
     [Header("Items")]
-    [CustomUtils.ReadOnly, SerializeField] private List<ItemBase> items = new List<ItemBase>();
+    [SerializeField] private List<ItemBase> items = new List<ItemBase>();
     [SerializeField] private UnityEngine.UI.Image description;
     
     private List<InventorySlot> slots = new List<InventorySlot>();
+
+    private int maxInventorySize = 0;
     
     private void Start()
     {
         InventorySlot.ShowDescription += ShowDescription;
         InventorySlot.HideDescription += HideDescription;
         InventorySlot.DropItem += DropItem;
+        ItemBase.PickUp += AddItem;
         
         grid.constraintCount = xSize;
 
@@ -37,7 +40,27 @@ public class Inventory : MonoBehaviour, IPointerClickHandler
                     slots.Add(slotScript);
             }
         }
+
+        maxInventorySize = xSize * ySize;
     }
+
+    private void AddItem(ItemBase item)
+    {
+        if (items.Count >= maxInventorySize)
+            return;
+        
+        items.Add(item);
+        for (int i = 0; i < slots.Count; i++)
+        {
+            if (!slots[i].GetItem())
+            {
+                slots[i].SetItem(items[i].gameObject);
+                Destroy(item.gameObject);
+                break;
+            }
+        }
+    }
+    
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button==PointerEventData.InputButton.Right)
@@ -73,10 +96,10 @@ public class Inventory : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    void ShowDescription(UnityEngine.UI.Image newDescription)
+    void ShowDescription(Sprite newDescription)
     {
-        description = newDescription;
-        description.rectTransform.sizeDelta = newDescription.rectTransform.sizeDelta;
+        description.sprite = newDescription;
+        description.rectTransform.sizeDelta = newDescription.rect.size;
         description.color = Color.white;
     }
 
@@ -90,6 +113,7 @@ public class Inventory : MonoBehaviour, IPointerClickHandler
         InventorySlot.ShowDescription -= ShowDescription;
         InventorySlot.HideDescription -= HideDescription;
         InventorySlot.DropItem -= DropItem;
+        ItemBase.PickUp -= AddItem;
 
     }
 

@@ -9,10 +9,10 @@ namespace Items
     {
         public string name;
         [CustomUtils.ReadOnly] public int id;
-        public Image inventoryImage;
-        public Image description;
+        public Sprite inventoryImage;
+        public Sprite description;
 
-        public ItemData(int id, string name, Image inventoryImage, Image description)
+        public ItemData(int id, string name, Sprite inventoryImage, Sprite description)
         {
             this.id = id;
             this.name = name;

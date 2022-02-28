@@ -6,23 +6,22 @@ using System;
 
 public class Enemy : MonoBehaviour {
 
-    [SerializeField] float health;
-    [SerializeField] float speed;
+    [SerializeField] protected float health;
+    [SerializeField] protected float speed;
 
-    [SerializeField] float damage;
-    [SerializeField] float distanceToAttack;
+    [SerializeField] protected float damage;
+    [SerializeField] protected float distanceToAttack;
 
-    [SerializeField] ParticleSystem hitParticles;
+    [SerializeField] protected ParticleSystem hitParticles;
 
-    [SerializeField] NavMeshAgent pathfinding;
+    [SerializeField] protected NavMeshAgent pathfinding;
+    [SerializeField] protected PlayerController player;
 
-    [SerializeField] PlayerController player;
+    [SerializeField] protected AmmoBox ammoBox;
 
-    [SerializeField] AmmoBox ammoBox;
-
-    [SerializeField] AudioSource audioSource;
-    [SerializeField] AudioClip deathSound;
-    [SerializeField] AudioClip attackSound;
+    [SerializeField] protected AudioSource audioSource;
+    [SerializeField] protected  AudioClip deathSound;
+    [SerializeField] protected AudioClip attackSound;
 
     public enum EnemyState {
         Alive, Dead
@@ -36,7 +35,7 @@ public class Enemy : MonoBehaviour {
     void Awake() {
         PauseController.Pause += Pause;
     }
-    void Start() {
+   protected virtual void Start() {
         player = FindObjectOfType<PlayerController>();
         pathfinding.speed = speed;
     }
@@ -77,12 +76,12 @@ public class Enemy : MonoBehaviour {
             Die();
     }
 
-    void Attack() {
+   protected virtual void Attack() {
         player.Hit(damage);
         DestroyEnemy(attackSound);
     }
 
-    void Die() {
+    protected virtual void Die() {
         if(UnityEngine.Random.Range(0,2) != 0)
             Instantiate(ammoBox, transform.position + Vector3.down, Quaternion.identity);
         DestroyEnemy(deathSound);
@@ -93,7 +92,7 @@ public class Enemy : MonoBehaviour {
         pathfinding.isStopped = true;
     }
 
-    void DestroyEnemy(AudioClip audio) {
+    protected void DestroyEnemy(AudioClip audio) {
         StopMovement();
 
         GetComponent<BoxCollider>().enabled = false;

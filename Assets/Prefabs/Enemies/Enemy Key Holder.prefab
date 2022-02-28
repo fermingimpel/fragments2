@@ -4850,10 +4850,10 @@ GameObject:
   - component: {fileID: 836364460}
   - component: {fileID: 1562192880}
   - component: {fileID: 22055078}
-  - component: {fileID: 2002602993}
+  - component: {fileID: -8041167350536395807}
   - component: {fileID: 2002602992}
   m_Layer: 13
-  m_Name: Enemy
+  m_Name: Enemy Key Holder
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5070,7 +5070,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2002602993
+--- !u!114 &-8041167350536395807
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5079,7 +5079,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5057029499690549110}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd3483eafd970004eb39c5e636c92a4f, type: 3}
+  m_Script: {fileID: 11500000, guid: 64265c036de324647acca184a6f96580, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
@@ -5089,11 +5089,12 @@ MonoBehaviour:
   hitParticles: {fileID: 8353229059436281726}
   pathfinding: {fileID: 2002602992}
   player: {fileID: 0}
-  ammoBox: {fileID: 6297262969052468424, guid: 0bd73f593d7795a4cbe4af2a765ec2ed, type: 3}
+  ammoBox: {fileID: 0}
   audioSource: {fileID: 836364460}
   deathSound: {fileID: 8300000, guid: 5e96cad3a2d670a4089cfd0e2ed8c405, type: 3}
   attackSound: {fileID: 8300000, guid: 2d5c728a90e9e4846ba7f6526c5c590c, type: 3}
   enemyState: 0
+  key: {fileID: 0}
   mat: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!195 &2002602992
 NavMeshAgent:

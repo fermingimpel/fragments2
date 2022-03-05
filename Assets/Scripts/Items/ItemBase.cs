@@ -17,7 +17,7 @@ public class ItemBase : MonoBehaviour, InteractionInterface
 
     public virtual void Use()
     {
-        Debug.Log("Used: " + gameObject.name);   
+        //Mostrar nota en pantalla
     }
     
 }

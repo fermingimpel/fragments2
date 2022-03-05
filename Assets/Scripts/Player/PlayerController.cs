@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour {
 
     public static Action PlayerDead;
     public static UnityAction ActivateInventory;
+    public static UnityAction<PlayerController> TakeDamage;
     void Awake() {
         Weapon.AmmoChanged += UpdateAmmoHUD;
         PauseController.Pause += Pause;
@@ -105,7 +106,8 @@ public class PlayerController : MonoBehaviour {
         if (actualHealth <= 0f) {
             actualHealth = 0f;
             playerState = PlayerState.Dead;
-
+            TakeDamage?.Invoke(this);
+            
             weapon.gameObject.SetActive(false);
             playerMovement.SetCanMove(false);
             playerCameraMovement.SetCanMove(false);

@@ -11,13 +11,12 @@ public class ItemBase : MonoBehaviour, InteractionInterface
 
     public virtual void HandleInteraction()
     {   
-        Debug.Log("PickUp");
         PickUp?.Invoke(this);
     }
 
     public virtual void Use()
     {
-        //Mostrar nota en pantalla
+        
     }
     
 }

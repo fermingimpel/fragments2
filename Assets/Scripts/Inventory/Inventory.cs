@@ -33,6 +33,7 @@ public class Inventory : MonoBehaviour, IPointerClickHandler
         InventorySlot.DropItem += DropItem;
         ItemBase.PickUp += AddItem;
         PlayerController.ActivateInventory += HideShowInventory;
+        NoteUIManager.HideInventory += HideInventory;
     }
 
     private void Start()
@@ -53,6 +54,16 @@ public class Inventory : MonoBehaviour, IPointerClickHandler
         maxInventorySize = xSize * ySize;
     }
 
+    void Update()
+    {
+        if (!canvas.activeSelf) return;
+        
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            HideShowInventory();
+        }
+    }
+    
     private void AddItem(ItemBase item)
     {
         if (items.Count >= maxInventorySize)
@@ -68,6 +79,8 @@ public class Inventory : MonoBehaviour, IPointerClickHandler
                 break;
             }
         }
+        Debug.Log("Handle interaction");
+
     }
     
     public void OnPointerClick(PointerEventData eventData)
@@ -136,6 +149,12 @@ public class Inventory : MonoBehaviour, IPointerClickHandler
         canvas.SetActive(isInventoryShown);
     }
 
+    void HideInventory()
+    {
+        isInventoryShown = !isInventoryShown;
+        canvas.SetActive(isInventoryShown);
+    }
+    
     public void OnClickBack()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -152,6 +171,7 @@ public class Inventory : MonoBehaviour, IPointerClickHandler
         InventorySlot.DropItem -= DropItem;
         ItemBase.PickUp -= AddItem;
         PlayerController.ActivateInventory -= HideShowInventory;
+        NoteUIManager.HideInventory -= HideInventory;
     }
 
 }

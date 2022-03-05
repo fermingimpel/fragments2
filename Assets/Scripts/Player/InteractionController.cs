@@ -23,10 +23,8 @@ public class InteractionController : MonoBehaviour
             {
                 if (hit.collider.gameObject)
                 {
-                    Debug.Log("encuentro objeto");
-                    if (hit.collider.gameObject.GetComponentInParent(typeof(InteractionInterface)) is InteractionInterface interactionObject)
+                    if (hit.collider.gameObject.GetComponent(typeof(InteractionInterface)) is InteractionInterface interactionObject)
                     {
-                        Debug.Log("handle interaction");
                         interactionObject.HandleInteraction();
                     }
                 }

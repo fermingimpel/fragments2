@@ -15,6 +15,7 @@ public class PauseController : MonoBehaviour {
     void Awake() {
         CutScene.CutSceneRunning += PauseInteractions;
         PlayerController.PlayerDead += EndGame;
+        Inventory.Pause += PauseInteractions;
         if (instance != null) {
             Destroy(this.gameObject);
             return;
@@ -25,10 +26,12 @@ public class PauseController : MonoBehaviour {
 
     void OnDisable() {
         CutScene.CutSceneRunning -= PauseInteractions;
+        Inventory.Pause -= PauseInteractions;
         PlayerController.PlayerDead -= EndGame;
     }
     void OnDestroy() {
         CutScene.CutSceneRunning -= PauseInteractions;
+        Inventory.Pause -= PauseInteractions;
         PlayerController.PlayerDead -= EndGame;
     }
 

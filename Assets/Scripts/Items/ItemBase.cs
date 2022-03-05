@@ -10,7 +10,8 @@ public class ItemBase : MonoBehaviour, InteractionInterface
     public static UnityAction<ItemBase> PickUp;
 
     public virtual void HandleInteraction()
-    {
+    {   
+        Debug.Log("PickUp");
         PickUp?.Invoke(this);
     }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.Events;
 
 
 public class PlayerController : MonoBehaviour {
@@ -32,9 +33,10 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] Animator animator;
 
     public static Action PlayerDead;
+    public static UnityAction ActivateInventory;
     void Awake() {
         Weapon.AmmoChanged += UpdateAmmoHUD;
-        PauseController.Pause += Pause; 
+        PauseController.Pause += Pause;
     }
     void Start() {
         actualHealth = maxHealth;
@@ -86,6 +88,9 @@ public class PlayerController : MonoBehaviour {
                 weapon.Reload();
         }
 
+        if (Input.GetKeyDown(KeyCode.Tab))
+            ActivateInventory?.Invoke();
+
     }
 
 
@@ -119,7 +124,6 @@ public class PlayerController : MonoBehaviour {
     void UpdateAmmoHUD() {
         playerHUD.ChangeAmmoText(weapon.GetActualAmmo(), weapon.GetAmmoPerMagazine(), weapon.GetTotalAmmo());
     }
-
     void Pause() {
         if (PauseController.instance.IsPaused) {
             playerHUD.SetGameplayHUD(false);

@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class Inventory : MonoBehaviour, IPointerClickHandler
 {
+    [Header("UI")] 
+    [SerializeField] private GameObject canvas;
     [Header("Inventory")] 
     [SerializeField] private GameObject inventorySlot;
     [SerializeField] private GridLayoutGroup grid;
     [SerializeField] private int xSize;
     [SerializeField] private int ySize;
+    [SerializeField] private float dropOffset;
     [Header("Items")]
     [SerializeField] private List<ItemBase> items = new List<ItemBase>();
     [SerializeField] private UnityEngine.UI.Image description;
@@ -20,14 +22,21 @@ public class Inventory : MonoBehaviour, IPointerClickHandler
     private List<InventorySlot> slots = new List<InventorySlot>();
 
     private int maxInventorySize = 0;
-    
-    private void Start()
+
+    private bool isInventoryShown = false;
+
+    public static UnityAction<bool> Pause;
+    private void Awake()
     {
         InventorySlot.ShowDescription += ShowDescription;
         InventorySlot.HideDescription += HideDescription;
         InventorySlot.DropItem += DropItem;
         ItemBase.PickUp += AddItem;
-        
+        PlayerController.ActivateInventory += HideShowInventory;
+    }
+
+    private void Start()
+    {
         grid.constraintCount = xSize;
 
         for (int y = 0; y < ySize; y++)
@@ -40,7 +49,7 @@ public class Inventory : MonoBehaviour, IPointerClickHandler
                     slots.Add(slotScript);
             }
         }
-
+        canvas.SetActive(isInventoryShown);
         maxInventorySize = xSize * ySize;
     }
 
@@ -55,7 +64,7 @@ public class Inventory : MonoBehaviour, IPointerClickHandler
             if (!slots[i].GetItem())
             {
                 slots[i].SetItem(items[i].gameObject);
-                Destroy(item.gameObject);
+                item.gameObject.SetActive(false);
                 break;
             }
         }
@@ -87,34 +96,62 @@ public class Inventory : MonoBehaviour, IPointerClickHandler
         }
     }
     
-    void DropItem(ItemBase item)
+    private void DropItem(ItemBase item)
     {
         if (items.Contains(item))
         {
-            //Spawn item
+            item.gameObject.transform.position = gameObject.transform.position + (transform.forward * dropOffset);
+            item.gameObject.SetActive(true);
             items.Remove(item);
         }
     }
 
-    void ShowDescription(Sprite newDescription)
+    private void ShowDescription(Sprite newDescription)
     {
         description.sprite = newDescription;
         description.rectTransform.sizeDelta = newDescription.rect.size;
         description.color = Color.white;
     }
 
-    void HideDescription()
+    private void HideDescription()
     {
         description.color = new Color(1,1,1,0);
     }
 
+    private void HideShowInventory()
+    {
+        isInventoryShown = !isInventoryShown;
+        if (isInventoryShown)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            Pause?.Invoke(true);
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            Pause?.Invoke(false);
+        }
+        canvas.SetActive(isInventoryShown);
+    }
+
+    public void OnClickBack()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        Pause?.Invoke(false);
+        isInventoryShown = false;
+        canvas.SetActive(isInventoryShown);
+    }
+    
     private void OnDestroy()
     {
         InventorySlot.ShowDescription -= ShowDescription;
         InventorySlot.HideDescription -= HideDescription;
         InventorySlot.DropItem -= DropItem;
         ItemBase.PickUp -= AddItem;
-
+        PlayerController.ActivateInventory -= HideShowInventory;
     }
 
 }

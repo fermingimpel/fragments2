@@ -429,7 +429,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5475557352779568441}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4656226031271083928}
+        m_MethodName: OnClickBack
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5475557352919625297
 GameObject:
   m_ObjectHideFlags: 0
@@ -464,7 +475,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.246764}
   m_AnchorMax: {x: 0.5, y: 0.246764}
-  m_AnchoredPosition: {x: -15.4, y: -1}
+  m_AnchoredPosition: {x: -15.4, y: 33}
   m_SizeDelta: {x: 573.55994, y: 121.421936}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5475557352919625298
@@ -548,6 +559,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af978f827bad5f94aba4b274866837d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvas: {fileID: 5475557352581958175}
   inventorySlot: {fileID: 5277023877480433205, guid: 8f49c7ea2a93843489000e026eee208a,
     type: 3}
   grid: {fileID: 4656226030537513393}

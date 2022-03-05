@@ -5,6 +5,7 @@ public class Note : ItemBase
     public override void HandleInteraction()
     {
         base.HandleInteraction();
+        Debug.Log("HOlA");
     }
 
     public override void Use()

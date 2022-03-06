@@ -7336,12 +7336,14 @@ MonoBehaviour:
   reloadingSound: {fileID: 8300000, guid: d8f4f8e879a7265488703d0e80e05546, type: 3}
   ammoRefilledSound: {fileID: 8300000, guid: cf5c81809d3d8c748be8f494752f06a2, type: 3}
   animator: {fileID: 7216904145718136280}
+  weaponCamera: {fileID: 0}
   weaponState: 0
+  weaponSightState: 0
   carabineSight: {fileID: 6820503272746050042}
   equipedCarabineSight: 1
-  carabineNormalPositionX: 0.5
-  carabineUsingSightPositionX: 0.15
-  sightADSSpeed: 3
+  carabineNormalPosition: {x: 0, y: 0, z: 0}
+  carabineUsingSightPosition: {x: 0, y: 0, z: 0}
+  timeToChangeADS: 0
   fovSight: 40
   fovNormal: 60
 --- !u!1 &4750935645668586047
@@ -12995,7 +12997,6 @@ Transform:
   - {fileID: 5061120462055775742}
   - {fileID: 7545144831037573515}
   - {fileID: 1361025081212022109}
-  - {fileID: 6191494267913550656}
   m_Father: {fileID: 4739135182768291296}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -13560,6 +13561,7 @@ Transform:
   - {fileID: 6882637757682288342}
   - {fileID: 6589880007601757549}
   - {fileID: 4436009185952498410}
+  - {fileID: 6191494267913550656}
   m_Father: {fileID: 5536744553473515733}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -14068,27 +14070,27 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 5830960427844826333}
+    m_TransformParent: {fileID: 8117172512204653230}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 9a356ae3e4b44c447b2aeecdb8acd18f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9a356ae3e4b44c447b2aeecdb8acd18f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.02
+      value: 0.026250914
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9a356ae3e4b44c447b2aeecdb8acd18f,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.32053563
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9a356ae3e4b44c447b2aeecdb8acd18f,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9a356ae3e4b44c447b2aeecdb8acd18f,
         type: 3}
@@ -14108,7 +14110,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 9a356ae3e4b44c447b2aeecdb8acd18f,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9a356ae3e4b44c447b2aeecdb8acd18f,
         type: 3}

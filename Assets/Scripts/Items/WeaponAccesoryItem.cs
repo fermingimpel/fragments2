@@ -10,7 +10,7 @@ public class WeaponAccesoryItem : ItemBase
 
     public override void HandleInteraction(PlayerController player)
     {
-        //Activar accesorio
+        player.GetActualWeapon().EnableAccesories();
         gameObject.SetActive(false);
     }
 }

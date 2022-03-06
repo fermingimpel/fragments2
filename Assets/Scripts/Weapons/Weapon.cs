@@ -224,6 +224,11 @@ public class Weapon : MonoBehaviour {
         AmmoChanged?.Invoke();
     }
 
+    public void EnableAccesories() {
+        equipedCarabineSight = true;
+        carabineSight.SetActive(true);
+    }
+
     public int GetActualAmmo() {
         return actualAmmo;
     }

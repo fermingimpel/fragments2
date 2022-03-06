@@ -47,6 +47,7 @@ public class MusicBox : MonoBehaviour, InteractionInterface
 
     public void HandleInteraction(PlayerController player)
     {
+
         if (!isBroken)
         {
             if (!audioSource.isPlaying)
@@ -56,7 +57,7 @@ public class MusicBox : MonoBehaviour, InteractionInterface
                     anim.SetBool("IsActive", true);
             }
         }
-        else if (player.GetEquippedItem().itemInfo.item.name == neededItem.itemInfo.item.name)
+        else if (player.GetEquippedItem() && player.GetEquippedItem().itemInfo.item.name == neededItem.itemInfo.item.name)
         {
             missingPart.SetActive(true);
             isBroken = false;

@@ -41,6 +41,14 @@ public class Weapon : MonoBehaviour {
 
     public static Action AmmoChanged;
 
+    [SerializeField] GameObject carabineSight;
+    [SerializeField] bool equipedCarabineSight = false;
+    [SerializeField] float carabineNormalPositionX;
+    [SerializeField] float carabineUsingSightPositionX;
+    [SerializeField] float sightADSSpeed;
+    [SerializeField] float fovSight;
+    [SerializeField] float fovNormal;
+
     void Start() {
         actualAmmo = ammoPerMagazine;
         maxAmmo = totalAmmo;
@@ -136,6 +144,40 @@ public class Weapon : MonoBehaviour {
         audioSource.PlayOneShot(reloadingSound);
         weaponState = WeaponState.Reloading;
         timerReloading = 0f;
+    }
+
+    public void UseSight() {
+        if (!equipedCarabineSight)
+            return;
+
+        StopCoroutine(ChangeWeaponPosition(0,0));
+        transform.localPosition = new Vector3(carabineNormalPositionX, transform.localPosition.y, transform.localPosition.z);
+        Camera.main.fieldOfView = fovNormal;
+        StartCoroutine(ChangeWeaponPosition(carabineUsingSightPositionX, fovSight));
+    }
+
+    public void ReleaseSight() {
+        if (!equipedCarabineSight)
+            return;
+
+        StopCoroutine(ChangeWeaponPosition(0,0));
+        transform.localPosition = new Vector3(carabineUsingSightPositionX, transform.localPosition.y, transform.localPosition.z);
+        Camera.main.fieldOfView = fovSight;
+        StartCoroutine(ChangeWeaponPosition(carabineNormalPositionX, fovNormal));
+    }
+
+    IEnumerator ChangeWeaponPosition(float posX, float fov) {
+
+        float t = 0;
+
+        while(transform.localPosition.x != posX) {
+            transform.localPosition = new Vector3(Mathf.Lerp(transform.localPosition.x, posX, t), transform.localPosition.y, transform.localPosition.z);
+            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, fov, t);
+            t += Time.deltaTime * (1f / sightADSSpeed);
+            yield return null;
+        }
+
+        yield return null;
     }
 
     public void AddAmmo(int value) {

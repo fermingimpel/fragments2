@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class InteractionController : MonoBehaviour
@@ -16,6 +17,7 @@ public class InteractionController : MonoBehaviour
 
 
     private PlayerController player;
+    public static UnityAction<ItemBase> InteractedObject;
     
     void Start()
     {
@@ -36,6 +38,9 @@ public class InteractionController : MonoBehaviour
                         interactionObject.HandleInteraction();
                         if(player)
                             interactionObject.HandleInteraction(player);
+                        ItemBase item = hit.collider.GetComponent<ItemBase>();
+                        if(item)
+                            InteractedObject?.Invoke(item);
                     }
                 }
             }

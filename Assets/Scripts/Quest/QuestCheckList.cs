@@ -5,8 +5,7 @@ using UnityEngine;
 public struct QuestCheckList
 {
     public int KillCount;
-    public int DistanceTraveled;
-    public InteractionInterface InteractedObject;
+    public ItemBase InteractedObject;
     public GameObject ObjectToCompare;
     public GameObject ObjectCreated;
     public GameObject CollidedObject;
@@ -14,7 +13,6 @@ public struct QuestCheckList
     public void Reset()
     {
         KillCount = 0;
-        DistanceTraveled = 0;
         InteractedObject = null;
         ObjectToCompare = null;
         ObjectCreated = null;

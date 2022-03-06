@@ -14,6 +14,11 @@ public class ObjectiveBase : MonoBehaviour
     {
     }
 
+    public virtual void CompleteObjective()
+    {
+        
+    }
+
     public void ResetObjective()
     {
         CurrentStep = 0;

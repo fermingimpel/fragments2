@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class BellPuzzle : MonoBehaviour {
 
@@ -14,8 +16,15 @@ public class BellPuzzle : MonoBehaviour {
     [SerializeField] Transform reward;
     [SerializeField] Animation pictureAnimation;
 
+    private ObjectiveBase objective;
+
     void Awake() {
         Bell.ShootedBell += CheckBellID;
+    }
+
+    private void Start()
+    {
+        objective = GetComponent<ObjectiveBase>();
     }
 
     void OnDisable() {
@@ -49,6 +58,8 @@ public class BellPuzzle : MonoBehaviour {
         puzzleCompleted = true;
         reward.position = rewardSpawnPosition.position;
         pictureAnimation.Play();
+        if(objective)
+            objective.CompleteObjective();
     }
 
 }

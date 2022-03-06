@@ -23,8 +23,16 @@ public class Quest : MonoBehaviour
     [SerializeField] private bool activateOnStart = false;
     [SerializeField] private bool isRepeatable = true;
     [SerializeField] private string questToActivate = "";
+    [SerializeField] private GameObject itemToSpawn;
+    [SerializeField] private Transform positionToSpawnItem;
 
     private string createdId = "";
+
+    private void Awake()
+    {
+        PuzzleObjective.SendPuzzleCompletion += CheckQuestCompletion;
+        SurviveObjective.SendHordeCompletion += CheckQuestCompletion;
+    }
 
     public void ResetQuest()
     {
@@ -52,15 +60,30 @@ public class Quest : MonoBehaviour
 
     protected void CheckQuestCompletion()
     {
-        if (objectives.Any(objective => !objective.isCompleted))
-            return;
-
-        CompleteQuest();
+        foreach (var objective in objectives)
+        {
+            if (objective && objective.isCompleted)
+                CompleteQuest();
+        }
     }
-
+    
+    
     protected void CompleteQuest()
     {
-        state = QuestState.Completed;
+        Debug.Log("complete quest " + GetName());
+        if (!isRepeatable)
+            state = QuestState.Completed;
+        else
+        {
+            state = QuestState.Inactive;
+            foreach (ObjectiveBase obj in objectives)
+            {
+                if (obj)
+                {
+                    obj.ResetObjective();
+                }
+            }
+        }
     }
 
     public void SetQuestState(QuestState newState)
@@ -94,5 +117,21 @@ public class Quest : MonoBehaviour
     public bool GetActiveOnStart()
     {
         return activateOnStart;
+    }
+
+    private void OnDestroy()
+    {
+        PuzzleObjective.SendPuzzleCompletion -= CheckQuestCompletion;
+        SurviveObjective.SendHordeCompletion -= CheckQuestCompletion;
+    }
+
+    public GameObject GetItemToSpawn()
+    {
+        return itemToSpawn;
+    }
+
+    public Transform GetItemSpawnPosition()
+    {
+        return positionToSpawnItem;
     }
 }

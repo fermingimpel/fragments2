@@ -33,20 +33,15 @@ public class BellPuzzle : MonoBehaviour {
         if(bell.GetBellHitId(actualRoundOfBells) != actualBellIDNeededToContinueThePuzzleXD) {
             actualRoundOfBells = 0;
             actualBellIDNeededToContinueThePuzzleXD = 1;
-            Debug.Log("LE PEGASTE A LA CAMPANITA QUE NO ERA PAAA");
             return;
         }
-
-        Debug.Log("LE PEGASTE A LA CAMPANITA QUE ERA PAAA");
 
         actualBellIDNeededToContinueThePuzzleXD++;
         if(actualBellIDNeededToContinueThePuzzleXD > bells.Count) {
             actualBellIDNeededToContinueThePuzzleXD = 1;
             actualRoundOfBells++;
-            if(actualRoundOfBells >= maxRoundsOfSounds) {
+            if(actualRoundOfBells >= maxRoundsOfSounds) 
                 PuzzleCompleted();
-            }
-            Debug.Log("TERMINASTE UNA RONDA PAA");
         }
     }
 

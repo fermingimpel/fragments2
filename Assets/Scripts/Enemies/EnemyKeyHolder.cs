@@ -5,10 +5,6 @@ using UnityEngine;
 public class EnemyKeyHolder : Enemy {
     
     [SerializeField] Transform key;
-    protected override void Start() {
-        base.Start();
-        key = FindObjectOfType<Key>().transform;
-    }
 
     protected override void Die() {
         key.position = transform.position + Vector3.down * 1.3f;
@@ -18,6 +14,10 @@ public class EnemyKeyHolder : Enemy {
     protected override void Attack() {
         key.position = transform.position + Vector3.down * 1.3f;
         base.Attack();
+    }
+
+    public void SetKey(Transform k) {
+        key = k;
     }
 
 }

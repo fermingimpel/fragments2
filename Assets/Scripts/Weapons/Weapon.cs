@@ -90,7 +90,6 @@ public class Weapon : MonoBehaviour {
             return;
         }
 
-
         animator.SetTrigger("Shoot");
 
         audioSource.PlayOneShot(shootSounds[UnityEngine.Random.Range(0, shootSounds.Count)]);
@@ -112,7 +111,6 @@ public class Weapon : MonoBehaviour {
                 if (pi != null)
                     pi.Interact();
             }
-            Debug.Log(hit.collider.name);
         }
 
         if(recoil)

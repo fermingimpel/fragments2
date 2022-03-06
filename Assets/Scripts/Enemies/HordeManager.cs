@@ -16,7 +16,8 @@ public class HordeManager : MonoBehaviour {
    // [SerializeField] int roundToSpawnObjective;
     [SerializeField] float timeBetweenRounds;
 
-    [SerializeField] Enemy enemyKeyHolder;
+    [SerializeField] EnemyKeyHolder enemyKeyHolder;
+    [SerializeField] Transform key;
     [SerializeField] int roundToSpawnEnemyKeyHolder;
     [SerializeField] bool enemyKeyHolderSpawned;
 
@@ -55,9 +56,10 @@ public class HordeManager : MonoBehaviour {
         if (!enemyKeyHolderSpawned) 
             if (currentRound == roundToSpawnEnemyKeyHolder) {
                 int index = Random.Range(0, spawners.Count);
-                Enemy e = Instantiate(enemyKeyHolder, spawners[index].position, Quaternion.identity);
+                EnemyKeyHolder e = Instantiate(enemyKeyHolder, spawners[index].position, Quaternion.identity);
                 enemiesCreated.Add(e);
                 enemyKeyHolderSpawned = true;
+                e.SetKey(key);
             }
 
         for(int i = 0; i < enemyCount; i++) {

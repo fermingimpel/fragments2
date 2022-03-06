@@ -33,13 +33,31 @@ public class Weapon : MonoBehaviour {
     [SerializeField] Animator animator;
 
     PlayerCameraMovement recoil;
+    [SerializeField] Camera weaponCamera;
 
     public enum WeaponState {
         Ready, Preparing, Reloading, NoAmmo
     }
     [SerializeField] WeaponState weaponState;
 
+    public enum WeaponSightState {
+        Normal, ADS
+    }
+    [SerializeField] WeaponSightState weaponSightState = WeaponSightState.Normal;
+
     public static Action AmmoChanged;
+
+    [SerializeField] GameObject carabineSight;
+    [SerializeField] bool equipedCarabineSight = false;
+
+    [SerializeField] Vector3 carabineNormalPosition;
+    [SerializeField] Vector3 carabineUsingSightPosition;
+
+    [Range(0.01f, Mathf.Infinity)]
+    [SerializeField] float timeToChangeADS;
+
+    [SerializeField] float fovSight;
+    [SerializeField] float fovNormal;
 
     void Start() {
         actualAmmo = ammoPerMagazine;
@@ -90,7 +108,6 @@ public class Weapon : MonoBehaviour {
             return;
         }
 
-
         animator.SetTrigger("Shoot");
 
         audioSource.PlayOneShot(shootSounds[UnityEngine.Random.Range(0, shootSounds.Count)]);
@@ -112,7 +129,6 @@ public class Weapon : MonoBehaviour {
                 if (pi != null)
                     pi.Interact();
             }
-            Debug.Log(hit.collider.name);
         }
 
         if(recoil)
@@ -138,6 +154,68 @@ public class Weapon : MonoBehaviour {
         audioSource.PlayOneShot(reloadingSound);
         weaponState = WeaponState.Reloading;
         timerReloading = 0f;
+    }
+
+    public void UseSight() {
+        if (!equipedCarabineSight)
+            return;
+
+        if (weaponSightState == WeaponSightState.ADS)
+            return;
+
+        weaponSightState = WeaponSightState.ADS;
+
+        StopCoroutine(ChangeWeaponPosition(Vector3.zero,0));
+
+        transform.localPosition = carabineNormalPosition;
+        Camera.main.fieldOfView = fovNormal;
+        weaponCamera.fieldOfView = fovNormal;
+
+        StartCoroutine(ChangeWeaponPosition(carabineUsingSightPosition, fovSight));
+    }
+
+    public void ReleaseSight() {
+        if (!equipedCarabineSight)
+            return;
+
+
+        if (weaponSightState == WeaponSightState.Normal)
+            return;
+
+        weaponSightState = WeaponSightState.Normal;
+
+        StopCoroutine(ChangeWeaponPosition(Vector3.zero,0));
+
+        transform.localPosition = carabineUsingSightPosition;
+        Camera.main.fieldOfView = fovSight;
+        weaponCamera.fieldOfView = fovSight;
+
+        StartCoroutine(ChangeWeaponPosition(carabineNormalPosition, fovNormal));
+    }
+
+    IEnumerator ChangeWeaponPosition(Vector3 pos, float fov) {
+
+        float t = 0;
+
+        float initialFov = Camera.main.fieldOfView;
+        Vector3 initialPos = transform.localPosition;
+
+        while (transform.localPosition != pos) {
+            if (PauseController.instance.IsPaused) 
+                yield return new WaitForEndOfFrame();
+            else {
+                transform.localPosition = Vector3.Lerp(initialPos, pos, t);
+                Camera.main.fieldOfView = Mathf.Lerp(initialFov, fov, t);
+                weaponCamera.fieldOfView = Mathf.Lerp(initialFov, fov, t);
+
+                Debug.Log("CHEEKI BREEKI IV DAMKE");
+
+                t += Time.deltaTime * (1f / timeToChangeADS);
+                yield return new WaitForEndOfFrame();
+            }
+            yield return null;
+        }
+        yield return null;
     }
 
     public void AddAmmo(int value) {

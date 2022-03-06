@@ -208,8 +208,6 @@ public class Weapon : MonoBehaviour {
                 Camera.main.fieldOfView = Mathf.Lerp(initialFov, fov, t);
                 weaponCamera.fieldOfView = Mathf.Lerp(initialFov, fov, t);
 
-                Debug.Log("CHEEKI BREEKI IV DAMKE");
-
                 t += Time.deltaTime * (1f / timeToChangeADS);
                 yield return new WaitForEndOfFrame();
             }

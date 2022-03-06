@@ -74,4 +74,5 @@ public class InventorySlot : MonoBehaviour, InventoryActions
         itemScript = null;
         itemImage.color = new Color(1,1,1,0);
     }
+    
 }

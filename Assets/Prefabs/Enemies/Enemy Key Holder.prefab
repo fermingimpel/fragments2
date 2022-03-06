@@ -5060,7 +5060,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.08962262, b: 0.08962262, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -5095,7 +5095,6 @@ MonoBehaviour:
   attackSound: {fileID: 8300000, guid: 2d5c728a90e9e4846ba7f6526c5c590c, type: 3}
   enemyState: 0
   key: {fileID: 0}
-  mat: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!195 &2002602992
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -11,12 +11,14 @@ public class EnemyKeyHolder : Enemy {
     }
 
     protected override void Die() {
-        key.position = transform.position + Vector3.down * 1.3f;
+        if(key!=null)
+            key.position = transform.position + Vector3.down * 1.3f;
         DestroyEnemy(deathSound);
     }
 
     protected override void Attack() {
-        key.position = transform.position + Vector3.down * 1.3f;
+        if(key!=null)
+            key.position = transform.position + Vector3.down * 1.3f;
         base.Attack();
     }
 

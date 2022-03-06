@@ -8,7 +8,6 @@ public class Door : MonoBehaviour {
     [SerializeField] bool canOpenDoor;
 
     [SerializeField] Key keyToOpenDoor;
-    [SerializeField] Transform player;
 
     [SerializeField] AudioClip openDoorSound;
     [SerializeField] AudioClip lockedDoorSound;
@@ -17,8 +16,10 @@ public class Door : MonoBehaviour {
 
     [SerializeField] Animator animator;
 
+    private PlayerController player;
+
     void Start() {
-        player = FindObjectOfType<PlayerController>().transform;
+        player = FindObjectOfType<PlayerController>();
     }
 
     void Update() {
@@ -30,12 +31,12 @@ public class Door : MonoBehaviour {
 
         if (overDoor) {
             if (Input.GetKeyDown(KeyCode.E)) {
-                if (keyToOpenDoor.GetCanUseKey())
+                if (player.GetEquippedItem() && player.GetEquippedItem().itemInfo.item.name == keyToOpenDoor.itemInfo.item.name)
                     OpenDoor();
                 else
                     LockedDoor();
             }
-            textOpenPivot.transform.LookAt(player.position);
+            textOpenPivot.transform.LookAt(player.transform.position);
         }
     }
 
@@ -60,7 +61,7 @@ public class Door : MonoBehaviour {
     }
 
     void OpenDoor() {
-        keyToOpenDoor.UseKey();
+        keyToOpenDoor.UsedItem();
         animator.Play("OpenDoor");
         audioSource.PlayOneShot(openDoorSound);
         canOpenDoor = false;

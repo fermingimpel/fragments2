@@ -149,7 +149,7 @@ public class Inventory : MonoBehaviour, IPointerClickHandler
         canvas.SetActive(isInventoryShown);
     }
 
-    void HideInventory()
+    private void HideInventory()
     {
         isInventoryShown = !isInventoryShown;
         canvas.SetActive(isInventoryShown);

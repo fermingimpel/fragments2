@@ -23,5 +23,10 @@ public class ItemBase : MonoBehaviour, InteractionInterface
     {
         
     }
+
+    public virtual void UsedItem()
+    {
+        
+    }
     
 }

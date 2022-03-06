@@ -85,9 +85,9 @@ public class PlayerController : MonoBehaviour {
             if (Input.GetKeyDown(KeyCode.R))
                 weapon.Reload();
 
-            if (Input.GetMouseButtonDown(1))
+            if (Input.GetMouseButton(1))
                 weapon.UseSight();
-            else if (Input.GetMouseButtonUp(1))
+            else
                 weapon.ReleaseSight();
         }
 

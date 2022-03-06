@@ -7338,9 +7338,12 @@ MonoBehaviour:
   animator: {fileID: 7216904145718136280}
   weaponState: 0
   carabineSight: {fileID: 6820503272746050042}
-  equipedCarabineSight: 0
-  carabineNormalPosition: {x: 0.5, y: -0.06, z: 1.126}
-  carabineUsingSightPosition: {x: 0.15, y: -0.06, z: 1.126}
+  equipedCarabineSight: 1
+  carabineNormalPositionX: 0.5
+  carabineUsingSightPositionX: 0.15
+  sightADSSpeed: 3
+  fovSight: 40
+  fovNormal: 60
 --- !u!1 &4750935645668586047
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using cakeslice;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -19,12 +20,15 @@ public class MusicBox : MonoBehaviour, InteractionInterface
     private Animator anim;
 
     public static UnityAction<string> SendHintText;
+
+    private Outline outline;
     
     void Start()
     {
         missingPart.SetActive(false);
         audioSource.clip = song;
         anim = GetComponent<Animator>();
+        outline = GetComponentInChildren<Outline>();
     }
 
     private void Update()
@@ -54,13 +58,12 @@ public class MusicBox : MonoBehaviour, InteractionInterface
         }
         else if (player.GetEquippedItem().itemInfo.item.name == neededItem.itemInfo.item.name)
         {
-            Debug.Log("TengoItem");
             missingPart.SetActive(true);
             isBroken = false;
+            outline.eraseRenderer = false;
         }
         else
         {
-            Debug.Log("No tengo item");
             SendHintText?.Invoke(hintText);
         }
     }

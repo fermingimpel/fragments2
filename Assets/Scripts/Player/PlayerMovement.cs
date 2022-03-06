@@ -6,6 +6,11 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField] CharacterController characterController;
     [SerializeField] float speedWalking;
     [SerializeField] float speedRunning;
+    [SerializeField] float adsSlowPercentage;
+
+    float actualSpeedWalking;
+    float actualSpeedRunning;
+
 
     [SerializeField] float gravity = -9.81f;
 
@@ -34,13 +39,16 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField] AudioSource loopedSoundsAudioSource;
 
     bool canMove = true;
+    bool canRun = true;
 
     void Awake() {
-        PauseController.Pause += Pause;  
+        PauseController.Pause += Pause;
     }
 
     void Start() {
         playerState = PlayerState.InGround;
+        actualSpeedRunning = speedRunning;
+        actualSpeedWalking = speedWalking;
     }
 
     void OnDestroy() {
@@ -66,7 +74,7 @@ public class PlayerMovement : MonoBehaviour {
         if (playerState == PlayerState.InAir)
             return;
 
-        if (Input.GetKey(KeyCode.LeftShift)) {
+        if (Input.GetKey(KeyCode.LeftShift) && canRun) {
             loopedSoundsAudioSource.clip = runningSound;
             playerMovementState = PlayerMovementState.Running;
         }
@@ -109,9 +117,9 @@ public class PlayerMovement : MonoBehaviour {
 
 
         if (playerMovementState == PlayerMovementState.Walking)
-            characterController.Move(movement * speedWalking * Time.deltaTime);
+            characterController.Move(movement * actualSpeedWalking * Time.deltaTime);
         else if (playerMovementState == PlayerMovementState.Running)
-            characterController.Move(movement * speedRunning * Time.deltaTime);
+            characterController.Move(movement * actualSpeedRunning * Time.deltaTime);
 
         velocity.y += gravity * Time.deltaTime;
         characterController.Move(velocity * Time.deltaTime);
@@ -133,12 +141,24 @@ public class PlayerMovement : MonoBehaviour {
     //    speed = aux;
     //}
 
+    public void ReduceSpeed() {
+        actualSpeedRunning = speedRunning - (speedRunning / 100f * adsSlowPercentage);
+        actualSpeedWalking = speedWalking - (speedWalking / 100f * adsSlowPercentage);
+        canRun = false;
+    }
+
+    public void ResetSpeed() {
+        canRun = true;
+        actualSpeedRunning = speedRunning;
+        actualSpeedWalking = speedWalking;
+    }
+
     public void SetCanMove(bool value) {
         canMove = value;
     }
 
     public void Pause() {
-        if(PauseController.instance.IsPaused) {
+        if (PauseController.instance.IsPaused) {
             loopedSoundsAudioSource.Stop();
             return;
         }

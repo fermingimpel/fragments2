@@ -241,7 +241,10 @@ public class Weapon : MonoBehaviour {
     public int GetAmmoPerMagazine() {
         return ammoPerMagazine;
     }
-
+    
+    public WeaponSightState GetSightState() {
+        return weaponSightState;
+    }
 
 
 

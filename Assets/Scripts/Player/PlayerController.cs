@@ -91,10 +91,18 @@ public class PlayerController : MonoBehaviour {
             if (Input.GetKeyDown(KeyCode.R))
                 weapon.Reload();
 
-            if (Input.GetMouseButton(1))
+            if (Input.GetMouseButton(1)) {
                 weapon.UseSight();
-            else
+            }
+            else {
                 weapon.ReleaseSight();
+            }
+
+            if (weapon.GetSightState() == Weapon.WeaponSightState.ADS)
+                playerMovement.ReduceSpeed();
+            else
+                playerMovement.ResetSpeed();
+
         }
 
         if (Input.GetKeyDown(KeyCode.Tab))

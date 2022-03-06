@@ -13,8 +13,12 @@ public class HordeManager : MonoBehaviour {
     [SerializeField] int enemyAdditionAmount;
 
     [SerializeField] int currentRound;
-    [SerializeField] int roundToSpawnObjective;
+   // [SerializeField] int roundToSpawnObjective;
     [SerializeField] float timeBetweenRounds;
+
+    [SerializeField] Enemy enemyKeyHolder;
+    [SerializeField] int roundToSpawnEnemyKeyHolder;
+    [SerializeField] bool enemyKeyHolderSpawned;
 
     [SerializeField] bool canSpawnEnemies = true;
     float spawnTimer = 0f;
@@ -48,6 +52,14 @@ public class HordeManager : MonoBehaviour {
     }
 
     void SpawnHorde() {
+        if (!enemyKeyHolderSpawned) 
+            if (currentRound == roundToSpawnEnemyKeyHolder) {
+                int index = Random.Range(0, spawners.Count);
+                Enemy e = Instantiate(enemyKeyHolder, spawners[index].position, Quaternion.identity);
+                enemiesCreated.Add(e);
+                enemyKeyHolderSpawned = true;
+            }
+
         for(int i = 0; i < enemyCount; i++) {
             if(enemiesCreated.Count < enemyCount) {
                 int index = Random.Range(0, spawners.Count);

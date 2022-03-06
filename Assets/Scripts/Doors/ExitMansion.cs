@@ -8,11 +8,6 @@ public class ExitMansion : MonoBehaviour {
 
     void Start() {
         bc = GetComponent<BoxCollider>();
-        bc.enabled = false;
-    }
-
-    public void EnableExit() {
-        bc.enabled = true;
     }
 
     void OnTriggerEnter(Collider other) {

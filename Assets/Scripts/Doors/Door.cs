@@ -15,8 +15,6 @@ public class Door : MonoBehaviour {
     [SerializeField] AudioSource audioSource;
     [SerializeField] GameObject textOpenPivot;
 
-    [SerializeField] ExitMansion exitRoom;
-
     [SerializeField] Animator animator;
 
     void Start() {
@@ -68,7 +66,6 @@ public class Door : MonoBehaviour {
         canOpenDoor = false;
         textOpenPivot.SetActive(false);
         overDoor = false;
-        exitRoom.EnableExit();
     }
 
     void LockedDoor() {

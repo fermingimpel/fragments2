@@ -13,7 +13,6 @@ public class BellPuzzle : MonoBehaviour {
     bool puzzleCompleted = false;
 
     [SerializeField] Transform rewardSpawnPosition;
-    [SerializeField] Transform reward;
     [SerializeField] Animation pictureAnimation;
 
     private ObjectiveBase objective;
@@ -56,7 +55,6 @@ public class BellPuzzle : MonoBehaviour {
 
     void PuzzleCompleted() {
         puzzleCompleted = true;
-        reward.position = rewardSpawnPosition.position;
         pictureAnimation.Play();
         if(objective)
             objective.CompleteObjective();

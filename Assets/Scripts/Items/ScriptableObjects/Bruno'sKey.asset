@@ -15,5 +15,5 @@ MonoBehaviour:
   item:
     name: Bruno'sKey
     id: 0
-    inventoryImage: {fileID: 21300000, guid: 26654d7a986159f4e9b7ad70de0e651e, type: 3}
-    description: {fileID: 0}
+    inventoryImage: {fileID: 21300000, guid: 1115724828a7fce4bbe660da88c84ddb, type: 3}
+    description: {fileID: 21300000, guid: 964344c5941e11f48b9eaa300b31f6d0, type: 3}

@@ -15,5 +15,5 @@ MonoBehaviour:
   item:
     name: MusicBoxHandle
     id: 0
-    inventoryImage: {fileID: 21300000, guid: 99dfec7960c15d54da0685729f53c758, type: 3}
-    description: {fileID: 21300000, guid: 99d4b457e3f4f30479f1322925246a49, type: 3}
+    inventoryImage: {fileID: 21300000, guid: ad61480881bc910429d2ccbbf67550ab, type: 3}
+    description: {fileID: 21300000, guid: 8be9f8f2831162246be55b158707a983, type: 3}

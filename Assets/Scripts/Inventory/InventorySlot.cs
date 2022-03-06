@@ -60,7 +60,7 @@ public class InventorySlot : MonoBehaviour, InventoryActions
 
     public void Use()
     {
-        itemScript.Use();
+        itemScript.UseItem();
         HideDescription?.Invoke();
         HideContextualMenu();
     }

@@ -13,6 +13,14 @@ public class InteractionController : MonoBehaviour
     [SerializeField] private GameObject camera;
     [SerializeField] private Image originalCrosshair;
     [SerializeField] private Image interactionCrosshair;
+
+
+    private PlayerController player;
+    
+    void Start()
+    {
+        player = GetComponent<PlayerController>();
+    }
     
     public void Update()
     {
@@ -26,6 +34,8 @@ public class InteractionController : MonoBehaviour
                     if (hit.collider.gameObject.GetComponent(typeof(InteractionInterface)) is InteractionInterface interactionObject)
                     {
                         interactionObject.HandleInteraction();
+                        if(player)
+                            interactionObject.HandleInteraction(player);
                     }
                 }
             }

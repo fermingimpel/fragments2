@@ -32,9 +32,12 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] PlayerHUD playerHUD;
     [SerializeField] Animator animator;
 
+    private ItemBase equippedItem = null;
+
     public static Action PlayerDead;
     public static UnityAction ActivateInventory;
     public static UnityAction<PlayerController> TakeDamage;
+    
     void Awake() {
         Weapon.AmmoChanged += UpdateAmmoHUD;
         PauseController.Pause += Pause;
@@ -133,5 +136,15 @@ public class PlayerController : MonoBehaviour {
         }
 
         playerHUD.SetGameplayHUD(true);
+    }
+
+    public void SetEquippedItem(ItemBase newItem)
+    {
+        equippedItem = newItem;
+    }
+
+    public ItemBase GetEquippedItem()
+    {
+        return equippedItem;
     }
 }

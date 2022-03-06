@@ -8,9 +8,9 @@ public class Note : ItemBase
         base.HandleInteraction();
     }
 
-    public override void Use()
+    public override void UseItem()
     {
-        base.Use();
+        base.UseItem();
         showNote?.Invoke();
     }
 }

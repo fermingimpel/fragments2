@@ -14,7 +14,12 @@ public class ItemBase : MonoBehaviour, InteractionInterface
         PickUp?.Invoke(this);
     }
 
-    public virtual void Use()
+    public virtual void HandleInteraction(PlayerController player)
+    {
+        
+    }
+
+    public virtual void UseItem()
     {
         
     }

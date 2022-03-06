@@ -10,6 +10,10 @@ public class BellPuzzle : MonoBehaviour {
     int actualBellIDNeededToContinueThePuzzleXD = 1;
     bool puzzleCompleted = false;
 
+    [SerializeField] Transform rewardSpawnPosition;
+    [SerializeField] Transform reward;
+    [SerializeField] Animation pictureAnimation;
+
     void Awake() {
         Bell.ShootedBell += CheckBellID;
     }
@@ -48,6 +52,8 @@ public class BellPuzzle : MonoBehaviour {
 
     void PuzzleCompleted() {
         puzzleCompleted = true;
+        reward.position = rewardSpawnPosition.position;
+        pictureAnimation.Play();
     }
 
 }

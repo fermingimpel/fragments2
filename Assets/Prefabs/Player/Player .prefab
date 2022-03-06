@@ -2166,6 +2166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   horizontalSensitivity: 100
   verticalSensitivity: 100
+  adsSensitivityReduce: 50
   playerBody: {fileID: 2637124967414934214}
 --- !u!95 &2637124968712839067
 Animator:

@@ -98,11 +98,14 @@ public class PlayerController : MonoBehaviour {
                 weapon.ReleaseSight();
             }
 
-            if (weapon.GetSightState() == Weapon.WeaponSightState.ADS)
+            if (weapon.GetSightState() == Weapon.WeaponSightState.ADS) {
+                playerCameraMovement.ReduceSensitivity();
                 playerMovement.ReduceSpeed();
-            else
+            }
+            else {
+                playerCameraMovement.ResetSensitivity();
                 playerMovement.ResetSpeed();
-
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.Tab))

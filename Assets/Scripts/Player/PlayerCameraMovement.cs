@@ -6,6 +6,10 @@ public class PlayerCameraMovement : MonoBehaviour {
  
     [SerializeField] float horizontalSensitivity;
     [SerializeField] float verticalSensitivity;
+    [SerializeField] float adsSensitivityReduce;
+    float actualHorizontalSensivitiy;
+    float actualVerticalSensitivity;
+
     [SerializeField] Transform playerBody;
 
     float xRotation = 0;
@@ -16,6 +20,8 @@ public class PlayerCameraMovement : MonoBehaviour {
     bool canMove = true;
 
     void Start() {
+        actualHorizontalSensivitiy = horizontalSensitivity;
+        actualVerticalSensitivity = verticalSensitivity;
         Cursor.lockState = CursorLockMode.Locked;
         UpdateSensitivity();
     }
@@ -27,8 +33,8 @@ public class PlayerCameraMovement : MonoBehaviour {
         if (!canMove)
             return;
 
-        float mouseX = Input.GetAxis("Mouse X") * horizontalSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * verticalSensitivity * Time.deltaTime;
+        float mouseX = Input.GetAxis("Mouse X") * actualHorizontalSensivitiy * Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * actualVerticalSensitivity * Time.deltaTime;
 
 
         mouseX += horizontalRecoil;
@@ -58,4 +64,15 @@ public class PlayerCameraMovement : MonoBehaviour {
         horizontalSensitivity = GameInstance.instance.HorizontalSensitivity;
         verticalSensitivity = GameInstance.instance.VerticalSensitivity;
     }
+    
+    public void ReduceSensitivity() {
+        actualHorizontalSensivitiy = horizontalSensitivity - (horizontalSensitivity / 100f * adsSensitivityReduce);
+        actualVerticalSensitivity = verticalSensitivity - (verticalSensitivity / 100f * adsSensitivityReduce);
+    }
+
+    public void ResetSensitivity() {
+        actualHorizontalSensivitiy = horizontalSensitivity;
+        actualVerticalSensitivity = verticalSensitivity;
+    }
+
 }

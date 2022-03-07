@@ -23,5 +23,10 @@ public class Key : ItemBase {
     public override void UseItem() {
         player.SetEquippedItem(this);
     }
-    
+
+    public override void UnequippedItem() {
+        if (player)
+            player.SetEquippedItem(null);
+    }
+
 }

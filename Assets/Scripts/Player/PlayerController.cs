@@ -154,9 +154,12 @@ public class PlayerController : MonoBehaviour {
         playerHUD.SetGameplayHUD(true);
     }
 
-    public void SetEquippedItem(ItemBase newItem)
-    {
+    public void SetEquippedItem(ItemBase newItem) {
         equippedItem = newItem;
+        if (newItem == null)
+            playerHUD.SetEquipedItem(null);
+        else
+            playerHUD.SetEquipedItem(equippedItem.itemInfo.item.inventoryImage);
     }
 
     public ItemBase GetEquippedItem()

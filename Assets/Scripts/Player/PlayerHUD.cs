@@ -15,6 +15,8 @@ public class PlayerHUD : MonoBehaviour {
     [SerializeField] Image healthPanel;
     [SerializeField] Color healthPanelColor;
 
+    [SerializeField] Image equipedItemImage;
+
     public void ChangeAmmoText(int actualAmmo, int ammoPerMagazine, int maxAmmo) {
         ammoText.text = actualAmmo.ToString();
         ammoTotalText.text = " / " + maxAmmo;
@@ -45,5 +47,17 @@ public class PlayerHUD : MonoBehaviour {
 
     public void SetGameplayHUD(bool value) {
         gameplayHUD.SetActive(value);
+    }
+
+    public void SetEquipedItem(Sprite value) {
+        if(value == null) {
+            equipedItemImage.gameObject.SetActive(false);
+            return;
+        }
+
+        equipedItemImage.gameObject.SetActive(true);
+        equipedItemImage.sprite = value;
+        equipedItemImage.color = Color.white;
+
     }
 }

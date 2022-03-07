@@ -20,4 +20,9 @@ public class CombinableItem : ItemBase
         if(player)
             player.SetEquippedItem(this);
     }
+
+    public override void UnequippedItem() {
+        if (player)
+            player.SetEquippedItem(null);
+    }
 }

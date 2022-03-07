@@ -9,7 +9,6 @@ public class InventorySlot : MonoBehaviour, InventoryActions
     [SerializeField] private GameObject contextualMenu;
     [SerializeField] private Image itemImage;
     
-    
     private ItemBase itemScript;
     [HideInInspector] public bool isContextualMenuActive = false;
 
@@ -67,6 +66,7 @@ public class InventorySlot : MonoBehaviour, InventoryActions
 
     public void Drop()
     {
+        itemScript.UnequippedItem();
         HideContextualMenu();
         HideDescription?.Invoke();
         DropItem?.Invoke(itemScript);

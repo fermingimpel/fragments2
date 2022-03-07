@@ -22,10 +22,9 @@ public class HeadMovement : MonoBehaviour {
     void Update() {
         if (PauseController.instance.IsPaused)
             return;
-        Debug.Log("ASD");
+
         if (!playerMovement.GetIsMoving())
             return;
-        Debug.Log("ASDDD");
 
         head.localPosition = new Vector3(head.localPosition.x, CalculateMovemenet(), head.localPosition.z);
         t += Time.deltaTime * headMovementSpeed;

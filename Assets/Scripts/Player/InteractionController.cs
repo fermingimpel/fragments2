@@ -15,6 +15,7 @@ public class InteractionController : MonoBehaviour
     [SerializeField] private Image originalCrosshair;
     [SerializeField] private Image interactionCrosshair;
 
+    [SerializeField] GameObject interactButton;
 
     private PlayerController player;
     public static UnityAction<ItemBase> InteractedObject;
@@ -29,6 +30,7 @@ public class InteractionController : MonoBehaviour
         RaycastHit hit;
         if(Physics.Raycast(camera.transform.position, camera.transform.forward, out hit, interactionRange, interactionMask))
         {
+            interactButton.SetActive(true);
             if (Input.GetKeyDown(interactionKey))
             {
                 if (hit.collider.gameObject)
@@ -45,5 +47,7 @@ public class InteractionController : MonoBehaviour
                 }
             }
         }
+        else
+            interactButton.SetActive(false);
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Key : ItemBase {
 
-    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip pickUpClip;
     
     private PlayerController player;
 
@@ -15,7 +15,7 @@ public class Key : ItemBase {
 
     public override void HandleInteraction()
     {
-        audioSource.Play();
+        FindObjectOfType<PlayerController>().PlayClip(pickUpClip);
         base.HandleInteraction();
     }
 

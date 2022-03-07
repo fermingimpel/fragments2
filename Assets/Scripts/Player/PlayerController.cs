@@ -25,8 +25,9 @@ public class PlayerController : MonoBehaviour {
         Alive, Dead
     }
     [SerializeField] PlayerState playerState;
-    
-    
+
+    [SerializeField] AudioSource audioSource;
+
     [SerializeField] PlayerMovement playerMovement;
     [SerializeField] PlayerCameraMovement playerCameraMovement;
     [SerializeField] PlayerHUD playerHUD;
@@ -164,5 +165,9 @@ public class PlayerController : MonoBehaviour {
     public ItemBase GetEquippedItem()
     {
         return equippedItem;
+    }
+
+    public void PlayClip(AudioClip clip) {
+        audioSource.PlayOneShot(clip);
     }
 }

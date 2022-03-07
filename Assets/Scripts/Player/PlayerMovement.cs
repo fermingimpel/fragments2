@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour {
     public enum PlayerState { InGround, InAir, InStairs }
     [SerializeField] PlayerState playerState;
 
-    public enum PlayerMovementState { Walking, Running }
+    public enum PlayerMovementState { Walking, Running, Idle }
     [SerializeField] PlayerMovementState playerMovementState;
 
     [SerializeField] AudioClip walkingSound;
@@ -40,6 +40,8 @@ public class PlayerMovement : MonoBehaviour {
 
     bool canMove = true;
     bool canRun = true;
+
+    bool isMoving = false;
 
     void Awake() {
         PauseController.Pause += Pause;
@@ -94,10 +96,14 @@ public class PlayerMovement : MonoBehaviour {
         float z = Input.GetAxisRaw("Vertical");
         movement = transform.right * x + transform.forward * z;
 
-        if (!loopedSoundsAudioSource.isPlaying && (Mathf.Abs(movement.x) > 0.5f || Mathf.Abs(movement.z) > 0.5f) && playerState != PlayerState.InAir)
+        if (!loopedSoundsAudioSource.isPlaying && (Mathf.Abs(movement.x) > 0.5f || Mathf.Abs(movement.z) > 0.5f) && playerState != PlayerState.InAir) {
+            isMoving = true;
             loopedSoundsAudioSource.Play();
-        else if (((Mathf.Abs(movement.x) < 0.5f && Mathf.Abs(movement.z) < 0.5f) && loopedSoundsAudioSource.isPlaying) || playerState == PlayerState.InAir)
+        }
+        else if (((Mathf.Abs(movement.x) < 0.5f && Mathf.Abs(movement.z) < 0.5f) && loopedSoundsAudioSource.isPlaying) || playerState == PlayerState.InAir) {
+            isMoving = false;
             loopedSoundsAudioSource.Stop();
+        }
 
         switch (playerState) {
             case PlayerState.InGround:
@@ -164,5 +170,17 @@ public class PlayerMovement : MonoBehaviour {
         }
 
         loopedSoundsAudioSource.Play();
+    }
+
+    public PlayerMovementState GetPlayerMovementState() {
+        return playerMovementState;
+    }
+
+    public PlayerState GetPlayerState() {
+        return playerState;
+    }
+
+    public bool GetIsMoving() {
+        return isMoving;
     }
 }

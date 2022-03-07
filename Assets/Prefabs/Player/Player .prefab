@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 4883080315404280914}
   - component: {fileID: 1402661191}
   - component: {fileID: 1402661192}
+  - component: {fileID: 3704089598759780950}
   m_Layer: 9
   m_Name: 'Player '
   m_TagString: Player
@@ -359,6 +360,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questManager: {fileID: 0}
+--- !u!114 &3704089598759780950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2637124967414934221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b561e9d8d361d14f9e0cc4c123a2a89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  head: {fileID: 2637124967879154558}
+  headMovementSpeed: 3
+  headMovementAltitude: 0.1
+  playerMovement: {fileID: 2637124967414934211}
 --- !u!1 &2637124967463712562
 GameObject:
   m_ObjectHideFlags: 0
@@ -3605,12 +3622,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de47cda6c308e26458d801e562b432fa, type: 3}
---- !u!4 &3620115206285277646 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4739135182768291296, guid: de47cda6c308e26458d801e562b432fa,
-    type: 3}
-  m_PrefabInstance: {fileID: 8356976456599471150}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3620115206285277645 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4739135182768291299, guid: de47cda6c308e26458d801e562b432fa,
@@ -3623,3 +3634,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ad71ec19bc855143b92a7b276787e2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &3620115206285277646 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4739135182768291296, guid: de47cda6c308e26458d801e562b432fa,
+    type: 3}
+  m_PrefabInstance: {fileID: 8356976456599471150}
+  m_PrefabAsset: {fileID: 0}

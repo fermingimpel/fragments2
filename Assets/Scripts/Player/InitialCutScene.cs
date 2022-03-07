@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class InitialCutScene : CutScene {
+
+    [SerializeField] PlayerHUD hud;
+
     protected override void Update() {
         if (!runningCutScene)
             return;
@@ -20,10 +23,11 @@ public class InitialCutScene : CutScene {
         runningCutScene = true;
     }
     public void PlayInitialAudio() {
-        audioSource.PlayOneShot(dialogue);
+        hud.SetEnabledInitialText(true);
     }
 
     public void InitialCutSceneEnded() {
+        hud.SetEnabledInitialText(false);
         CutSceneRunning?.Invoke(false);
         enabled = false;
     }

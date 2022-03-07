@@ -31,11 +31,11 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] PlayerCameraMovement playerCameraMovement;
     [SerializeField] PlayerHUD playerHUD;
     [SerializeField] Animator animator;
+    [SerializeField] Inventory inventory;
 
     private ItemBase equippedItem = null;
 
     public static Action PlayerDead;
-    public static UnityAction ActivateInventory;
     public static UnityAction<PlayerController> TakeDamage;
     
     void Awake() {
@@ -93,9 +93,11 @@ public class PlayerController : MonoBehaviour {
 
             if (Input.GetMouseButton(1)) {
                 weapon.UseSight();
+                playerHUD.SetEnabledCrosshair(false);
             }
             else {
                 weapon.ReleaseSight();
+                playerHUD.SetEnabledCrosshair(true);
             }
 
             if (weapon.GetSightState() == Weapon.WeaponSightState.ADS) {
@@ -107,10 +109,6 @@ public class PlayerController : MonoBehaviour {
                 playerMovement.ResetSpeed();
             }
         }
-
-        if (Input.GetKeyDown(KeyCode.Tab))
-            ActivateInventory?.Invoke();
-
     }
 
 
@@ -151,6 +149,7 @@ public class PlayerController : MonoBehaviour {
             return;
         }
 
+        inventory.gameObject.SetActive(true);
         playerHUD.SetGameplayHUD(true);
     }
 

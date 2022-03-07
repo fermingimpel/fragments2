@@ -17,6 +17,8 @@ public class PlayerHUD : MonoBehaviour {
 
     [SerializeField] Image equipedItemImage;
 
+    [SerializeField] GameObject initialText;
+
     public void ChangeAmmoText(int actualAmmo, int ammoPerMagazine, int maxAmmo) {
         ammoText.text = actualAmmo.ToString();
         ammoTotalText.text = " / " + maxAmmo;
@@ -58,6 +60,14 @@ public class PlayerHUD : MonoBehaviour {
         equipedItemImage.gameObject.SetActive(true);
         equipedItemImage.sprite = value;
         equipedItemImage.color = Color.white;
-
     }
+
+    public void SetEnabledInitialText(bool value) {
+        initialText.SetActive(value);
+    }
+
+    public void SetEnabledCrosshair(bool value) {
+        crosshair.SetActive(value);
+    }
+
 }

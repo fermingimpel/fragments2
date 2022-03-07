@@ -36,6 +36,7 @@ public class QuestManager : MonoBehaviour
                 ActivateQuest(Quests[i]);
             }
         }
+
         PuzzleObjective.SendPuzzleCompletion += CheckQuestState;
         SurviveObjective.SendHordeCompletion += CheckQuestState;
     }
@@ -53,9 +54,11 @@ public class QuestManager : MonoBehaviour
             if (ActiveQuests[i].GetQuestState() == QuestState.Completed)
             {
                 questToActivate = ActiveQuests[i].GetQuestToActivateName();
-                if(ActiveQuests[i].GetItemToSpawn())
-                    Instantiate(ActiveQuests[i].GetItemToSpawn(),ActiveQuests[i].GetItemSpawnPosition().position, Quaternion.identity);
-                
+                if (ActiveQuests[i].GetItemToSpawn())
+                    Instantiate(ActiveQuests[i].GetItemToSpawn(), ActiveQuests[i].GetItemSpawnPosition().position,
+                        Quaternion.identity);
+                if (ActiveQuests[i].GetIsRepeatable())
+                    ActiveQuests[i].SetQuestState(QuestState.Inactive);
                 ActiveQuests.RemoveAt(i);
                 i--;
             }
@@ -84,10 +87,14 @@ public class QuestManager : MonoBehaviour
                 questToActivate = ActiveQuests[i].GetQuestToActivateName();
                 if (ActiveQuests[i].GetItemToSpawn())
                 {
-                    GameObject item = Instantiate(ActiveQuests[i].GetItemToSpawn(),ActiveQuests[i].GetItemSpawnPosition().localPosition, Quaternion.Euler(0,90,0), ActiveQuests[i].GetItemSpawnPosition());
-                    item.transform.localPosition = Vector3.zero;                                    
+                    GameObject item = Instantiate(ActiveQuests[i].GetItemToSpawn(),
+                        ActiveQuests[i].GetItemSpawnPosition().localPosition, Quaternion.Euler(0, 90, 0),
+                        ActiveQuests[i].GetItemSpawnPosition());
+                    item.transform.localPosition = Vector3.zero;
                 }
-                
+
+                if (ActiveQuests[i].GetIsRepeatable())
+                    ActiveQuests[i].SetQuestState(QuestState.Inactive);
                 ActiveQuests.RemoveAt(i);
                 i--;
             }
@@ -136,6 +143,39 @@ public class QuestManager : MonoBehaviour
         ReceiveData?.Invoke(true);
         if (quest)
             SetQuestUIText?.Invoke(quest.GetName());
+        else
+            SetQuestUIText?.Invoke("");
+    }
+
+    public void CompleteActiveQuest()
+    {
+        string questToActivate = "";
+        for (int i = 0; i < ActiveQuests.Count; i++)
+        {
+            if (ActiveQuests[i])
+            {
+                ActiveQuests[i].CompleteQuest();    
+                if (ActiveQuests[i].GetQuestState() == QuestState.Completed)
+                {
+                    questToActivate = ActiveQuests[i].GetQuestToActivateName();
+                    if (ActiveQuests[i].GetItemToSpawn())
+                    {
+                        GameObject item = Instantiate(ActiveQuests[i].GetItemToSpawn(),
+                            ActiveQuests[i].GetItemSpawnPosition().localPosition, Quaternion.Euler(0, 90, 0),
+                            ActiveQuests[i].GetItemSpawnPosition());
+                        item.transform.localPosition = Vector3.zero;
+                    }
+
+                    if (ActiveQuests[i].GetIsRepeatable())
+                        ActiveQuests[i].SetQuestState(QuestState.Inactive);
+                    ActiveQuests.RemoveAt(i);
+                    i--;
+                }
+            }
+        }
+
+        if (GetQuestByName(questToActivate))
+            ActivateQuest(GetQuestByName(questToActivate));
         else
             SetQuestUIText?.Invoke("");
     }

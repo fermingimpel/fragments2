@@ -39,10 +39,10 @@ public class Quest : MonoBehaviour
         state = QuestState.Inactive;
         foreach (var objective in objectives)
         {
-            if(objective) objective.ResetObjective();
+            if (objective) objective.ResetObjective();
         }
     }
-    
+
     public string GetName()
     {
         return questName;
@@ -52,7 +52,8 @@ public class Quest : MonoBehaviour
     {
         for (int i = 0; i < objectives.Count; i++)
         {
-            objectives[i].CheckObjectiveCompletion(checkList);
+            if(objectives[i])
+                objectives[i].CheckObjectiveCompletion(checkList);
         }
 
         CheckQuestCompletion();
@@ -66,24 +67,11 @@ public class Quest : MonoBehaviour
                 CompleteQuest();
         }
     }
-    
-    
-    protected void CompleteQuest()
+
+
+    public void CompleteQuest()
     {
-        Debug.Log("complete quest " + GetName());
-        if (!isRepeatable)
-            state = QuestState.Completed;
-        else
-        {
-            state = QuestState.Inactive;
-            foreach (ObjectiveBase obj in objectives)
-            {
-                if (obj)
-                {
-                    obj.ResetObjective();
-                }
-            }
-        }
+        state = QuestState.Completed;
     }
 
     public void SetQuestState(QuestState newState)
@@ -134,4 +122,10 @@ public class Quest : MonoBehaviour
     {
         return positionToSpawnItem;
     }
+
+    public bool GetIsRepeatable()
+    {
+        return isRepeatable;
+    }
+    
 }

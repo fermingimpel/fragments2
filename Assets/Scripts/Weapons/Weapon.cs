@@ -41,7 +41,7 @@ public class Weapon : MonoBehaviour {
     [SerializeField] WeaponState weaponState;
 
     public enum WeaponSightState {
-        Normal, ADS
+        Normal, Ads
     }
     [SerializeField] WeaponSightState weaponSightState = WeaponSightState.Normal;
 
@@ -54,16 +54,25 @@ public class Weapon : MonoBehaviour {
     [SerializeField] Vector3 carabineUsingSightPosition;
 
     [Range(0.01f, Mathf.Infinity)]
-    [SerializeField] float timeToChangeADS;
+    [SerializeField] float timeToChangeAds;
 
     [SerializeField] float fovSight;
     [SerializeField] float fovNormal;
 
+    [Header("ADS Settings")] 
+    [SerializeField] private float damageMultiplier;
+    [SerializeField] private float rateOfFireAds;
+
+
+    private float currentRateOfFire = 0;
+    private float currentDamageMultiplier = 1;
+    
     void Start() {
         actualAmmo = ammoPerMagazine;
         maxAmmo = totalAmmo;
         AmmoChanged?.Invoke();
         recoil = GetComponentInParent<PlayerCameraMovement>();
+        currentRateOfFire = timeToShoot;
     }
 
     void Update() {
@@ -92,7 +101,7 @@ public class Weapon : MonoBehaviour {
                 break;
             case WeaponState.Preparing:
                 timerPreparing += Time.deltaTime;
-                if(timerPreparing >= timeToShoot) {
+                if(timerPreparing >= currentRateOfFire) {
                     timerPreparing = 0f;
                     weaponState = WeaponState.Ready;
                 }
@@ -112,22 +121,25 @@ public class Weapon : MonoBehaviour {
 
         audioSource.PlayOneShot(shootSounds[UnityEngine.Random.Range(0, shootSounds.Count)]);
 
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        if(Physics.Raycast(ray, out hit, range)) {
-            if (hit.collider.CompareTag("Enemy")) {
-                Enemy e = hit.transform.GetComponent<Enemy>();
-                if(e != null) 
-                    e.Hit(damage, hit.point + (hit.normal * 0.1f), transform.position);
-            }
-            else if (hit.collider.CompareTag("Map")) {
-                GameObject hole = Instantiate(shootImpactHole, hit.point + hit.normal * 0.001f, Quaternion.LookRotation(hit.normal));
-                Destroy(hole, 5f);
-            }    
-            else if (hit.collider.CompareTag("Interactable")) {
-                PuzzleInteractable pi = hit.collider.GetComponent<PuzzleInteractable>();
-                if (pi != null)
-                    pi.Interact();
+        if (Camera.main != null)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if(Physics.Raycast(ray, out hit, range)) {
+                if (hit.collider.CompareTag("Enemy")) {
+                    Enemy e = hit.transform.GetComponent<Enemy>();
+                    if(e != null) 
+                        e.Hit(damage * currentDamageMultiplier, hit.point + (hit.normal * 0.1f), transform.position);
+                }
+                else if (hit.collider.CompareTag("Map")) {
+                    GameObject hole = Instantiate(shootImpactHole, hit.point + hit.normal * 0.001f, Quaternion.LookRotation(hit.normal));
+                    Destroy(hole, 5f);
+                }    
+                else if (hit.collider.CompareTag("Interactable")) {
+                    PuzzleInteractable pi = hit.collider.GetComponent<PuzzleInteractable>();
+                    if (pi != null)
+                        pi.Interact();
+                }
             }
         }
 
@@ -160,16 +172,18 @@ public class Weapon : MonoBehaviour {
         if (!equipedCarabineSight)
             return;
 
-        if (weaponSightState == WeaponSightState.ADS)
+        if (weaponSightState == WeaponSightState.Ads)
             return;
 
-        weaponSightState = WeaponSightState.ADS;
+        weaponSightState = WeaponSightState.Ads;
 
         StopCoroutine(ChangeWeaponPosition(Vector3.zero,0));
 
         transform.localPosition = carabineNormalPosition;
-        Camera.main.fieldOfView = fovNormal;
+        if (Camera.main != null) Camera.main.fieldOfView = fovNormal;
         weaponCamera.fieldOfView = fovNormal;
+        currentRateOfFire = rateOfFireAds;
+        currentDamageMultiplier = damageMultiplier;
 
         StartCoroutine(ChangeWeaponPosition(carabineUsingSightPosition, fovSight));
     }
@@ -187,8 +201,10 @@ public class Weapon : MonoBehaviour {
         StopCoroutine(ChangeWeaponPosition(Vector3.zero,0));
 
         transform.localPosition = carabineUsingSightPosition;
-        Camera.main.fieldOfView = fovSight;
+        if (Camera.main != null) Camera.main.fieldOfView = fovSight;
         weaponCamera.fieldOfView = fovSight;
+        currentRateOfFire = timeToShoot;
+        currentDamageMultiplier = 1;
 
         StartCoroutine(ChangeWeaponPosition(carabineNormalPosition, fovNormal));
     }
@@ -197,22 +213,26 @@ public class Weapon : MonoBehaviour {
 
         float t = 0;
 
-        float initialFov = Camera.main.fieldOfView;
-        Vector3 initialPos = transform.localPosition;
+        if (Camera.main != null)
+        {
+            float initialFov = Camera.main.fieldOfView;
+            Vector3 initialPos = transform.localPosition;
 
-        while (transform.localPosition != pos) {
-            if (PauseController.instance.IsPaused) 
-                yield return new WaitForEndOfFrame();
-            else {
-                transform.localPosition = Vector3.Lerp(initialPos, pos, t);
-                Camera.main.fieldOfView = Mathf.Lerp(initialFov, fov, t);
-                weaponCamera.fieldOfView = Mathf.Lerp(initialFov, fov, t);
+            while (transform.localPosition != pos) {
+                if (PauseController.instance.IsPaused) 
+                    yield return new WaitForEndOfFrame();
+                else {
+                    transform.localPosition = Vector3.Lerp(initialPos, pos, t);
+                    Camera.main.fieldOfView = Mathf.Lerp(initialFov, fov, t);
+                    weaponCamera.fieldOfView = Mathf.Lerp(initialFov, fov, t);
 
-                t += Time.deltaTime * (1f / timeToChangeADS);
-                yield return new WaitForEndOfFrame();
+                    t += Time.deltaTime * (1f / timeToChangeAds);
+                    yield return new WaitForEndOfFrame();
+                }
+                yield return null;
             }
-            yield return null;
         }
+
         yield return null;
     }
 

@@ -98,7 +98,7 @@ public class PlayerController : MonoBehaviour {
                 weapon.ReleaseSight();
             }
 
-            if (weapon.GetSightState() == Weapon.WeaponSightState.ADS) {
+            if (weapon.GetSightState() == Weapon.WeaponSightState.Ads) {
                 playerCameraMovement.ReduceSensitivity();
                 playerMovement.ReduceSpeed();
             }

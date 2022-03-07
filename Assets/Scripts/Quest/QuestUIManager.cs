@@ -56,7 +56,6 @@ public class QuestUIManager : MonoBehaviour
 
     public void HighlightCurrentQuest()
     {
-        Debug.Log(questManager.GetActiveQuest().Count.ToString());
         if (questManager.GetActiveQuest().Count > 0)
             StartCoroutine(HighlightQuest());
     }

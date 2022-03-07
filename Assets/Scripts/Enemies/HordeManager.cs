@@ -60,13 +60,17 @@ public class HordeManager : MonoBehaviour {
     }
 
     void SpawnHorde() {
+        if (currentRound <= 0)
+        {
+            questManager.ActivateQuest(questManager.GetQuestByName("Survive"));
+        }
         if (!enemyKeyHolderSpawned) 
             if (currentRound == roundToSpawnEnemyKeyHolder) {
                 int index = Random.Range(0, spawners.Count);
                 EnemyKeyHolder e = Instantiate(enemyKeyHolder, spawners[index].position, Quaternion.identity);
                 enemiesCreated.Add(e);
                 enemyKeyHolderSpawned = true;
-                e.SetKey(key);
+                e.SetKey(key.gameObject);
             }
 
         for(int i = 0; i < enemyCount; i++) {
@@ -86,6 +90,8 @@ public class HordeManager : MonoBehaviour {
         if(questManager.GetActiveQuest().Count<=0)
             questManager.ActivateQuest(questManager.GetQuestByName("Survive"));
     }
+
+    
 
     void EnemyDead(Enemy enemy) {
         enemiesCreated.Remove(enemy);

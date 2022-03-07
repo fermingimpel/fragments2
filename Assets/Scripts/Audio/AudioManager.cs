@@ -20,4 +20,12 @@ public class AudioManager : MonoBehaviour {
             audioSource.loop = true;
         }
     }
+
+    public void StartFightMusic() {
+        SetMusic(fightMusic);
+    }
+
+    public void StartAmbientMusic() {
+        SetMusic(ambientMusic);
+    }
 }

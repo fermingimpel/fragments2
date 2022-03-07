@@ -8,7 +8,7 @@ using UnityEngine.Events;
 public class QuestManager : MonoBehaviour
 {
     [SerializeField] private List<Quest> Quests = new List<Quest>();
-    [CustomUtils.ReadOnly, SerializeField] private List<Quest> ActiveQuests = new List<Quest>();
+    [/*CustomUtils.ReadOnly, */SerializeField] private List<Quest> ActiveQuests = new List<Quest>();
     [SerializeField] private int MaxActiveQuest;
 
     public static UnityAction<bool> ReceiveData;

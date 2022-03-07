@@ -6,7 +6,7 @@ using UnityEngine;
 public class ObjectiveBase : MonoBehaviour
 {
     public string description = "";
-    [CustomUtils.ReadOnly] protected int CurrentStep = 0;
+    /*[CustomUtils.ReadOnly] */protected int CurrentStep = 0;
     public int stepsToComplete = 1;
     public bool isCompleted = false;
 

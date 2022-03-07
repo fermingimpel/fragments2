@@ -17,8 +17,8 @@ public class Quest : MonoBehaviour
     [Header("Quest Data")] [SerializeField]
     private string questName = "";
 
-    [CustomUtils.ReadOnly, SerializeField] private string id = "";
-    [CustomUtils.ReadOnly, SerializeField] private QuestState state;
+    [/*CustomUtils.ReadOnly,*/ SerializeField] private string id = "";
+    [/*CustomUtils.ReadOnly,*/ SerializeField] private QuestState state;
     [SerializeField, SerializeReference] private List<ObjectiveBase> objectives = new List<ObjectiveBase>();
     [SerializeField] private bool activateOnStart = false;
     [SerializeField] private bool isRepeatable = true;

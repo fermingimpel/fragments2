@@ -8,7 +8,7 @@ namespace Items
     public struct ItemData
     {
         public string name;
-        [CustomUtils.ReadOnly] public int id;
+      /*  [CustomUtils.ReadOnly]*/ public int id;
         public Sprite inventoryImage;
         public Sprite description;
 

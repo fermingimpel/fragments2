@@ -23,6 +23,9 @@ public class HordeManager : MonoBehaviour {
     [SerializeField] bool enemyKeyHolderSpawned;
 
     [SerializeField] bool canSpawnEnemies = true;
+
+    [Space, SerializeField] AudioManager audioManager;
+
     float spawnTimer = 0f;
     int enemyCount = 0;
 
@@ -60,6 +63,8 @@ public class HordeManager : MonoBehaviour {
     }
 
     void SpawnHorde() {
+        audioManager.StartFightMusic();
+
         if (!enemyKeyHolderSpawned) 
             if (currentRound == roundToSpawnEnemyKeyHolder) {
                 int index = Random.Range(0, spawners.Count);
@@ -94,6 +99,8 @@ public class HordeManager : MonoBehaviour {
             canSpawnEnemies = true;
             if(objective)
                 objective.CompleteObjective();
+
+            audioManager.StartAmbientMusic();
         }
     }
 }

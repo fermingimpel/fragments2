@@ -114,18 +114,15 @@ public class Inventory : MonoBehaviour, IPointerClickHandler {
 
     private void HideShowInventory() {
         isInventoryShown = !isInventoryShown;
-        Debug.Log(isInventoryShown);
         if (isInventoryShown) {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             Pause?.Invoke(true);
-            Debug.Log("puta");
         }
         else {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             Pause?.Invoke(false);
-            Debug.Log("re puta");
         }
         canvas.SetActive(isInventoryShown);
     }

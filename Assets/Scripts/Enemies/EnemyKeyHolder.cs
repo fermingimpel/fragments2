@@ -6,6 +6,7 @@ public class EnemyKeyHolder : Enemy {
     
     [SerializeField] Transform key;
 
+    private GameObject spawnedKey;
     protected override void Die() {
         SpawnKey();
         DestroyEnemy(deathSound);

@@ -65,6 +65,10 @@ public class HordeManager : MonoBehaviour {
     void SpawnHorde() {
         audioManager.StartFightMusic();
 
+        if (currentRound <= 0)
+        {
+            questManager.ActivateQuest(questManager.GetQuestByName("Survive"));
+        }
         if (!enemyKeyHolderSpawned) 
             if (currentRound == roundToSpawnEnemyKeyHolder) {
                 int index = Random.Range(0, spawners.Count);
@@ -91,6 +95,8 @@ public class HordeManager : MonoBehaviour {
         if(questManager.GetActiveQuest().Count<=0)
             questManager.ActivateQuest(questManager.GetQuestByName("Survive"));
     }
+
+    
 
     void EnemyDead(Enemy enemy) {
         enemiesCreated.Remove(enemy);

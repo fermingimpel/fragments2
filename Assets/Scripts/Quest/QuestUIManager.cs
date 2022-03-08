@@ -55,7 +55,6 @@ public class QuestUIManager : MonoBehaviour
 
     public void HighlightCurrentQuest()
     {
-        Debug.Log(questManager.GetActiveQuest().Count.ToString());
         if (questManager.GetActiveQuest().Count > 0)
             StartCoroutine(HighlightQuest());
     }
@@ -81,7 +80,6 @@ public class QuestUIManager : MonoBehaviour
         }
         else if (!isHighlightingQuest && isAlphaZero)
         {
-            Debug.Log("hola");
             canvasGroup = objectiveHud.GetComponent<CanvasGroup>();
             if (canvasGroup)
             {

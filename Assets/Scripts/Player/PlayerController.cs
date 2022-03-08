@@ -101,7 +101,7 @@ public class PlayerController : MonoBehaviour {
                 playerHUD.SetEnabledCrosshair(true);
             }
 
-            if (weapon.GetSightState() == Weapon.WeaponSightState.ADS) {
+            if (weapon.GetSightState() == Weapon.WeaponSightState.Ads) {
                 playerCameraMovement.ReduceSensitivity();
                 playerMovement.ReduceSpeed();
             }

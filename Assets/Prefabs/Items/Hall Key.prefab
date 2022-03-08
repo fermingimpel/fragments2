@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 8432025903465943248}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.12455797, y: 0.34811503, z: 6.0983195}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4e00389430286644eb4385d9cf8a227d, type: 2}
+  - {fileID: 2100000, guid: fe583fe47397fb34c891e3d71edd3a48, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemInfo: {fileID: 11400000, guid: a1c7011b25db5a1439581be2ba017c72, type: 2}
-  audioSource: {fileID: 4591498431005254883}
+  pickUpClip: {fileID: 8300000, guid: 1b207e1ba6b69f844a8cf4d9636a56f2, type: 3}
 --- !u!114 &624311081880360273
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemInfo: {fileID: 11400000, guid: 257c2fc4d9133cd46aeefb3ef4912ed9, type: 2}
-  audioSource: {fileID: 8664128793450988015}
+  pickUpClip: {fileID: 8300000, guid: 1b207e1ba6b69f844a8cf4d9636a56f2, type: 3}
 --- !u!114 &4791338865289948330
 MonoBehaviour:
   m_ObjectHideFlags: 0

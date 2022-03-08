@@ -3,14 +3,18 @@
 public class CombinableItem : ItemBase
 {
     private PlayerController player;
-    
+
+    [SerializeField] AudioClip clip;
+
     public override void HandleInteraction()
     {
+        FindObjectOfType<PlayerController>().PlayClip(clip);
         base.HandleInteraction();
     }
 
     public override void HandleInteraction(PlayerController player)
     {
+        FindObjectOfType<PlayerController>().PlayClip(clip);
         base.HandleInteraction(player);
         this.player = player;
     }

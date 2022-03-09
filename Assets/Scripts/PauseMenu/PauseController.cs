@@ -36,14 +36,9 @@ public class PauseController : MonoBehaviour {
     }
 
     void Update() {
-        if(Input.GetKeyDown(KeyCode.Escape) && !IsPaused) {
-            Time.timeScale = 0.0f;
-            IsPaused = true;
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-            pauseMenu.SetActive(true);
-            Pause?.Invoke();
-        }
+        if (Input.GetKeyDown(KeyCode.Escape) && !IsPaused)
+            PauseGame();
+        
     }
 
     public void RemovePause() {
@@ -52,6 +47,24 @@ public class PauseController : MonoBehaviour {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         pauseMenu.SetActive(false);
+        Pause?.Invoke();
+    }
+
+    public void ExternalPause() {
+        Time.timeScale = 0.0f;
+        IsPaused = true;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        pauseMenu.SetActive(false);
+        Pause?.Invoke();
+    }
+
+    public void PauseGame() {
+        Time.timeScale = 0.0f;
+        IsPaused = true;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        pauseMenu.SetActive(true);
         Pause?.Invoke();
     }
 

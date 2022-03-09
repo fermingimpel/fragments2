@@ -17,6 +17,8 @@ public class BellPuzzle : MonoBehaviour {
 
     private ObjectiveBase objective;
 
+    public static UnityAction BellPuzzleCompleted;
+
     void Awake() {
         Bell.ShootedBell += CheckBellID;
     }
@@ -58,6 +60,7 @@ public class BellPuzzle : MonoBehaviour {
         pictureAnimation.Play();
         if(objective)
             objective.CompleteObjective();
+        BellPuzzleCompleted?.Invoke();
     }
 
 }

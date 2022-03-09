@@ -18,7 +18,7 @@ public class PlayerHUD : MonoBehaviour {
     [SerializeField] Image equipedItemImage;
 
     [SerializeField] GameObject initialText;
-
+    [SerializeField] GameObject bellPuzzleText;
     public void ChangeAmmoText(int actualAmmo, int ammoPerMagazine, int maxAmmo) {
         ammoText.text = actualAmmo.ToString();
         ammoTotalText.text = " / " + maxAmmo;
@@ -68,6 +68,10 @@ public class PlayerHUD : MonoBehaviour {
 
     public void SetEnabledCrosshair(bool value) {
         crosshair.SetActive(value);
+    }
+
+    public void SetBellPuzzleTextEnabled(bool value) {
+        bellPuzzleText.SetActive(value);
     }
 
 }

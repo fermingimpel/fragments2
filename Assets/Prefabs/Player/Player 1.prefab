@@ -406,7 +406,7 @@ MonoBehaviour:
   playerCameraMovement: {fileID: 2637124968712839044}
   playerHUD: {fileID: 2637124968577482760}
   animator: {fileID: 2637124968712839067}
-  inventory: {fileID: 0}
+  inventory: {fileID: 241526744838852301}
 --- !u!82 &2637124967414934209
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1727,7 +1727,7 @@ MonoBehaviour:
   fillAmount: 0.2
   lineColor0: {r: 1, g: 1, b: 1, a: 1}
   lineColor1: {r: 0, g: 1, b: 0, a: 1}
-  lineColor2: {r: 0, g: 0, b: 1, a: 1}
+  lineColor2: {r: 1, g: 0, b: 0, a: 1}
   additiveRendering: 0
   backfaceCulling: 1
   fillColor: {r: 0, g: 0, b: 1, a: 1}
@@ -3050,6 +3050,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4701462362904616870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3620115206285277647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b3040fdc31cdf54e8ffdb7b48bccc3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  paintingOutline: {fileID: 0}
 --- !u!1 &4883080314356406783
 GameObject:
   m_ObjectHideFlags: 0
@@ -3166,19 +3179,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &4701462362904616870
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3620115206285277647}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b3040fdc31cdf54e8ffdb7b48bccc3f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  paintingOutline: {fileID: 0}
 --- !u!1001 &4883080314680160597
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3264,6 +3264,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4883080314680160597}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &241526744838852301 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4656226031271083928, guid: 132022b7ab7d58a42a8caaa53f4d9466,
+    type: 3}
+  m_PrefabInstance: {fileID: 4883080314680160597}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af978f827bad5f94aba4b274866837d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8356976456599471150
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3646,6 +3658,21 @@ PrefabInstance:
       propertyPath: equipedCarabineSight
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4739135182768291299, guid: de47cda6c308e26458d801e562b432fa,
+        type: 3}
+      propertyPath: damageMultiplier
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4739135182768291299, guid: de47cda6c308e26458d801e562b432fa,
+        type: 3}
+      propertyPath: rateOfFireAds
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4739135182768291299, guid: de47cda6c308e26458d801e562b432fa,
+        type: 3}
+      propertyPath: timeToChangeAds
+      value: 0.35
+      objectReference: {fileID: 0}
     - target: {fileID: 4750935645668586047, guid: de47cda6c308e26458d801e562b432fa,
         type: 3}
       propertyPath: m_Layer
@@ -3934,6 +3961,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 8356976456599471150}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &3620115206285277646 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4739135182768291296, guid: de47cda6c308e26458d801e562b432fa,
+    type: 3}
+  m_PrefabInstance: {fileID: 8356976456599471150}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3620115206285277645 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4739135182768291299, guid: de47cda6c308e26458d801e562b432fa,
@@ -3946,9 +3979,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ad71ec19bc855143b92a7b276787e2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &3620115206285277646 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4739135182768291296, guid: de47cda6c308e26458d801e562b432fa,
-    type: 3}
-  m_PrefabInstance: {fileID: 8356976456599471150}
-  m_PrefabAsset: {fileID: 0}

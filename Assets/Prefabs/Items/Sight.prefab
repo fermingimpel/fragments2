@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1170759415368761180}
   - component: {fileID: 1170759415368761181}
   - component: {fileID: 7073316403450627163}
+  - component: {fileID: 1229694940685058835}
   m_Layer: 20
   m_Name: Mira_Trasera
   m_TagString: Untagged
@@ -122,6 +123,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemInfo: {fileID: 11400000, guid: 38b2b5e75cd8beb49a3b954386a93a52, type: 2}
+--- !u!114 &1229694940685058835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1170759415368761183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70946459a72274d4bacb652414a73148, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outline: {fileID: 0}
+  player: {fileID: 0}
+  distanceToDrawOutline: 6
 --- !u!1 &8946721190233695663
 GameObject:
   m_ObjectHideFlags: 0

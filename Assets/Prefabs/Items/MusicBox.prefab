@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5625886737588717765}
   - component: {fileID: 2468833369355002182}
   - component: {fileID: 5165176805319304019}
+  - component: {fileID: 1338471944718990848}
   m_Layer: 20
   m_Name: Caja_Musical 1
   m_TagString: Untagged
@@ -93,7 +94,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: 0
-  eraseRenderer: 0
+  eraseRenderer: 1
+--- !u!114 &1338471944718990848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 320922991128575640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70946459a72274d4bacb652414a73148, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outline: {fileID: 0}
+  player: {fileID: 0}
+  distanceToDrawOutline: 6
 --- !u!1 &1256056825615802583
 GameObject:
   m_ObjectHideFlags: 0
@@ -121,7 +137,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1256056825615802583}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 9.17434, y: 0.81081676, z: 9.4136305}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

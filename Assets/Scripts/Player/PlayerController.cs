@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] PlayerState playerState;
 
     [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip playerDeathClip;
 
     [SerializeField] PlayerMovement playerMovement;
     [SerializeField] PlayerCameraMovement playerCameraMovement;
@@ -121,6 +122,8 @@ public class PlayerController : MonoBehaviour {
         timerHeal = 0f;
 
         actualHealth -= damage;
+        audioSource.PlayOneShot(playerDeathClip);
+
         if (actualHealth <= 0f) {
             actualHealth = 0f;
             playerState = PlayerState.Dead;

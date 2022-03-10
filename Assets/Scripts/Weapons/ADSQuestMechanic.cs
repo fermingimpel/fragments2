@@ -9,15 +9,22 @@ public class ADSQuestMechanic : MonoBehaviour
     private Weapon Weapon;
     
     [SerializeField] private Outline paintingOutline;
-    
+    [SerializeField] Transform painting;
+    [SerializeField] Transform player;
+    [SerializeField] float distance;
+
     private void Start()
     {
         Weapon = GetComponent<Weapon>();
+        player = FindObjectOfType<PlayerController>().transform;
     }
 
-    private void Update()
+    void FixedUpdate()
     {
-        if (Weapon.GetSightState() == Weapon.WeaponSightState.Ads)
+        Vector3 dir = (player.position - painting.position).normalized;
+        float dotProd = Vector3.Dot(dir, painting.forward);
+
+        if (Weapon.GetSightState() == Weapon.WeaponSightState.Ads && dotProd >= 0f && Vector3.Distance(painting.position, player.position) <= distance)
         {
             paintingOutline.eraseRenderer = false;
         }

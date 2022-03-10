@@ -5084,7 +5084,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   speed: 3.5
-  damage: 50
+  damage: 35
   distanceToAttack: 2
   hitParticles: {fileID: 8353229059436281726}
   pathfinding: {fileID: 2002602992}
@@ -5094,7 +5094,6 @@ MonoBehaviour:
   deathSound: {fileID: 8300000, guid: 5e96cad3a2d670a4089cfd0e2ed8c405, type: 3}
   attackSound: {fileID: 8300000, guid: 2d5c728a90e9e4846ba7f6526c5c590c, type: 3}
   enemyState: 0
-  mat: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!195 &2002602992
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -5084,7 +5084,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   speed: 3.5
-  damage: 50
+  damage: 35
   distanceToAttack: 2
   hitParticles: {fileID: 8353229059436281726}
   pathfinding: {fileID: 2002602992}

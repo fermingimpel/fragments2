@@ -23,7 +23,7 @@ public class Inventory : MonoBehaviour, IPointerClickHandler {
     private int maxInventorySize = 0;
 
     private bool isInventoryShown = false;
-
+    private bool isShowingItem = false;
     public static UnityAction<bool> Pause;
     private void Awake() {
         InventorySlot.ShowDescription += ShowDescription;
@@ -51,8 +51,11 @@ public class Inventory : MonoBehaviour, IPointerClickHandler {
     }
 
     void Update() {
-       // if (!canvas.activeSelf)
-       //     return;
+        // if (!canvas.activeSelf)
+        //     return;
+
+        if (isShowingItem)
+            return;
 
         if (Input.GetKeyDown(KeyCode.Tab))
             HideShowInventory();
@@ -129,6 +132,7 @@ public class Inventory : MonoBehaviour, IPointerClickHandler {
 
     private void HideInventory() {
         isInventoryShown = !isInventoryShown;
+        isShowingItem = !isShowingItem;
         canvas.SetActive(isInventoryShown);
     }
 

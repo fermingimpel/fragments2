@@ -106,7 +106,6 @@ public class Enemy : MonoBehaviour {
     void StartGoingAround() {
         enemyMovementState = EnemyMovementState.GoingAround;
         pathfinding.destination = GetRandomPointOnNavMesh();
-        Debug.Log(pathfinding.destination);
     }
 
     void StartFollowPlayer() {

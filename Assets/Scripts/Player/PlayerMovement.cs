@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField] float groundDistance = 0.4f;
 
     [SerializeField] LayerMask groundMask;
+    [SerializeField] LayerMask groundMask2;
 
     Vector3 velocity;
     Vector3 movement;
@@ -87,7 +88,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     void Movement() {
-        if (Physics.CheckSphere(groundCheck.position, groundDistance, groundMask))
+        if (Physics.CheckSphere(groundCheck.position, groundDistance, groundMask) || Physics.CheckSphere(groundCheck.position, groundDistance, groundMask2))
             playerState = PlayerState.InGround;
         else
             playerState = PlayerState.InAir;

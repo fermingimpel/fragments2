@@ -502,6 +502,9 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 256
+  groundMask2:
+    serializedVersion: 2
+    m_Bits: 2097152
   playerState: 0
   playerMovementState: 0
   walkingSound: {fileID: 8300000, guid: 0b97ebb6db71d5f46a66e80d35b0b185, type: 3}
@@ -536,6 +539,7 @@ MonoBehaviour:
   healState: 0
   playerState: 0
   audioSource: {fileID: 2637124967414934209}
+  playerDeathClip: {fileID: 8300000, guid: e663038690389b145a9ec07a9ee13c80, type: 3}
   playerMovement: {fileID: 2637124967414934211}
   playerCameraMovement: {fileID: 2637124968712839044}
   playerHUD: {fileID: 2637124968577482760}
@@ -1292,7 +1296,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 2064183
+    m_Bits: 4161335
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -2673,7 +2677,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2637124968712839046}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 63180cd940ea6df4bb729f7a3016464d, type: 3}
   m_Name: 
@@ -3218,6 +3222,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   paintingOutline: {fileID: 0}
+  painting: {fileID: 0}
+  player: {fileID: 0}
+  distance: 15
 --- !u!1 &4883080314356406783
 GameObject:
   m_ObjectHideFlags: 0
@@ -3349,6 +3356,11 @@ PrefabInstance:
     - target: {fileID: 5475557352581958174, guid: 132022b7ab7d58a42a8caaa53f4d9466,
         type: 3}
       propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5475557352779568444, guid: 132022b7ab7d58a42a8caaa53f4d9466,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5475557353462300396, guid: 132022b7ab7d58a42a8caaa53f4d9466,

@@ -28,15 +28,15 @@ public class NoteUIManager : MonoBehaviour
     {
         if (!noteCanvas.activeSelf) return;
         
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            OnClickPrevious();
-        }
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            OnClickNext();
-        }
+       // if (Input.GetKeyDown(KeyCode.Q))
+       // {
+       //     OnClickPrevious();
+       // }
+       //
+       // if (Input.GetKeyDown(KeyCode.E))
+       // {
+       //     OnClickNext();
+       // }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {

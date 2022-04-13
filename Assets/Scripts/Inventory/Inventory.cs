@@ -115,7 +115,7 @@ public class Inventory : MonoBehaviour, IPointerClickHandler {
         description.color = new Color(1, 1, 1, 0);
     }
 
-    private void HideShowInventory() {
+    public void HideShowInventory() {
         isInventoryShown = !isInventoryShown;
         if (isInventoryShown) {
             Cursor.lockState = CursorLockMode.None;

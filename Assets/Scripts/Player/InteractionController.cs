@@ -43,6 +43,14 @@ public class InteractionController : MonoBehaviour
                         ItemBase item = hit.collider.GetComponent<ItemBase>();
                         if(item)
                             InteractedObject?.Invoke(item);
+
+                        Note n = hit.collider.GetComponent<Note>();
+                        if (n) {
+                            if (n.openFirstTime) {
+                                FindObjectOfType<Inventory>().HideShowInventory();
+                                n.UseItem();
+                            }
+                        }
                     }
                 }
             }

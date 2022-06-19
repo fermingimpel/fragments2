@@ -26,6 +26,8 @@ public class HordeManager : MonoBehaviour {
 
     [Space, SerializeField] AudioManager audioManager;
 
+    bool isInHorde;
+
     float spawnTimer = 0f;
     int enemyCount = 0;
 
@@ -40,10 +42,12 @@ public class HordeManager : MonoBehaviour {
         enemyCount = initialEnemyCount;
         objective = GetComponent<ObjectiveBase>();
         questManager = QuestManager.Instance;
+        CheckPlayerSafeZone.PlayerInteract += PlayerInSafeZone;
     }
 
     void OnDisable() {
         Enemy.EnemyDead -= EnemyDead;
+        CheckPlayerSafeZone.PlayerInteract -= PlayerInSafeZone;
     }
 
     void Update() {
@@ -51,6 +55,9 @@ public class HordeManager : MonoBehaviour {
             return;
 
         if (!canSpawnEnemies)
+            return;
+
+        if (isInHorde)
             return;
 
         spawnTimer += Time.deltaTime;
@@ -64,7 +71,7 @@ public class HordeManager : MonoBehaviour {
 
     void SpawnHorde() {
         audioManager.StartFightMusic();
-
+        isInHorde = true;
         if (currentRound <= 0)
         {
             questManager.ActivateQuest(questManager.GetQuestByName("Survive"));
@@ -103,10 +110,20 @@ public class HordeManager : MonoBehaviour {
         if(enemiesCreated.Count <= 0) {
             currentRound++;
             canSpawnEnemies = true;
+            isInHorde = false;
             if(objective)
                 objective.CompleteObjective();
 
             audioManager.StartAmbientMusic();
         }
     }
+
+    void PlayerInSafeZone(bool isInSafeZone) {
+        canSpawnEnemies = !isInSafeZone;
+    }
+
+    public bool GetIsInHorde() {
+        return isInHorde;
+    }
+
 }

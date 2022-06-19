@@ -28,4 +28,8 @@ public class AudioManager : MonoBehaviour {
     public void StartAmbientMusic() {
         SetMusic(ambientMusic);
     }
+
+    public void StopMusic() {
+        audioSource.Stop();
+    }
 }

@@ -82,7 +82,6 @@ public class Enemy : MonoBehaviour {
                     if (timerChangeMovementGoingAround >= 5f) {
                         timerChangeMovementGoingAround = 0f;
                         pathfinding.destination = GetRandomPointOnNavMesh();
-                        Debug.Log(pathfinding.destination);
                     }
                 }
                 break;

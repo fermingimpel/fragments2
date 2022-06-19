@@ -15,7 +15,10 @@ public class OutlineDistanceChecker : MonoBehaviour {
     }
 
     void FixedUpdate() {
-        if(Vector3.Distance(transform.position, player.position) < distanceToDrawOutline) 
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        Physics.Raycast(ray, out hit, distanceToDrawOutline);
+        if (Vector3.Distance(transform.position, player.position) < distanceToDrawOutline && hit.collider != null && hit.transform.gameObject == this.gameObject)
             outline.eraseRenderer = false;
         else
             outline.eraseRenderer = true;

@@ -21,7 +21,9 @@ public class Enemy : MonoBehaviour {
 
     [SerializeField] protected AudioSource audioSource;
     [SerializeField] protected AudioClip deathSound;
-    [SerializeField] protected AudioClip attackSound;
+    [SerializeField] protected AudioClip hitSound;
+
+    [SerializeField] protected AudioSource audioSourceLoop;
 
     public enum EnemyState {
         Alive, Dead
@@ -87,6 +89,8 @@ public class Enemy : MonoBehaviour {
                 break;
         }
 
+        audioSourceLoop.volume = 1 - (Vector3.Distance(transform.position, player.transform.position) / 20f); //Matemagia
+
     }
 
     public void Hit(float damage, Vector3 hitPos, Vector3 attackerPos) {
@@ -96,6 +100,7 @@ public class Enemy : MonoBehaviour {
         hitParticles.transform.position = hitPos;
         hitParticles.transform.LookAt(attackerPos);
         hitParticles.Play();
+        audioSource.PlayOneShot(hitSound);
 
         health -= damage;
         if (health <= 0)
@@ -129,7 +134,7 @@ public class Enemy : MonoBehaviour {
 
     protected virtual void Attack() {
         player.Hit(damage);
-        DestroyEnemy(attackSound);
+        DestroyEnemy(deathSound);
     }
 
     protected virtual void Die() {
@@ -151,6 +156,7 @@ public class Enemy : MonoBehaviour {
         enemyState = EnemyState.Dead;
         audioSource.PlayOneShot(audio);
         EnemyDead?.Invoke(this);
+        audioSourceLoop.Stop();
         Destroy(this.gameObject, audio.length);
     }
 

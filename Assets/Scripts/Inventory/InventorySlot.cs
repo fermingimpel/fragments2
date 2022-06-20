@@ -87,6 +87,14 @@ public class InventorySlot : MonoBehaviour, InventoryActions, IPointerEnterHandl
         item = null;
         itemScript = null;
         itemImage.color = new Color(1, 1, 1, 0);
+        if (slotImage)
+            slotImage.sprite = regularSlotImage;
+    }
+
+    public void OnInventoryClosed()
+    {
+        if (slotImage)
+            slotImage.sprite = item ? slotWithItemImage : regularSlotImage;
     }
 
     public void OnPointerEnter(PointerEventData eventData)

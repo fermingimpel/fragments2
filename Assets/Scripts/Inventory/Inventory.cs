@@ -126,6 +126,11 @@ public class Inventory : MonoBehaviour, IPointerClickHandler {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             Pause?.Invoke(false);
+            foreach (var slot in slots)
+            {
+                if(slot)
+                    slot.OnInventoryClosed();
+            }
         }
         canvas.SetActive(isInventoryShown);
     }

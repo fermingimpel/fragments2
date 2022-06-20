@@ -46,6 +46,7 @@ public class InventorySlot : MonoBehaviour, InventoryActions, IPointerEnterHandl
 
         itemImage.sprite = itemScript.itemInfo.item.inventoryImage;
         itemImage.color = Color.white;
+        Debug.Log("Soy " + itemScript.itemInfo.name);
     }
 
     public void ShowContextualMenu()

@@ -35,6 +35,8 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] Animator animator;
     [SerializeField] Inventory inventory;
 
+    [SerializeField] AudioSource audioSourceHeart;
+
     private ItemBase equippedItem = null;
 
     public static Action PlayerDead;
@@ -73,6 +75,11 @@ public class PlayerController : MonoBehaviour {
             switch (healState) {
                 case HealState.Healing:
                     actualHealth += healthPerSecond * Time.deltaTime;
+                    if (actualHealth >= (maxHealth / 2f) && audioSourceHeart.isPlaying) {
+                        audioSourceHeart.Stop();
+                        Debug.Log("CTM");
+                    }
+
                     if (actualHealth >= maxHealth) {
                         actualHealth = maxHealth;
                         healState = HealState.NotHealing;
@@ -122,9 +129,15 @@ public class PlayerController : MonoBehaviour {
         timerHeal = 0f;
 
         actualHealth -= damage;
-        audioSource.PlayOneShot(playerDeathClip);
+
+        if (actualHealth <= maxHealth / 2.5f && !audioSourceHeart.isPlaying)
+            audioSourceHeart.Play();
 
         if (actualHealth <= 0f) {
+            PlayerDead?.Invoke();
+            audioSourceHeart.Stop();
+
+            audioSource.PlayOneShot(playerDeathClip);
             actualHealth = 0f;
             playerState = PlayerState.Dead;
             TakeDamage?.Invoke(this);
@@ -134,7 +147,6 @@ public class PlayerController : MonoBehaviour {
             playerCameraMovement.SetCanMove(false);
             playerHUD.SetGameplayHUD(false);
             animator.SetTrigger("Death");
-            PlayerDead?.Invoke();
         }
 
         playerHUD.UpdateHealthRedScreen(actualHealth, maxHealth);

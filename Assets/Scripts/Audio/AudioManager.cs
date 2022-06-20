@@ -9,10 +9,14 @@ public class AudioManager : MonoBehaviour {
     [SerializeField] AudioSource audioSource;
 
     void Start() {
+        PlayerController.PlayerDead += StopMusic;
+
         audioSource.clip = ambientMusic;
         audioSource.Play();
     }
-
+    private void OnDisable() {
+        PlayerController.PlayerDead -= StopMusic;
+    }
     public void SetMusic(AudioClip music) {
         if(audioSource.clip != music) {
             audioSource.clip = music;

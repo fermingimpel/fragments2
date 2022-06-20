@@ -85,12 +85,10 @@ public class HordeManager : MonoBehaviour {
                 e.SetKey(key);
             }
 
-        for(int i = 0; i < enemyCount; i++) {
-            if(enemiesCreated.Count < enemyCount) {
-                int index = Random.Range(0, spawners.Count);
-                Enemy e = Instantiate(enemyPrefab, spawners[index].position, Quaternion.identity);
-                enemiesCreated.Add(e);
-            }
+        for (int i = 0; i < enemyCount; i++) {
+            int index = Random.Range(0, spawners.Count);
+            Enemy e = Instantiate(enemyPrefab, spawners[index].position, Quaternion.identity);
+            enemiesCreated.Add(e);
         }
 
         enemyCount += enemyAdditionAmount;

@@ -7,8 +7,8 @@ public class GameInstance : MonoBehaviour {
 
     float horSensitivity = 100;
     float verSensitivity = 100;
-    float sfxVol = 10;
-    float musicVol = 10;
+    float sfxVol = 5;
+    float musicVol = 5;
 
     [SerializeField] AudioMixer sfxMixer;
     [SerializeField] AudioMixer musicMixer;

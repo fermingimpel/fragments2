@@ -7,7 +7,7 @@ using System;
 public class Weapon : MonoBehaviour {
 
     [SerializeField] float range;
-    
+
     [SerializeField] float damage;
 
     [SerializeField] GameObject shootImpactHole;
@@ -59,14 +59,15 @@ public class Weapon : MonoBehaviour {
     [SerializeField] float fovSight;
     [SerializeField] float fovNormal;
 
-    [Header("ADS Settings")] 
+    [Header("ADS Settings")]
     [SerializeField] private float damageMultiplier;
     [SerializeField] private float rateOfFireAds;
+    [SerializeField] AudioClip adsShootClip;
 
 
     private float currentRateOfFire = 0;
     private float currentDamageMultiplier = 1;
-    
+
     void Start() {
         actualAmmo = ammoPerMagazine;
         maxAmmo = totalAmmo;
@@ -101,7 +102,7 @@ public class Weapon : MonoBehaviour {
                 break;
             case WeaponState.Preparing:
                 timerPreparing += Time.deltaTime;
-                if(timerPreparing >= currentRateOfFire) {
+                if (timerPreparing >= currentRateOfFire) {
                     timerPreparing = 0f;
                     weaponState = WeaponState.Ready;
                 }
@@ -111,7 +112,7 @@ public class Weapon : MonoBehaviour {
 
     public void Shoot() {
         if (weaponState != WeaponState.Ready) {
-            if(weaponState == WeaponState.NoAmmo)
+            if (weaponState == WeaponState.NoAmmo)
                 audioSource.PlayOneShot(noAmmoSound);
 
             return;
@@ -119,22 +120,24 @@ public class Weapon : MonoBehaviour {
 
         animator.SetTrigger("Shoot");
 
-        audioSource.PlayOneShot(shootSounds[UnityEngine.Random.Range(0, shootSounds.Count)]);
+        if (weaponSightState == WeaponSightState.Normal)
+            audioSource.PlayOneShot(shootSounds[UnityEngine.Random.Range(0, shootSounds.Count)]);
+        else
+            audioSource.PlayOneShot(adsShootClip);
 
-        if (Camera.main != null)
-        {
+        if (Camera.main != null) {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            if(Physics.Raycast(ray, out hit, range)) {
+            if (Physics.Raycast(ray, out hit, range)) {
                 if (hit.collider.CompareTag("Enemy")) {
                     Enemy e = hit.transform.GetComponent<Enemy>();
-                    if(e != null) 
+                    if (e != null)
                         e.Hit(damage * currentDamageMultiplier, hit.point + (hit.normal * 0.1f), transform.position);
                 }
                 else if (hit.collider.CompareTag("Map")) {
                     GameObject hole = Instantiate(shootImpactHole, hit.point + hit.normal * 0.001f, Quaternion.LookRotation(hit.normal));
                     Destroy(hole, 5f);
-                }    
+                }
                 else if (hit.collider.CompareTag("Interactable")) {
                     PuzzleInteractable pi = hit.collider.GetComponent<PuzzleInteractable>();
                     if (pi != null)
@@ -143,7 +146,7 @@ public class Weapon : MonoBehaviour {
             }
         }
 
-        if(recoil)
+        if (recoil)
             recoil.AddRecoil(verticalRecoil, UnityEngine.Random.Range(-horizontalRecoil, horizontalRecoil));
 
         weaponState = WeaponState.Preparing;
@@ -177,7 +180,7 @@ public class Weapon : MonoBehaviour {
 
         weaponSightState = WeaponSightState.Ads;
 
-        StopCoroutine(ChangeWeaponPosition(Vector3.zero,0));
+        StopCoroutine(ChangeWeaponPosition(Vector3.zero, 0));
 
         transform.localPosition = carabineNormalPosition;
         if (Camera.main != null) Camera.main.fieldOfView = fovNormal;
@@ -198,7 +201,7 @@ public class Weapon : MonoBehaviour {
 
         weaponSightState = WeaponSightState.Normal;
 
-        StopCoroutine(ChangeWeaponPosition(Vector3.zero,0));
+        StopCoroutine(ChangeWeaponPosition(Vector3.zero, 0));
 
         transform.localPosition = carabineUsingSightPosition;
         if (Camera.main != null) Camera.main.fieldOfView = fovSight;
@@ -213,13 +216,12 @@ public class Weapon : MonoBehaviour {
 
         float t = 0;
 
-        if (Camera.main != null)
-        {
+        if (Camera.main != null) {
             float initialFov = Camera.main.fieldOfView;
             Vector3 initialPos = transform.localPosition;
 
             while (transform.localPosition != pos) {
-                if (PauseController.instance.IsPaused) 
+                if (PauseController.instance.IsPaused)
                     yield return new WaitForEndOfFrame();
                 else {
                     transform.localPosition = Vector3.Lerp(initialPos, pos, t);
@@ -261,7 +263,7 @@ public class Weapon : MonoBehaviour {
     public int GetAmmoPerMagazine() {
         return ammoPerMagazine;
     }
-    
+
     public WeaponSightState GetSightState() {
         return weaponSightState;
     }

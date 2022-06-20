@@ -3361,7 +3361,7 @@ PrefabInstance:
     - target: {fileID: 5475557352779568444, guid: 132022b7ab7d58a42a8caaa53f4d9466,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5475557353462300396, guid: 132022b7ab7d58a42a8caaa53f4d9466,
         type: 3}
@@ -3840,6 +3840,11 @@ PrefabInstance:
       propertyPath: timeToChangeAds
       value: 0.35
       objectReference: {fileID: 0}
+    - target: {fileID: 4739135182768291299, guid: de47cda6c308e26458d801e562b432fa,
+        type: 3}
+      propertyPath: adsShootClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 43f731cab6505994f8d8d2eddfb3d09d, type: 3}
     - target: {fileID: 4750935645668586047, guid: de47cda6c308e26458d801e562b432fa,
         type: 3}
       propertyPath: m_Layer

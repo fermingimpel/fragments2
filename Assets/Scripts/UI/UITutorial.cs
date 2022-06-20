@@ -5,6 +5,7 @@ using UnityEngine;
 public class UITutorial : MonoBehaviour {
 
     bool tutorialEnabled = false;
+    bool flag = false;
     [SerializeField] GameObject tutorialObject;
 
     void Awake() {
@@ -19,13 +20,18 @@ public class UITutorial : MonoBehaviour {
         if (!tutorialEnabled)
             return;
 
+        if(!flag) {
+            flag = true;
+            return;
+        }
+
         if (Input.GetKeyDown(KeyCode.E))
             EndTutorial();
 
     }
 
     void EnableTutorial() {
-        Debug.Log("chuchetumare");
+        flag = false;
         tutorialEnabled = true;
         tutorialObject.SetActive(true);
         PauseController.instance.ExternalPause();

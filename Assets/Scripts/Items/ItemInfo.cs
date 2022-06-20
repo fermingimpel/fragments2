@@ -14,5 +14,10 @@ namespace Items
         {
             item.id = id;
         }
+
+        public int GetId()
+        {
+            return item.id;
+        }
     }
 }

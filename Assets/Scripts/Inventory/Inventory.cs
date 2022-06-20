@@ -16,7 +16,7 @@ public class Inventory : MonoBehaviour, IPointerClickHandler {
     [SerializeField] private float dropOffset;
     [Header("Items")]
     [SerializeField] private List<ItemBase> items = new List<ItemBase>();
-    [SerializeField] private UnityEngine.UI.Image description;
+    [SerializeField] private Image description;
 
     private List<InventorySlot> slots = new List<InventorySlot>();
 
@@ -73,14 +73,25 @@ public class Inventory : MonoBehaviour, IPointerClickHandler {
 
         items.Add(item);
         for (int i = 0; i < slots.Count; i++) {
-            if (!slots[i].GetItem()) {
-                slots[i].SetItem(items[i].gameObject);
+            if (!slots[i].GetItem())
+            {
+                int index = FindItemIndexById(item.itemInfo.item.id);
+                slots[i].SetItem(items[index].gameObject);
                 item.gameObject.SetActive(false);
                 break;
             }
         }
-        Debug.Log("Handle interaction");
 
+    }
+
+    private int FindItemIndexById(int id)
+    {
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (items[i].itemInfo.item.id == id)
+                return i;
+        }
+        return -1;
     }
 
     public void OnPointerClick(PointerEventData eventData) {
@@ -131,6 +142,14 @@ public class Inventory : MonoBehaviour, IPointerClickHandler {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             Pause?.Invoke(false);
+            foreach (var slot in slots)
+            {
+                if (slot)
+                {
+                    slot.OnInventoryClosed();
+                    slot.HideContextualMenu();
+                }
+            }
         }
         canvas.SetActive(isInventoryShown);
     }

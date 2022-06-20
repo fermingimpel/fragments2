@@ -60,7 +60,9 @@ public class Inventory : MonoBehaviour, IPointerClickHandler {
         if (isShowingItem)
             return;
 
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.Tab) && !isInventoryShown)
+            HideShowInventory();
+        else if (Input.GetKeyDown(KeyCode.Q) && isInventoryShown)
             HideShowInventory();
     }
 

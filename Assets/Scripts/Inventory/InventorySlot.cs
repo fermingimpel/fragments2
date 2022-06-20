@@ -1,15 +1,22 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventorySlot : MonoBehaviour, InventoryActions
+public class InventorySlot : MonoBehaviour, InventoryActions, IPointerEnterHandler, IPointerExitHandler
 {
+
+    [Header("Slot")] 
+    [SerializeField] private Sprite regularSlotImage;
+    [SerializeField] private Sprite hoverSlotImage;
+    [Header("Item")]
     [SerializeField] private GameObject item;
     [SerializeField] private GameObject contextualMenu;
     [SerializeField] private Image itemImage;
     
     private ItemBase itemScript;
+    private Image slotImage;
     [HideInInspector] public bool isContextualMenuActive = false;
 
     public static UnityAction<Sprite> ShowDescription;
@@ -19,6 +26,7 @@ public class InventorySlot : MonoBehaviour, InventoryActions
     private void Start()
     {
         contextualMenu.SetActive(false);
+        slotImage = GetComponent<Image>();
     }
 
     public void SetItem(GameObject newItem)
@@ -73,6 +81,22 @@ public class InventorySlot : MonoBehaviour, InventoryActions
         item = null;
         itemScript = null;
         itemImage.color = new Color(1,1,1,0);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (slotImage)
+        {
+            slotImage.sprite = hoverSlotImage;
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (slotImage)
+        {
+            slotImage.sprite = regularSlotImage;
+        }
     }
     
 }

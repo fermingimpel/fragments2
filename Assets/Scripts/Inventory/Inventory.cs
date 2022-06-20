@@ -54,6 +54,9 @@ public class Inventory : MonoBehaviour, IPointerClickHandler {
         // if (!canvas.activeSelf)
         //     return;
 
+        if (PauseController.instance.IsPaused && !isInventoryShown)
+            return;
+
         if (isShowingItem)
             return;
 

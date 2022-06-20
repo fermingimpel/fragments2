@@ -737,8 +737,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   regularSlotImage: {fileID: 21300000, guid: ba072c8ad5bd6494384a4948845e3742, type: 3}
+  slotWithItemImage: {fileID: 21300000, guid: 7e82f5f948152734cafa3a5b67ab5c5b, type: 3}
   hoverSlotImage: {fileID: 21300000, guid: b6adbc83a6a67974282f705889e030d7, type: 3}
-  clickedSlotImage: {fileID: 21300000, guid: 7e82f5f948152734cafa3a5b67ab5c5b, type: 3}
   item: {fileID: 0}
   contextualMenu: {fileID: 3013617070942276324}
   itemImage: {fileID: 5277023875693470412}

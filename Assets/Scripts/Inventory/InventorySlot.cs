@@ -6,15 +6,15 @@ using UnityEngine.UI;
 
 public class InventorySlot : MonoBehaviour, InventoryActions, IPointerEnterHandler, IPointerExitHandler
 {
-
-    [Header("Slot")] 
+    [Header("Slot")]
     [SerializeField] private Sprite regularSlotImage;
+    [SerializeField] private Sprite slotWithItemImage;
     [SerializeField] private Sprite hoverSlotImage;
-    [Header("Item")]
-    [SerializeField] private GameObject item;
+    
+    [Header("Item")] [SerializeField] private GameObject item;
     [SerializeField] private GameObject contextualMenu;
     [SerializeField] private Image itemImage;
-    
+
     private ItemBase itemScript;
     private Image slotImage;
     [HideInInspector] public bool isContextualMenuActive = false;
@@ -33,10 +33,16 @@ public class InventorySlot : MonoBehaviour, InventoryActions, IPointerEnterHandl
     {
         if (item)
             return;
-
+        
         item = newItem;
         if (item)
+        {
             itemScript = item.GetComponent<ItemBase>();
+            if (slotImage)
+            {
+                slotImage.sprite = slotWithItemImage;
+            }
+        }
 
         itemImage.sprite = itemScript.itemInfo.item.inventoryImage;
         itemImage.color = Color.white;
@@ -80,23 +86,20 @@ public class InventorySlot : MonoBehaviour, InventoryActions, IPointerEnterHandl
         DropItem?.Invoke(itemScript);
         item = null;
         itemScript = null;
-        itemImage.color = new Color(1,1,1,0);
+        itemImage.color = new Color(1, 1, 1, 0);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (slotImage)
-        {
-            slotImage.sprite = hoverSlotImage;
-        }
+        if (!slotImage) return;
+
+        slotImage.sprite = hoverSlotImage;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (slotImage)
-        {
-            slotImage.sprite = regularSlotImage;
-        }
+        if (!slotImage) return;
+
+        slotImage.sprite = item ? slotWithItemImage : regularSlotImage;
     }
-    
 }

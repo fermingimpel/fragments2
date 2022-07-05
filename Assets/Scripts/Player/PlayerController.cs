@@ -100,7 +100,7 @@ public class PlayerController : MonoBehaviour {
             if (Input.GetKeyDown(KeyCode.R))
                 weapon.Reload();
 
-            if (Input.GetMouseButton(1)) {
+            if (Input.GetMouseButton(1) && weapon.GetEquipedCarabineSight()) {
                 weapon.UseSight();
                 playerHUD.SetEnabledCrosshair(false);
             }

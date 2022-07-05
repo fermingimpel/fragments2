@@ -268,6 +268,10 @@ public class Weapon : MonoBehaviour {
         return weaponSightState;
     }
 
+    public bool GetEquipedCarabineSight()
+    {
+        return equipedCarabineSight;
+    }
 
 
 }

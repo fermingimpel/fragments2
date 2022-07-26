@@ -96,9 +96,13 @@ public class HordeManager : MonoBehaviour {
             enemyCount = maxEnemyCount;
 
         if (!questManager) return;
-        
-        if(questManager.GetActiveQuest().Count<=0)
+
+        if (questManager.GetActiveQuest().Count <= 0 ||
+            questManager.GetActiveQuest()[0] == questManager.GetQuestByName("Explore"))
+        {
+            questManager.CompleteActiveQuest();
             questManager.ActivateQuest(questManager.GetQuestByName("Survive"));
+        }
     }
 
     
@@ -111,7 +115,8 @@ public class HordeManager : MonoBehaviour {
             isInHorde = false;
             if(objective)
                 objective.CompleteObjective();
-
+            if(questManager.GetActiveQuest().Count > 0 && questManager.GetActiveQuest()[0].GetName() == "Survive")
+                questManager.CompleteActiveQuest();
             audioManager.StartAmbientMusic();
         }
     }

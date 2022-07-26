@@ -40,6 +40,8 @@ public class PlayerController : MonoBehaviour {
     private ItemBase equippedItem = null;
 
     public static Action PlayerDead;
+    
+    public UnityEvent CheckQuest;
     public static UnityAction<PlayerController> TakeDamage;
     
     void Awake() {
@@ -77,7 +79,6 @@ public class PlayerController : MonoBehaviour {
                     actualHealth += healthPerSecond * Time.deltaTime;
                     if (actualHealth >= (maxHealth / 2f) && audioSourceHeart.isPlaying) {
                         audioSourceHeart.Stop();
-                        Debug.Log("CTM");
                     }
 
                     if (actualHealth >= maxHealth) {
@@ -93,6 +94,10 @@ public class PlayerController : MonoBehaviour {
                     break;
             }
 
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            CheckQuest?.Invoke();
+        }
 
         if (weapon) {
             if (Input.GetMouseButtonDown(0))

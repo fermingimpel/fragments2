@@ -8,7 +8,7 @@ public class ActivateQuest : MonoBehaviour
     [SerializeField] private string QuestToActivateName = "";
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && QuestManager.Instance.GetActiveQuest()[0].GetName() != QuestToActivateName)
         {
             QuestManager.Instance.CompleteActiveQuest();
             QuestManager.Instance.ActivateQuest(QuestManager.Instance.GetQuestByName(QuestToActivateName));

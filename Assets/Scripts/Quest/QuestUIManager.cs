@@ -24,6 +24,7 @@ public class QuestUIManager : MonoBehaviour
 
     void SetQuest(string questName)
     {
+        Debug.Log("Hola " + questName);
         questText.text = questName;
         if (questName != "")
             HighlightCurrentQuest();
@@ -97,10 +98,6 @@ public class QuestUIManager : MonoBehaviour
 
                 isHighlightingQuest = false;
                 isAlphaZero = false;
-            }
-            else
-            {
-                Debug.Log("chau");
             }
         }
     }

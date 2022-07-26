@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using Debug = UnityEngine.Debug;
 
 public class QuestManager : MonoBehaviour
 {
@@ -15,6 +17,9 @@ public class QuestManager : MonoBehaviour
     public static UnityAction<string> SetQuestUIText;
 
     private static QuestManager instance;
+    private bool isQuestHidden = false;
+    private float timer;
+    private float timeToHideQuestUI = .5f;
 
     public static QuestManager Instance => instance;
 
@@ -41,8 +46,29 @@ public class QuestManager : MonoBehaviour
         SurviveObjective.SendHordeCompletion += CheckQuestState;
     }
 
+    private void Update()
+    {
+        if (ActiveQuests.Count <= 0)
+        {
+            if (!isQuestHidden)
+            {
+                if (timer >= timeToHideQuestUI)
+                {
+                    SetQuestUIText?.Invoke("");
+                    isQuestHidden = true;
+                }
+                timer += Time.deltaTime;
+            }
+        }
+        else
+        {
+            timer = 0;
+        }
+    }
+
     public void UpdateQuests(QuestCheckList checkList)
     {
+        bool completedQuest = false;
         string questToActivate = "";
         for (int i = 0; i < ActiveQuests.Count; i++)
         {
@@ -50,9 +76,9 @@ public class QuestManager : MonoBehaviour
 
             ActiveQuests[i].UpdateQuest(checkList);
 
-
             if (ActiveQuests[i].GetQuestState() == QuestState.Completed)
             {
+                completedQuest = true;
                 questToActivate = ActiveQuests[i].GetQuestToActivateName();
                 if (ActiveQuests[i].GetItemToSpawn())
                     Instantiate(ActiveQuests[i].GetItemToSpawn(), ActiveQuests[i].GetItemSpawnPosition().position,
@@ -64,10 +90,13 @@ public class QuestManager : MonoBehaviour
             }
         }
 
-        if (GetQuestByName(questToActivate))
-            ActivateQuest(GetQuestByName(questToActivate));
-        else
-            SetQuestUIText?.Invoke("");
+        if (completedQuest)
+        {
+            if (GetQuestByName(questToActivate))
+                ActivateQuest(GetQuestByName(questToActivate));
+            else
+                SetQuestUIText?.Invoke("");  
+        }
 
         if (ActiveQuests.Count <= 0)
         {
@@ -78,12 +107,14 @@ public class QuestManager : MonoBehaviour
     private void CheckQuestState()
     {
         string questToActivate = "";
+        bool completed = false;
         for (int i = 0; i < ActiveQuests.Count; i++)
         {
             if (!ActiveQuests[i]) return;
 
             if (ActiveQuests[i].GetQuestState() == QuestState.Completed)
             {
+                completed = true;
                 questToActivate = ActiveQuests[i].GetQuestToActivateName();
                 if (ActiveQuests[i].GetItemToSpawn())
                 {
@@ -100,10 +131,14 @@ public class QuestManager : MonoBehaviour
             }
         }
 
-        if (GetQuestByName(questToActivate))
-            ActivateQuest(GetQuestByName(questToActivate));
-        else
-            SetQuestUIText?.Invoke("");
+        if (completed)
+        {
+            if (GetQuestByName(questToActivate))
+                ActivateQuest(GetQuestByName(questToActivate));
+            else if (GetActiveQuest().Count <= 0)
+                SetQuestUIText?.Invoke("");
+        }
+ 
 
         if (ActiveQuests.Count <= 0)
         {
@@ -131,13 +166,13 @@ public class QuestManager : MonoBehaviour
                 return quest;
         }
 
-        Debug.Log("Couldn't find quest");
         return null;
     }
 
     public void ActivateQuest(Quest quest)
     {
-        if (!quest || quest.GetQuestState() != QuestState.Inactive || ActiveQuests.Count > MaxActiveQuest) return;
+        if (!quest || quest.GetQuestState() != QuestState.Inactive || ActiveQuests.Count >= MaxActiveQuest) return;
+        isQuestHidden = false;
         quest.SetQuestState(QuestState.Active);
         ActiveQuests.Add(quest);
         ReceiveData?.Invoke(true);
@@ -158,6 +193,8 @@ public class QuestManager : MonoBehaviour
                 if (ActiveQuests[i].GetQuestState() == QuestState.Completed)
                 {
                     questToActivate = ActiveQuests[i].GetQuestToActivateName();
+                    if (questToActivate == "" && !ActiveQuests[i].GetIsRepeatable())
+                        questToActivate = "Explore";
                     if (ActiveQuests[i].GetItemToSpawn())
                     {
                         GameObject item = Instantiate(ActiveQuests[i].GetItemToSpawn(),
@@ -167,19 +204,27 @@ public class QuestManager : MonoBehaviour
                     }
 
                     if (ActiveQuests[i].GetIsRepeatable())
+                    {
+                        Debug.Log("Quest " + ActiveQuests[i].GetName() + "is repeatable");
                         ActiveQuests[i].SetQuestState(QuestState.Inactive);
+                    }
                     ActiveQuests.RemoveAt(i);
                     i--;
                 }
             }
         }
-
+        Debug.Log("Completed quest, activating: " + questToActivate);
         if (GetQuestByName(questToActivate))
             ActivateQuest(GetQuestByName(questToActivate));
-        else
-            SetQuestUIText?.Invoke("");
+        // else
+        //     SetQuestUIText?.Invoke("");
     }
 
+    public void ClearActiveQuests()
+    {
+        ActiveQuests.Clear();
+    }
+    
     public void AddQuest(Quest quest)
     {
         if (quest)

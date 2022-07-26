@@ -44,11 +44,11 @@ public class InteractionController : MonoBehaviour
                         if(item)
                             InteractedObject?.Invoke(item);
 
-                        Note n = hit.collider.GetComponent<Note>();
-                        if (n) {
-                            if (n.openFirstTime) {
+                        Note note = hit.collider.GetComponent<Note>();
+                        if (note) {
+                            if (note.openFirstTime) {
                                 FindObjectOfType<Inventory>().HideShowInventory();
-                                n.UseItem();
+                                note.UseItem();
                             }
                         }
                     }
